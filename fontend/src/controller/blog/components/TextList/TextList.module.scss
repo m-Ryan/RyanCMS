@@ -1,0 +1,29 @@
+.container {
+  .list-item {
+    line-height: 2.5;
+    list-style-type: none;
+
+    .tag {
+      font-size: 12px;
+    }
+
+    .date {
+      font-size: 14px;
+      color: #666;
+    }
+  }
+}
+
+@media (max-width: 992px) {
+  .container {
+    padding: 0;
+  }
+}
+
+@media (min-width: 992px) {
+  .container {
+    .list-item {
+      list-style-type: disc;
+    }
+  }
+}

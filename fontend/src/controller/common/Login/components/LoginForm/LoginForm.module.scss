@@ -1,0 +1,35 @@
+.container {
+  margin-top: 200px;
+  background: #fff;
+  border-radius: 10px;
+  display: inline-block;
+  padding: 50px;
+}
+
+.title {
+  margin-bottom: 40px;
+  font-weight: 500;
+  font-size: 22px;
+  letter-spacing: 4px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+
+  .tip {
+    font-size: 14px;
+  }
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+}
+
+.input-item {
+  width: 320px;
+  margin-bottom: 20px;
+}
+
+.label-item {
+  display: flex;
+}

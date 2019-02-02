@@ -1,0 +1,14 @@
+  .container {
+    padding: 65px 15px 30px 15px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+
+  }
+
+  @media (min-width: 992px) {
+    .container {
+      padding: 30px 50px 30px 50px;
+    }
+  }

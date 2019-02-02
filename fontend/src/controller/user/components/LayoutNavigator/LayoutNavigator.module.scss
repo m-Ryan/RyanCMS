@@ -1,0 +1,23 @@
+@import '@/assets/style/variable.scss';
+
+.aside {
+  width: 240px;
+  background: #fff;
+
+  .menu-item {
+    border-right: 2px solid transparent;
+
+    &:active {
+      background: transparent;
+    }
+  }
+
+  .activity-item {
+    color: $primary-color;
+    border-right: 3px solid;
+
+    &:active {
+      background: transparent;
+    }
+  }
+}

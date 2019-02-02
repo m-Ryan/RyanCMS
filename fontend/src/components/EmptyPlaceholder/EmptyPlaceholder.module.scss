@@ -1,0 +1,23 @@
+.container {
+  width: 380px;
+  text-align: center;
+  margin: auto;
+  padding-bottom: 1.5em;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  max-width: 100%;
+
+  .text {
+    position: absolute;
+    width: 100%;
+    bottom: 0px;
+    color: #666666;
+    font-size: 24px;
+  }
+
+  i {
+    color: #999999;
+    font-size: 1.5em;
+  }
+}

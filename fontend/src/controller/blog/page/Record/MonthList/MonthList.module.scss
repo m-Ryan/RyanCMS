@@ -1,0 +1,15 @@
+.container {
+  min-height: 300px;
+
+  .title {
+    text-align: center;
+    height: 40px;
+    line-height: 2;
+    font-weight: 500;
+    font-size: 24px;
+  }
+
+  .month {
+    margin-bottom: 50px;
+  }
+}

@@ -1,0 +1,36 @@
+.container {
+
+  .header {
+    display: flex;
+
+    img {
+      height: 38px;
+      width: 38px;
+      overflow: hidden;
+      border: 1px solid #ddd;
+      border-radius: 50%;
+
+    }
+
+    .info {
+      margin-left: 10px;
+
+      .name {
+        font-size: 14px;
+        color: #333;
+      }
+
+      .date {
+        font-size: 12px;
+        color: #969696;
+      }
+    }
+  }
+
+  .content {
+
+    .replay-btn {
+      float: right;
+    }
+  }
+}

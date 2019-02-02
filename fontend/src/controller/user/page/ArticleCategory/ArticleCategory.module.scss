@@ -1,0 +1,62 @@
+.container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+
+  .list {
+    flex: 1;
+    display: flex;
+    flex-wrap: wrap;
+
+    .list-item {
+      padding: 10px 20px;
+      margin: 10px;
+      height: 80px;
+      display: flex;
+      border: 1px solid rgba(0, 0, 0, 0.2);
+      color: #666666;
+
+      .picture {
+
+        img {
+          height: 60px;
+          width: 60px;
+        }
+      }
+
+      .content {
+        padding: 10px 0px 10px 10px;
+
+        .title {
+          font-weight: bold;
+        }
+
+        .count {
+          font-size: 12px;
+        }
+      }
+    }
+  }
+}
+
+.popover {
+  width: 220px;
+  white-space: pre-wrap;
+  word-break: break-all;
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    color: #666;
+
+    .btn-wrap {
+      cursor: pointer;
+
+      i {
+        &:hover {
+          color: #000;
+        }
+      }
+    }
+  }
+}

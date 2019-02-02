@@ -1,0 +1,607 @@
+.container-fluid {
+  width: 100%;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  flex: 1;
+}
+
+@media (min-width: 768px) {
+  .container {
+    width: 750px;
+  }
+}
+
+@media (min-width: 992px) {
+  .container {
+    width: 970px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .container {
+    width: 1170px;
+  }
+}
+
+/*偏移*/
+.col-offset-1 {
+  margin-left: 4.16667%;
+}
+
+.col-offset-2 {
+  margin-left: 8.33333%;
+}
+
+.col-offset-3 {
+  margin-left: 12.5%;
+}
+
+.col-offset-4 {
+  margin-left: 16.66667%;
+}
+
+.col-offset-5 {
+  margin-left: 20.83333%;
+}
+
+.col-offset-6 {
+  margin-left: 25%;
+}
+
+.col-offset-7 {
+  margin-left: 29.16667%;
+}
+
+.col-offset-8 {
+  margin-left: 33.33333%;
+}
+
+.col-offset-9 {
+  margin-left: 37.5%;
+}
+
+.col-offset-10 {
+  margin-left: 41.66667%;
+}
+
+.col-offset-11 {
+  margin-left: 45.83333%;
+}
+
+.col-offset-12 {
+  margin-left: 50%;
+}
+
+.col-offset-13 {
+  margin-left: 54.16667%;
+}
+
+.col-offset-14 {
+  margin-left: 58.33333%;
+}
+
+.col-offset-15 {
+  margin-left: 62.5%;
+}
+
+.col-offset-16 {
+  margin-left: 66.66667%;
+}
+
+.col-offset-17 {
+  margin-left: 70.83333%;
+}
+
+.col-offset-18 {
+  margin-left: 75%;
+}
+
+.col-offset-19 {
+  margin-left: 79.16667%;
+}
+
+.col-offset-20 {
+  margin-left: 83.33333%;
+}
+
+.col-offset-21 {
+  margin-left: 87.5%;
+}
+
+.col-offset-22 {
+  margin-left: 91.66667%;
+}
+
+.col-offset-23 {
+  margin-left: 95.83333%;
+}
+
+.col-offset-24 {
+  margin-left: 100%;
+}
+
+/* 网格布局 */
+/* 超小设备（手机，小于 768px） */
+.col-xs-1 {
+  width: 4.16667%;
+}
+
+.col-xs-2 {
+  width: 8.33333%;
+}
+
+.col-xs-3 {
+  width: 12.5%;
+}
+
+.col-xs-4 {
+  width: 16.66667%;
+}
+
+.col-xs-5 {
+  width: 20.83333%;
+}
+
+.col-xs-6 {
+  width: 25%;
+}
+
+.col-xs-7 {
+  width: 29.16667%;
+}
+
+.col-xs-8 {
+  width: 33.33333%;
+}
+
+.col-xs-9 {
+  width: 37.5%;
+}
+
+.col-xs-10 {
+  width: 41.66667%;
+}
+
+.col-xs-11 {
+  width: 45.83333%;
+}
+
+.col-xs-12 {
+  width: 50%;
+}
+
+.col-xs-13 {
+  width: 54.16667%;
+}
+
+.col-xs-14 {
+  width: 58.33333%;
+}
+
+.col-xs-15 {
+  width: 62.5%;
+}
+
+.col-xs-16 {
+  width: 66.66667%;
+}
+
+.col-xs-17 {
+  width: 70.83333%;
+}
+
+.col-xs-18 {
+  width: 75%;
+}
+
+.col-xs-19 {
+  width: 79.16667%;
+}
+
+.col-xs-20 {
+  width: 83.33333%;
+}
+
+.col-xs-21 {
+  width: 87.5%;
+}
+
+.col-xs-22 {
+  width: 91.66667%;
+}
+
+.col-xs-23 {
+  width: 95.83333%;
+}
+
+.col-xs-24 {
+  width: 100%;
+}
+
+/* 小型设备（平板电脑，768px 起） */
+@media (min-width: 768px) {
+  .col-sm-1 {
+    width: 4.16667%;
+  }
+
+  .col-sm-2 {
+    width: 8.33333%;
+  }
+
+  .col-sm-3 {
+    width: 12.5%;
+  }
+
+  .col-sm-4 {
+    width: 16.66667%;
+  }
+
+  .col-sm-5 {
+    width: 20.83333%;
+  }
+
+  .col-sm-6 {
+    width: 25%;
+  }
+
+  .col-sm-7 {
+    width: 29.16667%;
+  }
+
+  .col-sm-8 {
+    width: 33.33333%;
+  }
+
+  .col-sm-9 {
+    width: 37.5%;
+  }
+
+  .col-sm-10 {
+    width: 41.66667%;
+  }
+
+  .col-sm-11 {
+    width: 45.83333%;
+  }
+
+  .col-sm-12 {
+    width: 50%;
+  }
+
+  .col-sm-13 {
+    width: 54.16667%;
+  }
+
+  .col-sm-14 {
+    width: 58.33333%;
+  }
+
+  .col-sm-15 {
+    width: 62.5%;
+  }
+
+  .col-sm-16 {
+    width: 66.66667%;
+  }
+
+  .col-sm-17 {
+    width: 70.83333%;
+  }
+
+  .col-sm-18 {
+    width: 75%;
+  }
+
+  .col-sm-19 {
+    width: 79.16667%;
+  }
+
+  .col-sm-20 {
+    width: 83.33333%;
+  }
+
+  .col-sm-21 {
+    width: 87.5%;
+  }
+
+  .col-sm-22 {
+    width: 91.66667%;
+  }
+
+  .col-sm-23 {
+    width: 95.83333%;
+  }
+
+  .col-sm-24 {
+    width: 100%;
+  }
+}
+
+/* 中型设备（台式电脑，992px 起） */
+@media (min-width: 992px) {
+  .col-md-1 {
+    width: 4.16667%;
+  }
+
+  .col-md-2 {
+    width: 8.33333%;
+  }
+
+  .col-md-3 {
+    width: 12.5%;
+  }
+
+  .col-md-4 {
+    width: 16.66667%;
+  }
+
+  .col-md-5 {
+    width: 20.83333%;
+  }
+
+  .col-md-6 {
+    width: 25%;
+  }
+
+  .col-md-7 {
+    width: 29.16667%;
+  }
+
+  .col-md-8 {
+    width: 33.33333%;
+  }
+
+  .col-md-9 {
+    width: 37.5%;
+  }
+
+  .col-md-10 {
+    width: 41.66667%;
+  }
+
+  .col-md-11 {
+    width: 45.83333%;
+  }
+
+  .col-md-12 {
+    width: 50%;
+  }
+
+  .col-md-13 {
+    width: 54.16667%;
+  }
+
+  .col-md-14 {
+    width: 58.33333%;
+  }
+
+  .col-md-15 {
+    width: 62.5%;
+  }
+
+  .col-md-16 {
+    width: 66.66667%;
+  }
+
+  .col-md-17 {
+    width: 70.83333%;
+  }
+
+  .col-md-18 {
+    width: 75%;
+  }
+
+  .col-md-19 {
+    width: 79.16667%;
+  }
+
+  .col-md-20 {
+    width: 83.33333%;
+  }
+
+  .col-md-21 {
+    width: 87.5%;
+  }
+
+  .col-md-22 {
+    width: 91.66667%;
+  }
+
+  .col-md-23 {
+    width: 95.83333%;
+  }
+
+  .col-md-24 {
+    width: 100%;
+  }
+}
+
+/* 大型设备（大台式电脑，1200px 起） */
+@media (min-width: 1200px) {
+  .col-lg-1 {
+    width: 4.16667%;
+  }
+
+  .col-lg-2 {
+    width: 8.33333%;
+  }
+
+  .col-lg-3 {
+    width: 12.5%;
+  }
+
+  .col-lg-4 {
+    width: 16.66667%;
+  }
+
+  .col-lg-5 {
+    width: 20.83333%;
+  }
+
+  .col-lg-6 {
+    width: 25%;
+  }
+
+  .col-lg-7 {
+    width: 29.16667%;
+  }
+
+  .col-lg-8 {
+    width: 33.33333%;
+  }
+
+  .col-lg-9 {
+    width: 37.5%;
+  }
+
+  .col-lg-10 {
+    width: 41.66667%;
+  }
+
+  .col-lg-11 {
+    width: 45.83333%;
+  }
+
+  .col-lg-12 {
+    width: 50%;
+  }
+
+  .col-lg-13 {
+    width: 54.16667%;
+  }
+
+  .col-lg-14 {
+    width: 58.33333%;
+  }
+
+  .col-lg-15 {
+    width: 62.5%;
+  }
+
+  .col-lg-16 {
+    width: 66.66667%;
+  }
+
+  .col-lg-17 {
+    width: 70.83333%;
+  }
+
+  .col-lg-18 {
+    width: 75%;
+  }
+
+  .col-lg-19 {
+    width: 79.16667%;
+  }
+
+  .col-lg-20 {
+    width: 83.33333%;
+  }
+
+  .col-lg-21 {
+    width: 87.5%;
+  }
+
+  .col-lg-22 {
+    width: 91.66667%;
+  }
+
+  .col-lg-23 {
+    width: 95.83333%;
+  }
+
+  .col-lg-24 {
+    width: 100%;
+  }
+}
+
+@media (max-width: 767px) {
+  .hidden-xs {
+    display: none !important;
+  }
+
+  .visible-xs {
+    display: block !important;
+  }
+
+  .visible-sm {
+    display: none !important;
+  }
+
+  .visible-md {
+    display: none !important;
+  }
+
+  .visible-lg {
+    display: none !important;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  .hidden-sm {
+    display: none !important;
+  }
+
+  .visible-xs {
+    display: none !important;
+  }
+
+  .visible-sm {
+    display: block !important;
+  }
+
+  .visible-md {
+    display: none !important;
+  }
+
+  .visible-lg {
+    display: none !important;
+  }
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+  .hidden-md {
+    display: none !important;
+  }
+
+  .visible-xs {
+    display: none !important;
+  }
+
+  .visible-sm {
+    display: none !important;
+  }
+
+  .visible-md {
+    display: block !important;
+  }
+
+  .visible-lg {
+    display: none !important;
+  }
+}
+
+@media (min-width: 1200px) {
+  .hidden-lg {
+    display: none !important;
+  }
+
+  .visible-xs {
+    display: none !important;
+  }
+
+  .visible-sm {
+    display: none !important;
+  }
+
+  .visible-md {
+    display: none !important;
+  }
+
+  .visible-lg {
+    display: block !important;
+  }
+}

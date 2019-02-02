@@ -1,0 +1,76 @@
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { Menu, Icon, Dropdown } from 'antd';
+
+import styles from './Header.module.scss';
+import { User } from '../../../../interface/user.interface';
+import { dispatchState } from '../../../../store';
+import { ReactAutoBind } from '../../../../util/decorators/reactAutoBind';
+
+interface Props {
+	user: User;
+}
+interface State {}
+@ReactAutoBind()
+export default class Header extends React.Component<Props, State> {
+	logout() {
+		dispatchState({
+			type: 'user/logout'
+		});
+	}
+	static defaultProps = {};
+	render() {
+		const { user } = this.props;
+		const menu = (
+			<Menu>
+				<Menu.Item>
+					<Link target="_blank" to={`/u/${user.nickname}`}>
+						我的主页
+					</Link>
+				</Menu.Item>
+				<Menu.Item>
+					<div onClick={this.logout}>退出</div>
+				</Menu.Item>
+			</Menu>
+		);
+		return (
+			<div className={styles['header-container'] + ' ' + 'reset-page'}>
+				<div className={styles['header-content']}>
+					<div className={styles['header-logo']}>
+						<Link to="/admin">RyanCMS 内容管理系统</Link>
+					</div>
+					<div className={styles['header-navbar']}>
+						<ul className={styles['header-menu']}>
+							<li>
+								<a>
+									<Icon type="question-circle" /> 帮助
+								</a>
+							</li>
+							<li>
+								<a key="mail">
+									<Icon type="mail" /> 反馈
+								</a>
+							</li>
+						</ul>
+						<div className={styles['userpannel']}>
+							<div className={styles['avatar']}>
+								<img src={user.avatar} alt="" />
+							</div>
+							<Dropdown overlay={menu}>
+								<a className={styles['user-profile']}>
+									<span>
+										<span className={styles['user-name']}>{user.nickname}</span>
+										<br />
+										<span className="user-rank">用户</span>
+									</span>
+									&nbsp;
+									<Icon type="caret-down" />
+								</a>
+							</Dropdown>
+						</div>
+					</div>
+				</div>
+			</div>
+		);
+	}
+}
