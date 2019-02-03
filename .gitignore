@@ -2,14 +2,9 @@ node_modules
 .idea
 .history
 ormconfig.json
+init_state.js
 
 /backend/public/upload/*
-
-# testing
-/coverage
-
-# production
-/build
 
 # misc
 .DS_Store
