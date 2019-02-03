@@ -85,14 +85,14 @@ export default class Article extends React.Component<Props, State> {
 							{blogger && article ? (
 								<div className={styles['detail']}>
 									<div className={styles['date']}>
-										{dayjs(article.created_at * 1000).format('MMMM DD，YYYY')} / 阅读数（{article.readcount}）
+										{dayjs(article.created_at * 1000).format('MMMM DD，YYYY')}
 									</div>
 									<h2 className={styles['title']}>{article.title}</h2>
 									<ReactMarkdown
 										className={`${styles['editor-view']} ry-table`}
 										source={article.content.content}
 										renderers={{ code: LightCode as any }}
-										escapeHtml={true}
+										escapeHtml={false}
 									/>
 								</div>
 							) : (

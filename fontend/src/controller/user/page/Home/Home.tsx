@@ -18,7 +18,6 @@ export default class Home extends React.Component<Props, State> {
 		return (
 			<div className={styles['container']}>
 				<LayoutTitle title="个人中心" />
-				<div>后台</div>
 			</div>
 		);
 	}

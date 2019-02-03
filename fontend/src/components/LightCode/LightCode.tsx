@@ -1,8 +1,14 @@
 import React from 'react';
 import hljs from 'highlight.js/lib/highlight';
+import 'highlight.js/styles/github.css';
 import javascript from 'highlight.js/lib/languages/javascript';
+import css from 'highlight.js/lib/languages/css';
+import html from 'highlight.js/lib/languages/xml';
+import ts from 'highlight.js/lib/languages/typescript';
 hljs.registerLanguage('javascript', javascript);
-import 'highlight.js/styles/monokai.css';
+hljs.registerLanguage('css', css);
+hljs.registerLanguage('html', html);
+hljs.registerLanguage('ts', ts);
 
 interface Props {
 	language: string;

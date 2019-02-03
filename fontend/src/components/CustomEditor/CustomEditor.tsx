@@ -1,9 +1,10 @@
-import { Icon, Drawer } from 'antd';
+import { Icon, Drawer, message } from 'antd';
 import React from 'react';
 import styles from './CustomEditor.module.scss';
 import ReactMarkdown from 'react-markdown';
 import LightCode from '../LightCode/LightCode';
 import CustomUpload from '../CustomUpload/CustomUpload';
+import { RcFile } from 'antd/lib/upload/interface';
 
 interface ToolOption {
 	name: string;
@@ -23,65 +24,18 @@ interface Props {
 
 interface State {
 	fullScreen: boolean;
+	loading: boolean;
 }
 export default class CustomEditor extends React.Component<Props, State> {
 	state: State = {
-		fullScreen: false
+		fullScreen: false,
+		loading: false
 	};
 	editor: React.RefObject<HTMLTextAreaElement>;
-	toolsOption: ToolOption[] = [];
 	constructor(props: Props) {
 		super(props);
 		this.editor = React.createRef();
 	}
-	componentWillMount() {
-		this.toolsOption = [
-			{
-				name: 'bold',
-				icon: <Icon type="bold" />,
-				method: this.setBold
-			},
-			{
-				name: 'italic',
-				icon: <Icon type="italic" />,
-				method: this.setItalic
-			},
-			{
-				name: 'link',
-				icon: <Icon type="link" />,
-				method: this.setLink
-			},
-			{
-				name: 'picture',
-				icon: (
-					<CustomUpload
-						accept="image/gif, image/jpg, image/jpeg, image/png"
-						onSuccess={(url: string) => this.onUpload(url)}
-					>
-						<Icon type="picture" />
-					</CustomUpload>
-				),
-				method: () => {}
-			},
-			{
-				name: 'quote',
-				icon: <Icon type="right" />,
-				method: this.setQuote
-			},
-			{
-				name: 'ordered-list',
-				icon: <Icon type="ordered-list" />,
-				method: this.setList
-			},
-			{
-				name: 'full-screen',
-				icon: <Icon type="fullscreen" />,
-				method: this.setFullScreen
-			}
-		];
-	}
-
-	componentDidMount() {}
 
 	getEditorInstance() {
 		const instance = this.editor.current;
@@ -100,17 +54,30 @@ export default class CustomEditor extends React.Component<Props, State> {
 		}
 	}
 
-	onUpload = (url: string) => {
-		this.setPic(url);
+	beforeUpload = (file: RcFile, fileList: RcFile[]) => {
+		message.loading('正在上传图片..', 0);
+		return true;
 	};
+
 	setPic = async (url: string) => {
 		const pic: string = `![图片1](${url}) \n\r`;
 		const { onChange } = this.props;
 		const { beginPos, endPos, value, instance } = this.getEditorInstance();
 		const newValue = value.slice(0, beginPos) + pic + value.slice(endPos);
 		await onChange(newValue);
-		instance.focus();
-		instance.setSelectionRange(beginPos + pic.length, endPos + pic.length);
+		message.destroy();
+		// instance.focus();
+		// instance.setSelectionRange(beginPos + pic.length, endPos + pic.length);
+		this.setState({
+			loading: false
+		});
+	};
+
+	uploadPicError = (errMsg: string) => {
+		message.error(errMsg);
+		this.setState({
+			loading: false
+		});
 	};
 
 	setLink = async () => {
@@ -187,8 +154,55 @@ export default class CustomEditor extends React.Component<Props, State> {
 
 	public render() {
 		const { className, style, height, value, onChange, tools, placeholder } = this.props;
-		const { fullScreen } = this.state;
-		const toolsOption = this.toolsOption;
+		const { fullScreen, loading } = this.state;
+		const toolsOption = [
+			{
+				name: 'bold',
+				icon: <Icon type="bold" />,
+				method: this.setBold
+			},
+			{
+				name: 'italic',
+				icon: <Icon type="italic" />,
+				method: this.setItalic
+			},
+			{
+				name: 'link',
+				icon: <Icon type="link" />,
+				method: this.setLink
+			},
+			{
+				name: 'picture',
+				icon: !loading ? (
+					<CustomUpload
+						accept="image/gif, image/jpg, image/jpeg, image/png"
+						beforeUpload={this.beforeUpload}
+						onSuccess={(url: string) => this.setPic(url)}
+						onError={this.uploadPicError}
+					>
+						<Icon type="picture" />
+					</CustomUpload>
+				) : (
+					<Icon type="picture" />
+				),
+				method: () => {}
+			},
+			{
+				name: 'quote',
+				icon: <Icon type="right" />,
+				method: this.setQuote
+			},
+			{
+				name: 'ordered-list',
+				icon: <Icon type="ordered-list" />,
+				method: this.setList
+			},
+			{
+				name: 'full-screen',
+				icon: <Icon type="fullscreen" />,
+				method: this.setFullScreen
+			}
+		];
 
 		const attributes = this.getAttribute(height, className, style);
 		const editorContainer = (
@@ -219,10 +233,10 @@ export default class CustomEditor extends React.Component<Props, State> {
 						/>
 					</div>
 					<ReactMarkdown
-						className={styles['editor-view']}
+						className={`${styles['editor-view']} ry-table`}
 						source={value}
 						renderers={{ code: LightCode as any }}
-						escapeHtml={true}
+						escapeHtml={false}
 					/>
 				</div>
 			</div>

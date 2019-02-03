@@ -1,4 +1,4 @@
-import { Input, Select, Button, message, Switch } from 'antd';
+import { Input, Select, Button, message, Switch, Modal, Icon } from 'antd';
 import React from 'react';
 import { RouteProps, RouterProps } from 'react-router';
 import styles from './ArticleEditor.module.scss';
@@ -16,6 +16,7 @@ import { ReactAutoBind } from '../../../../util/decorators/reactAutoBind';
 import { TagResponse } from '../../../../services/tag';
 import { CategoryResponse } from '../../../../services/category';
 import CustomImageUpload from '../../../../components/CustomImageUpload/CustomImageUpload';
+import { CustomLoading } from '../../../../components/CustomLoading/CustomLoading';
 
 const InputGroup = Input.Group;
 const TextArea = Input.TextArea;
@@ -46,6 +47,21 @@ interface State {
 	loading: boolean;
 	fetched: boolean;
 }
+const initFormData = {
+	article_id: 0,
+	writer_id: 0,
+	category_id: 0,
+	title: '',
+	summary: '',
+	picture: 'http://assets.maocanhua.cn/FtCz4kJRH2c-SqtScIbql3q3OiS5',
+	updated_at: 0,
+	created_at: 0,
+	secret: 0,
+	content: {
+		content: ''
+	},
+	tags: []
+};
 @ClearUnmountState()
 @ReactAutoBind()
 export default class ArticleEditor extends React.Component<Props, State> {
@@ -54,27 +70,14 @@ export default class ArticleEditor extends React.Component<Props, State> {
 		loading: false,
 		fetched: true,
 		categorys: null,
-		formData: {
-			article_id: 0,
-			writer_id: 0,
-			category_id: 0,
-			title: '',
-			summary: '',
-			picture: '',
-			updated_at: 0,
-			created_at: 0,
-			secret: 0,
-			content: {
-				content: ''
-			},
-			tags: []
-		}
+		formData: initFormData
 	};
+
 	constructor(props: Props) {
 		super(props);
 	}
 
-	async componentWillMount() {
+	async componentDidMount() {
 		await Promise.all([ this.getCategorys(), this.getTags(), this.getArticle() ]);
 		this.setState({ fetched: false });
 	}
@@ -99,8 +102,11 @@ export default class ArticleEditor extends React.Component<Props, State> {
 		if (!result.count) {
 			return message.warn('暂无分类，请先到栏目管理添加分类');
 		}
+		const { formData } = this.state;
+		formData.category_id = result.list[0].category_id;
 		this.setState({
-			categorys: result
+			categorys: result,
+			formData: { ...formData }
 		});
 	}
 
@@ -160,7 +166,7 @@ export default class ArticleEditor extends React.Component<Props, State> {
 
 	onChangeTitle(value: string) {
 		const { formData } = this.state;
-		formData.title = value;
+		formData.title = value.trim();
 		this.setState({
 			formData: { ...formData }
 		});
@@ -216,10 +222,19 @@ export default class ArticleEditor extends React.Component<Props, State> {
 			category_id,
 			secret
 		});
+		const { user } = this.props;
 		this.setState({
 			formData: article
 		});
-		message.success('发布文章成功');
+		Modal.confirm({
+			title: '发布成功',
+			content: null,
+			okText: '查看详情',
+			cancelText: '确定',
+			maskClosable: true,
+			icon: <Icon type="check-circle" style={{ color: '#52c41a' }} />,
+			onOk: () => this.props.history.push(`/u/${user.nickname}/a/${title}`)
+		});
 	}
 
 	@validate()
@@ -245,7 +260,16 @@ export default class ArticleEditor extends React.Component<Props, State> {
 			category_id,
 			secret
 		});
-		message.success('更新文章成功');
+		const { user } = this.props;
+		Modal.confirm({
+			title: '更新成功',
+			content: null,
+			okText: '查看详情',
+			cancelText: '确定',
+			maskClosable: true,
+			icon: <Icon type="check-circle" style={{ color: '#52c41a' }} />,
+			onOk: () => this.props.history.push(`/u/${user.nickname}/a/${title}`)
+		});
 	}
 
 	submit() {
@@ -276,10 +300,7 @@ export default class ArticleEditor extends React.Component<Props, State> {
 				<div className={styles['header']}>
 					<InputGroup size="large" compact>
 						<Select
-							value={
-								formData.category_id ||
-								(categorys && categorys.list[0] && categorys.list[0].category_id)
-							}
+							value={formData.category_id}
 							onSelect={(catagoryId) => this.onSelectCategory(Number(catagoryId))}
 							style={{ width: 100 }}
 							placeholder="选择类型"
@@ -358,6 +379,8 @@ export default class ArticleEditor extends React.Component<Props, State> {
 					height={'500px'}
 				/>
 			</div>
-		) : null;
+		) : (
+			<CustomLoading />
+		);
 	}
 }

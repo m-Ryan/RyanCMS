@@ -8,8 +8,10 @@ import { UploadChangeParam, UploadFileStatus, RcFile } from 'antd/lib/upload/int
 import { dispatchState } from '../../store';
 export interface CustomUploadProps extends UploadProps {
 	accept: string;
-	onSuccess: (file: string) => void;
-	onError?: (error: any) => any;
+	beforeUpload?: (file: RcFile, fileList: RcFile[]) => any;
+	onLoading?: () => any;
+	onSuccess: (file: string) => any;
+	onError?: (error: string) => any;
 	callbackStatus?: (status: UploadFileStatus) => any;
 	children: React.ReactNode;
 	minSize?: number;
@@ -34,7 +36,7 @@ export default class CustomUpload extends React.Component<CustomUploadProps> {
 	}
 
 	onChange(info: UploadChangeParam) {
-		const { onError, onSuccess, callbackStatus, qiNiuConfig } = this.props;
+		const { onError, onSuccess, callbackStatus, qiNiuConfig, onLoading } = this.props;
 		if (!qiNiuConfig) return;
 		callbackStatus && callbackStatus(info.file.status as UploadFileStatus);
 		if (info.file.status === 'done') {
@@ -47,10 +49,12 @@ export default class CustomUpload extends React.Component<CustomUploadProps> {
 			} else {
 				message.error(info.file.error.message);
 			}
+		} else if (info.file.status === 'uploading') {
+			onLoading && onLoading();
 		}
 	}
 
-	beforeUpload(file: RcFile, FileList: RcFile[]) {
+	beforeUpload(file: RcFile, fileList: RcFile[]) {
 		const { accept } = this.props;
 		let fileType = '';
 		if (accept) {
@@ -63,6 +67,10 @@ export default class CustomUpload extends React.Component<CustomUploadProps> {
 				message.warn('上传文件类型错误!');
 				return false;
 			}
+		}
+		const { beforeUpload } = this.props;
+		if (beforeUpload) {
+			return beforeUpload(file, fileList);
 		}
 		return true;
 	}

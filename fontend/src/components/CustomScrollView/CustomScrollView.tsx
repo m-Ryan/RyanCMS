@@ -3,6 +3,7 @@ import styles from './CustomScrollView.module.scss';
 import { ReactAutoBind } from '../../util/decorators/reactAutoBind';
 import { throttle } from '../../util/decorators/throttle';
 import { CustomLoading } from '../CustomLoading/CustomLoading';
+import { ClearUnmountState } from '../../util/decorators/clearUnmountState';
 interface Props {
 	children: React.ReactChild | React.ReactNode;
 	onScroll?: () => void;
@@ -15,6 +16,8 @@ interface Props {
 interface State {
 	loading: boolean;
 }
+
+@ClearUnmountState()
 @ReactAutoBind()
 export default class CustomScrollView extends React.Component<Props, State> {
 	scrollViewElement: React.RefObject<HTMLDivElement>;

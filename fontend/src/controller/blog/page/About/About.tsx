@@ -79,10 +79,10 @@ export default class About extends React.PureComponent<Props, State> {
 								{resume && resume.content ? (
 									<React.Fragment>
 										<ReactMarkdown
-											className={styles['editor-view']}
+											className={`${styles['editor-view']} ry-table`}
 											source={resume.content}
 											renderers={{ code: LightCode as any }}
-											escapeHtml={true}
+											escapeHtml={false}
 										/>
 									</React.Fragment>
 								) : (

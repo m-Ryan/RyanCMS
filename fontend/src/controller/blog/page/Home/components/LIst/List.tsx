@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './List.module.scss';
 import { User } from '../../../../../../interface/user.interface';
 import { Article } from '../../../../../../interface/article.interface';
-import { Icon } from 'antd';
+import { Icon, Timeline } from 'antd';
 import dayjs from 'dayjs';
 import { Link } from 'react-router-dom';
 interface Props {

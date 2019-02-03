@@ -8,7 +8,6 @@ import { ReactAutoBind } from '../../../../util/decorators/reactAutoBind';
 import { catchError } from '../../../../util/decorators/catchError';
 import { loading } from '../../../../util/decorators/loading';
 import CustomScrollView from '../../../../components/CustomScrollView/CustomScrollView';
-import { Article } from '../../../../interface/article.interface';
 import { CustomLoading } from '../../../../components/CustomLoading/CustomLoading';
 import { History, Location } from 'history';
 import { Condition } from '../../../../components/Condition';
@@ -84,7 +83,7 @@ export default class Home extends React.PureComponent<Props, State> {
 		const { loading } = this.state;
 		return (
 			<UserContainer {...this.props}>
-				<Condition show={!loading && count > 0}>
+				<Condition show={count > 0}>
 					<CustomScrollView
 						className={`${styles['container']} reset-page`}
 						loadMore={this.getArticleList}
@@ -92,7 +91,6 @@ export default class Home extends React.PureComponent<Props, State> {
 						noMore={noMore}
 					>
 						<List list={list} blogger={blogger} />
-						<div className={styles['footer']}>{loading && <CustomLoading />}</div>
 					</CustomScrollView>
 				</Condition>
 				<Condition show={!loading && count === 0}>
