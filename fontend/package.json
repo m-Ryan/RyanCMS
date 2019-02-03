@@ -6,7 +6,7 @@
     "format": "prettier --write \"src/**/*.ts\"",
     "server:start": "nodemon",
     "server:build": "cross-env NODE_SCENE=local ts-node --project tsconfig.server.json -r tsconfig-paths/register src/server/index.ts",
-    "server:product": "pm2 start cross-env NODE_SCENE=server ts-node -- --type-check --project tsconfig.server.json -r tsconfig-paths/register src/server/index.ts",
+    "server:product": "cross-env NODE_SCENE=server pm2 start ts-node -- --type-check --project tsconfig.server.json -r tsconfig-paths/register src/server/index.ts",
     "start": "cross-env NODE_SCENE=local node scripts/start.js",
     "build": "cross-env NODE_SCENE=local node scripts/build.js",
     "build:product": "cross-env NODE_SCENE=server node scripts/build.js"
