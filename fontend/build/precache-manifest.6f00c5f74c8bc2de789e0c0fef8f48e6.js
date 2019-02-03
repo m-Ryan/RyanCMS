@@ -4,7 +4,7 @@ self.__precacheManifest = [
     "url": "/static/js/runtime~main.5b47ec21.js"
   },
   {
-    "revision": "f6248b64a4a3c49c2c72",
+    "revision": "bbd228d1725f891ecfd9",
     "url": "/static/css/main.b3cd1d23.chunk.css"
   },
   {
@@ -20,8 +20,8 @@ self.__precacheManifest = [
     "url": "/static/js/ant-design.8e0b4025.chunk.js"
   },
   {
-    "revision": "f6248b64a4a3c49c2c72",
-    "url": "/static/js/main.f6248b64.chunk.js"
+    "revision": "bbd228d1725f891ecfd9",
+    "url": "/static/js/main.bbd228d1.chunk.js"
   },
   {
     "revision": "e33471629415c521f7ab25608d016801",
@@ -40,7 +40,7 @@ self.__precacheManifest = [
     "url": "/static/css/ant-design.da42e51a.chunk.css"
   },
   {
-    "revision": "c52f5233a68facb85278f9d803e36d01",
+    "revision": "072d16c09d2a22637003772f01d3c132",
     "url": "/index.html"
   }
 ];

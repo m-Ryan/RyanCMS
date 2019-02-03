@@ -4,11 +4,12 @@
   "private": true,
   "scripts": {
     "format": "prettier --write \"src/**/*.ts\"",
+    "server:start": "nodemon",
     "server:build": "ts-node --project tsconfig.server.json -r tsconfig-paths/register src/server/index.ts",
-    "server:start": "node scripts/build.js && ts-node --project tsconfig.server.json -r tsconfig-paths/register src/server/index.ts",
-    "server:dev": "nodemon",
+    "server:product": "pm2 start ts-node -- --type-check --project tsconfig.server.json -r tsconfig-paths/register src/server/index.ts",
     "start": "node scripts/start.js",
-    "build": "node scripts/build.js"
+    "build": "cross-env NODE_SCENE=local node scripts/build.js",
+    "build:product": "cross-env NODE_SCENE=server node scripts/build.js"
   },
   "dependencies": {
     "@babel/core": "7.1.6",
@@ -35,6 +36,7 @@
     "bfj": "6.1.1",
     "case-sensitive-paths-webpack-plugin": "2.1.2",
     "chalk": "2.4.1",
+    "cross-env": "^5.2.0",
     "css-loader": "1.0.0",
     "css-modules-require-hook": "^4.2.3",
     "dayjs": "^1.7.8",
