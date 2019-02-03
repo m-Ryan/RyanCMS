@@ -30,26 +30,25 @@ const category_entity_1 = require("../../category/entities/category.entity");
 const comment_entity_1 = require("../../comment/entities/comment.entity");
 const user_entity_1 = require("../../user/entities/user.entity");
 const lodash_1 = __importDefault(require("lodash"));
-const xss_1 = __importDefault(require("xss"));
 let ArticleEntity = ArticleEntity_1 = class ArticleEntity extends typeorm_1.BaseEntity {
     static createArticle(createArticleDto, userId) {
         return __awaiter(this, void 0, void 0, function* () {
             const user = yield user_entity_1.UserEntity.findOne({
-                user_id: userId,
+                user_id: userId
             });
             if (!user) {
                 throw new userError_1.UserError('用户不存在');
             }
             const tags = yield tag_entity_1.TagEntity.find({
                 where: {
-                    tag_id: typeorm_1.In(createArticleDto.tags),
-                },
+                    tag_id: typeorm_1.In(createArticleDto.tags)
+                }
             });
             if (tags.length !== createArticleDto.tags.length) {
                 throw new userError_1.UserError('所选标签中部分标签不存在');
             }
             return typeorm_1.getConnection().transaction((transactionalEntityManager) => __awaiter(this, void 0, void 0, function* () {
-                createArticleDto.content = xss_1.default(createArticleDto.content).trim();
+                createArticleDto.content = createArticleDto.content.trim();
                 createArticleDto.title = createArticleDto.title.trim();
                 if (!createArticleDto.title) {
                     throw new userError_1.UserError('标题不能为空');
@@ -85,13 +84,13 @@ let ArticleEntity = ArticleEntity_1 = class ArticleEntity extends typeorm_1.Base
     }
     static updateArticle(updateArticleDto, userId) {
         return __awaiter(this, void 0, void 0, function* () {
-            const { article_id, title, content, summary, picture, tags, category_id, secret, } = updateArticleDto;
+            const { article_id, title, content, summary, picture, tags, category_id, secret } = updateArticleDto;
             return typeorm_1.getConnection().transaction((transactionalEntityManager) => __awaiter(this, void 0, void 0, function* () {
                 const article = yield this.findOne({
                     where: {
                         article_id,
-                        user_id: userId,
-                    },
+                        user_id: userId
+                    }
                 });
                 if (!article) {
                     throw new userError_1.UserError('文章不存在');
@@ -112,8 +111,8 @@ let ArticleEntity = ArticleEntity_1 = class ArticleEntity extends typeorm_1.Base
                     const tagEntitys = yield tag_entity_1.TagEntity.find({
                         where: {
                             tag_id: typeorm_1.In(updateArticleDto.tags),
-                            deleted_at: 0,
-                        },
+                            deleted_at: 0
+                        }
                     });
                     if (tagEntitys.length !== tags.length) {
                         throw new userError_1.UserError('所选标签中部分标签不存在');
@@ -124,8 +123,8 @@ let ArticleEntity = ArticleEntity_1 = class ArticleEntity extends typeorm_1.Base
                     const category = yield category_entity_1.CategoryEntity.findOne({
                         where: {
                             category_id,
-                            deleted_at: 0,
-                        },
+                            deleted_at: 0
+                        }
                     });
                     if (!category) {
                         throw new userError_1.UserError('所选的分类不存在');
@@ -145,8 +144,8 @@ let ArticleEntity = ArticleEntity_1 = class ArticleEntity extends typeorm_1.Base
                 where: {
                     article_id: articleId,
                     deleted_at: 0,
-                    user_id: userId,
-                },
+                    user_id: userId
+                }
             });
             if (!article) {
                 throw new userError_1.UserError('文章不存在');
@@ -159,7 +158,7 @@ let ArticleEntity = ArticleEntity_1 = class ArticleEntity extends typeorm_1.Base
         return __awaiter(this, void 0, void 0, function* () {
             const condition = {
                 user_id: userId,
-                deleted_at: 0,
+                deleted_at: 0
             };
             if (lodash_1.default.isInteger(secret)) {
                 condition.secret = secret;
@@ -175,7 +174,7 @@ let ArticleEntity = ArticleEntity_1 = class ArticleEntity extends typeorm_1.Base
             }
             const article = yield this.findOne({
                 where: condition,
-                relations: ['content', 'tags'],
+                relations: ['content', 'tags']
             });
             if (!article) {
                 throw new userError_1.UserError('文章不存在');
@@ -187,7 +186,7 @@ let ArticleEntity = ArticleEntity_1 = class ArticleEntity extends typeorm_1.Base
     static getList(page, size, userId, secret, categoryId, tagId, order) {
         return __awaiter(this, void 0, void 0, function* () {
             const condition = {
-                deleted_at: 0,
+                deleted_at: 0
             };
             if (lodash_1.default.isInteger(secret)) {
                 condition.secret = secret;
@@ -207,7 +206,7 @@ let ArticleEntity = ArticleEntity_1 = class ArticleEntity extends typeorm_1.Base
                     .where(condition)
                     .andWhere('tag.tag_id = :tag_id', { tag_id: tagId })
                     .orderBy({
-                    [orderColumn]: 'DESC',
+                    [orderColumn]: 'DESC'
                 })
                     .take(size)
                     .skip((page - 1) * size)
@@ -219,7 +218,7 @@ let ArticleEntity = ArticleEntity_1 = class ArticleEntity extends typeorm_1.Base
                     .leftJoinAndSelect('article.category', 'category')
                     .where(condition)
                     .orderBy({
-                    [orderColumn]: 'DESC',
+                    [orderColumn]: 'DESC'
                 })
                     .take(size)
                     .skip((page - 1) * size)
@@ -227,7 +226,7 @@ let ArticleEntity = ArticleEntity_1 = class ArticleEntity extends typeorm_1.Base
             }
             return {
                 list: result[0],
-                count: result[1],
+                count: result[1]
             };
         });
     }
@@ -235,7 +234,7 @@ let ArticleEntity = ArticleEntity_1 = class ArticleEntity extends typeorm_1.Base
         return __awaiter(this, void 0, void 0, function* () {
             const condition = {
                 title: typeorm_1.Like(`%${title}%`),
-                user_id: userId,
+                user_id: userId
             };
             if (lodash_1.default.isInteger(secret)) {
                 condition.secret = secret;
@@ -245,13 +244,13 @@ let ArticleEntity = ArticleEntity_1 = class ArticleEntity extends typeorm_1.Base
                 skip: (page - 1) * size,
                 take: size,
                 order: {
-                    article_id: 'DESC',
+                    article_id: 'DESC'
                 },
-                relations: ['tags', 'category'],
+                relations: ['tags', 'category']
             });
             return {
                 list: result[0],
-                count: result[1],
+                count: result[1]
             };
         });
     }
@@ -264,7 +263,7 @@ __decorate([
     typeorm_1.Column({
         type: 'varchar',
         length: 20,
-        default: '',
+        default: ''
     }),
     __metadata("design:type", String)
 ], ArticleEntity.prototype, "title", void 0);
@@ -272,7 +271,7 @@ __decorate([
     typeorm_1.Column({
         type: 'varchar',
         length: 255,
-        default: '',
+        default: ''
     }),
     __metadata("design:type", String)
 ], ArticleEntity.prototype, "summary", void 0);
@@ -280,14 +279,14 @@ __decorate([
     typeorm_1.Column({
         type: 'varchar',
         length: 255,
-        default: '',
+        default: ''
     }),
     __metadata("design:type", String)
 ], ArticleEntity.prototype, "picture", void 0);
 __decorate([
     typeorm_1.Column({
         type: 'smallint',
-        default: 1,
+        default: 1
     }),
     __metadata("design:type", Number)
 ], ArticleEntity.prototype, "category_id", void 0);
@@ -295,68 +294,68 @@ __decorate([
     typeorm_1.Column({
         type: 'varchar',
         length: 255,
-        default: '',
+        default: ''
     }),
     __metadata("design:type", String)
 ], ArticleEntity.prototype, "origin_source", void 0);
 __decorate([
     typeorm_1.Column({
         type: 'int',
-        default: 0,
+        default: 0
     }),
     __metadata("design:type", Number)
 ], ArticleEntity.prototype, "readcount", void 0);
 __decorate([
     typeorm_1.Column({
         type: 'int',
-        default: 0,
+        default: 0
     }),
     __metadata("design:type", Number)
 ], ArticleEntity.prototype, "user_id", void 0);
 __decorate([
     typeorm_1.Column({
         type: 'tinyint',
-        default: 0,
+        default: 0
     }),
     __metadata("design:type", Number)
 ], ArticleEntity.prototype, "secret", void 0);
 __decorate([
-    typeorm_1.ManyToOne(type => user_entity_1.UserEntity, UserEntity => UserEntity.articles),
+    typeorm_1.ManyToOne((type) => user_entity_1.UserEntity, (UserEntity) => UserEntity.articles),
     typeorm_1.JoinColumn({ name: 'user_id' }),
     __metadata("design:type", user_entity_1.UserEntity)
 ], ArticleEntity.prototype, "user", void 0);
 __decorate([
     typeorm_1.Column({
         type: 'int',
-        default: 0,
+        default: 0
     }),
     __metadata("design:type", Number)
 ], ArticleEntity.prototype, "created_at", void 0);
 __decorate([
     typeorm_1.Column({
         type: 'int',
-        default: 0,
+        default: 0
     }),
     __metadata("design:type", Number)
 ], ArticleEntity.prototype, "updated_at", void 0);
 __decorate([
     typeorm_1.Column({
         type: 'int',
-        default: 0,
+        default: 0
     }),
     __metadata("design:type", Number)
 ], ArticleEntity.prototype, "deleted_at", void 0);
 __decorate([
-    typeorm_1.OneToOne(type => article_content_entity_1.ArticleContentEntity, ArticleContentEntity => ArticleContentEntity.article),
+    typeorm_1.OneToOne((type) => article_content_entity_1.ArticleContentEntity, (ArticleContentEntity) => ArticleContentEntity.article),
     __metadata("design:type", article_content_entity_1.ArticleContentEntity)
 ], ArticleEntity.prototype, "content", void 0);
 __decorate([
-    typeorm_1.ManyToOne(type => category_entity_1.CategoryEntity, CategoryEntity => CategoryEntity.category_id),
+    typeorm_1.ManyToOne((type) => category_entity_1.CategoryEntity, (CategoryEntity) => CategoryEntity.category_id),
     typeorm_1.JoinColumn({ name: 'category_id' }),
     __metadata("design:type", category_entity_1.CategoryEntity)
 ], ArticleEntity.prototype, "category", void 0);
 __decorate([
-    typeorm_1.ManyToMany(type => tag_entity_1.TagEntity, TagEntity => TagEntity.articles),
+    typeorm_1.ManyToMany((type) => tag_entity_1.TagEntity, (TagEntity) => TagEntity.articles),
     typeorm_1.JoinTable(),
     __metadata("design:type", Array)
 ], ArticleEntity.prototype, "tags", void 0);

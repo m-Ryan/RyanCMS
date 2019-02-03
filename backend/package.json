@@ -6,18 +6,10 @@
   "license": "MIT",
   "scripts": {
     "format": "prettier --write \"src/**/*.ts\"",
-    "start": "ts-node -r tsconfig-paths/register src/main.ts",
-    "start:dev": "cross-env NODE_ENV=development nodemon",
-    "start:debug": "nodemon --config nodemon-debug.json",
-    "prestart": "rimraf dist && tsc",
-    "build": "node dist/main.js",
-    "start:hmr": "node dist/server",
-    "lint": "tslint -p tsconfig.json -c tslint.json",
-    "test": "jest",
-    "test:watch": "jest --watch",
-    "test:cov": "jest --coverage",
-    "test:e2e": "jest --config ./test/jest-e2e.json",
-    "webpack": "webpack --config webpack.config.js"
+    "start": "cross-env NODE_ENV=development nodemon",
+    "build": "rimraf dist && tsc",
+    "build:product": "node dist/main.js",
+    "server:product": "pm2 start dist/main.js"
   },
   "dependencies": {
     "@nestjs/common": "^5.1.0",
