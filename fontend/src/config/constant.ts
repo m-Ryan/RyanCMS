@@ -1,6 +1,12 @@
 export const TOKEN = 'RyanToken';
 console.log(process.env.NODE_SCENE);
-export const PROXY_PREFIX = process.env.NODE_SCENE === 'server' ? 'http://cms.maocanhua.cn/api' : '/api';
+let proxyPrefix = '/api';
+// 服务端渲染必须要有完整的
+if (process.env.NODE_SCENE === 'server') {
+	proxyPrefix = 'http://localhost:3100/api';
+}
+
+export const PROXY_PREFIX = proxyPrefix;
 
 export const UPLOAD_IMAGE_ADDRESS = '/api/upload/user/image';
 
