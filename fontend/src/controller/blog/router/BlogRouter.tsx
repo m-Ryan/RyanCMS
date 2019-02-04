@@ -30,6 +30,9 @@ export default class BlogRouter extends React.PureComponent<Props> {
 		if (!this.getBlogger()) {
 			this.initData();
 		}
+		if (TokenStorage.getToken()) {
+			this.getUser();
+		}
 	}
 
 	@catchError(function(this: BlogRouter) {

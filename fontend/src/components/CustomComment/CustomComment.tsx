@@ -109,7 +109,7 @@ export default class CustomComment extends React.PureComponent<Props, any> {
 		const { data } = this.state;
 		data.forEach((item) => {
 			if (item.message_id === messageId) {
-				item.replays.unshift(replay);
+				item.replays.push(replay);
 			}
 		});
 		this.setState({
