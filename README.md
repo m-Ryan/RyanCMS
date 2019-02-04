@@ -68,7 +68,7 @@
 
 ![留言区](http://assets.maocanhua.cn/Fmd9twKGnDdx_if1xp8CReEjc3ZJ) 
 
-![归档](http://assets.maocanhua.cn/FuKMSV7iibFuOnYxa_Q7la6uvsg9) 
+![归档](http://assets.maocanhua.cn/FnbQyUiK8BbtMocOhiJDQ4qnmdaj) 
 
 ![文章管理](http://assets.maocanhua.cn/FoxpVX3brem5H01CGsXJB4mkqVaM) 
 

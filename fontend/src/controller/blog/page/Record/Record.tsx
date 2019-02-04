@@ -62,7 +62,7 @@ export default class Record extends React.PureComponent<Props, State> {
 
 	groupByMonth(data: Article[]) {
 		const months = [] as MonthList[];
-		data.forEach((item) => {
+		data.sort((a, b) => b.created_at - a.created_at).forEach((item) => {
 			const currentYear = dayjs(item.created_at * 1000).year();
 			const currentMonth = dayjs(item.created_at * 1000).month() + 1;
 			let month = months.filter((item) => item.month === currentMonth)[0];
