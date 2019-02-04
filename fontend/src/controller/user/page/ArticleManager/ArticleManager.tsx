@@ -107,6 +107,11 @@ export default class ArticleManager extends React.Component<Props, any> {
 		await this.getList();
 		message.success('删除成功');
 	}
+	@catchError()
+	async onSetLevel(articleId: number, level: number) {
+		await API.article.user.updateArticle({ article_id: articleId, level });
+		message.success('更改成功');
+	}
 
 	render() {
 		const { data, page, size, categorys, loading } = this.state;
@@ -129,7 +134,7 @@ export default class ArticleManager extends React.Component<Props, any> {
 			},
 			{
 				title: '栏目',
-				width: 120,
+				width: 100,
 				dataIndex: 'category',
 				render: (category: Category) => <span>{category.name}</span>
 			},
@@ -142,16 +147,34 @@ export default class ArticleManager extends React.Component<Props, any> {
 				)
 			},
 			{
+				title: '权重',
+				width: 100,
+				render: (article: Article) => (
+					<Select
+						defaultValue={article.level}
+						style={{ width: 80 }}
+						onChange={(level) => this.onSetLevel(article.article_id, level)}
+					>
+						<Option value={1}>1</Option>
+						<Option value={5}>5</Option>
+						<Option value={10}>10</Option>
+						<Option value={20}>20</Option>
+						<Option value={50}>50</Option>
+						<Option value={100}>100</Option>
+					</Select>
+				)
+			},
+			{
 				title: '状态',
-				width: 120,
+				width: 100,
 				dataIndex: 'secret',
 				render: (secret: number) => <span>{secret === 0 ? '公开' : '私密'}</span>
 			},
 			{
 				title: '发布时间',
-				width: 150,
+				width: 100,
 				dataIndex: 'created_at',
-				render: (created_at: number) => <span>{dayjs(created_at * 1000).format('YYYY-MM-DD HH:mm:ss')}</span>
+				render: (created_at: number) => <span>{dayjs(created_at * 1000).format('YYYY-MM-DD')}</span>
 			},
 			{
 				title: '操作',

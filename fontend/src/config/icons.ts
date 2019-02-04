@@ -99,3 +99,5 @@ export { default as LoginOutline } from '@ant-design/icons/lib/outline/LoginOutl
 export { default as ClockCircleOutline } from '@ant-design/icons/lib/outline/ClockCircleOutline';
 
 export { default as ClockCircleFill } from '@ant-design/icons/lib/fill/ClockCircleFill';
+
+export { default as QuestionCircle } from '@ant-design/icons/lib/outline/QuestionCircleOutline';

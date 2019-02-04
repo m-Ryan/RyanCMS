@@ -98,7 +98,7 @@ export default class Tag extends React.PureComponent<Props, State> {
 											className={styles['tag-item']}
 											style={{ background: '#' + colorBox[index % colorBox.length] }}
 										>
-											{item.name}
+											{item.name}（{item!.articlesCount}）
 										</div>
 									</Link>
 								))

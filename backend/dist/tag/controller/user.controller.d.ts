@@ -12,7 +12,7 @@ export declare class UserController {
         status: number;
     }>;
     getList(auth: Auth, page: number, size: number): Promise<{
-        list: import("../entities/tag.entity").TagEntity[];
-        count: number;
+        list: any;
+        count: any;
     }>;
 }

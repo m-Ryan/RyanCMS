@@ -7,8 +7,8 @@ export declare class TagService {
     updateTag(updateTagDto: UpdateTagDto, userId: number): Promise<TagEntity>;
     daleteTag(tagId: number, userId: number): Promise<import("typeorm").DeleteResult>;
     getList(page: number, size: number, userId: number): Promise<{
-        list: TagEntity[];
-        count: number;
+        list: any;
+        count: any;
     }>;
     getTag(userId: number, name: string): Promise<TagEntity>;
 }

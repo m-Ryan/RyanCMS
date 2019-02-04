@@ -84,7 +84,7 @@ let ArticleEntity = ArticleEntity_1 = class ArticleEntity extends typeorm_1.Base
     }
     static updateArticle(updateArticleDto, userId) {
         return __awaiter(this, void 0, void 0, function* () {
-            const { article_id, title, content, summary, picture, tags, category_id, secret } = updateArticleDto;
+            const { article_id, title, content, summary, picture, tags, category_id, secret, level } = updateArticleDto;
             return typeorm_1.getConnection().transaction((transactionalEntityManager) => __awaiter(this, void 0, void 0, function* () {
                 const article = yield this.findOne({
                     where: {
@@ -106,6 +106,9 @@ let ArticleEntity = ArticleEntity_1 = class ArticleEntity extends typeorm_1.Base
                 }
                 if (picture) {
                     article.picture = picture;
+                }
+                if (level) {
+                    article.level = level;
                 }
                 if (tags) {
                     const tagEntitys = yield tag_entity_1.TagEntity.find({
@@ -129,6 +132,7 @@ let ArticleEntity = ArticleEntity_1 = class ArticleEntity extends typeorm_1.Base
                     if (!category) {
                         throw new userError_1.UserError('所选的分类不存在');
                     }
+                    article.category_id = category_id;
                 }
                 if (content) {
                     yield article_content_entity_1.ArticleContentEntity.updateArticleContent(transactionalEntityManager, article_id, content);
@@ -206,6 +210,7 @@ let ArticleEntity = ArticleEntity_1 = class ArticleEntity extends typeorm_1.Base
                     .where(condition)
                     .andWhere('tag.tag_id = :tag_id', { tag_id: tagId })
                     .orderBy({
+                    'article.level': 'DESC',
                     [orderColumn]: 'DESC'
                 })
                     .take(size)
@@ -218,6 +223,7 @@ let ArticleEntity = ArticleEntity_1 = class ArticleEntity extends typeorm_1.Base
                     .leftJoinAndSelect('article.category', 'category')
                     .where(condition)
                     .orderBy({
+                    'article.level': 'DESC',
                     [orderColumn]: 'DESC'
                 })
                     .take(size)
@@ -262,7 +268,7 @@ __decorate([
 __decorate([
     typeorm_1.Column({
         type: 'varchar',
-        length: 20,
+        length: 40,
         default: ''
     }),
     __metadata("design:type", String)
@@ -319,6 +325,13 @@ __decorate([
     }),
     __metadata("design:type", Number)
 ], ArticleEntity.prototype, "secret", void 0);
+__decorate([
+    typeorm_1.Column({
+        type: 'smallint',
+        default: 10
+    }),
+    __metadata("design:type", Number)
+], ArticleEntity.prototype, "level", void 0);
 __decorate([
     typeorm_1.ManyToOne((type) => user_entity_1.UserEntity, (UserEntity) => UserEntity.articles),
     typeorm_1.JoinColumn({ name: 'user_id' }),

@@ -24,6 +24,7 @@ const ModuleNotFoundPlugin = require('react-dev-utils/ModuleNotFoundPlugin');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin-alt');
 const typescriptFormatter = require('react-dev-utils/typescriptFormatter');
 const tsImportPluginFactory = require('ts-import-plugin');
+const antdTheme = require('../src/config//antd.theme');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 // Source maps are resource heavy and can cause out of memory issue for large source files.
 const shouldUseSourceMap = process.env.GENERATE_SOURCEMAP !== 'false';
@@ -138,8 +139,6 @@ module.exports = function (webpackEnv) {
 			isEnvDevelopment && require.resolve('webpack/hot/dev-server'),
 			isEnvDevelopment && require.resolve('react-dev-utils/webpackHotDevClient'),
 			// Finally, this is your app's code:
-			path.resolve(__dirname, '../src/assets/style/loading.scss'),
-			path.resolve(__dirname, '../src/assets/style/antd.theme.less'),
 			paths.appIndexJs
 			// We include the app code last so that if there is a runtime error during
 			// initialization, it doesn't blow up the WebpackDevServer client, and
@@ -358,7 +357,8 @@ module.exports = function (webpackEnv) {
 										before: [
 											tsImportPluginFactory([{
 												libraryName: 'antd',
-												libraryDirectory: 'lib'
+												libraryDirectory: 'lib',
+												style: true
 											}])
 										]
 									}),
@@ -429,12 +429,32 @@ module.exports = function (webpackEnv) {
 						// extensions .module.scss or .module.sass
 						{
 							test: lessRegex,
+							exclude: path.resolve(__dirname, '../node_modules'),
 							use: getStyleLoaders({
 									importLoaders: 1,
 									javascriptEnabled: true,
 									sourceMap: isEnvProduction && shouldUseSourceMap
 								},
 								'less-loader', {
+									javascriptEnabled: true
+								}
+							),
+							// Don't consider CSS imports dead code even if the
+							// containing package claims to have no side effects.
+							// Remove this when webpack adds a warning or an error for this.
+							// See https://github.com/webpack/webpack/issues/6571
+							sideEffects: true
+						},
+						{
+							test: lessRegex,
+							include: path.resolve(__dirname, '../node_modules'),
+							use: getStyleLoaders({
+									importLoaders: 1,
+									javascriptEnabled: true,
+									sourceMap: isEnvProduction && shouldUseSourceMap
+								},
+								'less-loader', {
+									modifyVars: antdTheme,
 									javascriptEnabled: true
 								}
 							),

@@ -10,6 +10,7 @@ class UpdateArticleDto extends model_1.Model {
         this.summary = undefined;
         this.picture = undefined;
         this.secret = undefined;
+        this.level = undefined;
         this.tags = undefined;
         this.category_id = undefined;
         super.setAttributes(data);
@@ -23,15 +24,15 @@ class UpdateArticleDto extends model_1.Model {
             picture: '图片',
             tags: '标签',
             secret: '是否私人',
-            category_id: '标签id',
+            category_id: '标签id'
         };
     }
     rules() {
         return [
             [['article_id'], 'required'],
             [['title', 'content', 'summary', 'picture'], 'selectable', 'string'],
-            [['secret'], 'selectable', 'number'],
-            [['tags'], 'selectable', 'array'],
+            [['secret', 'level'], 'selectable', 'number'],
+            [['tags'], 'selectable', 'array']
         ];
     }
 }

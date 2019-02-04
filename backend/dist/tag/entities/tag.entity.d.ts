@@ -18,7 +18,7 @@ export declare class TagEntity extends BaseEntity {
     static deleteTag(tagId: number, userId: number): Promise<import("typeorm").DeleteResult>;
     static getTag(userId: number, name: string): Promise<TagEntity>;
     static getList(page: number, size: number, userId: number): Promise<{
-        list: TagEntity[];
-        count: number;
+        list: any;
+        count: any;
     }>;
 }

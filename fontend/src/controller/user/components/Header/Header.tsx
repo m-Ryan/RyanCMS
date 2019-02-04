@@ -42,12 +42,15 @@ export default class Header extends React.Component<Props, State> {
 					<div className={styles['header-navbar']}>
 						<ul className={styles['header-menu']}>
 							<li>
-								<a>
+								<a href="javascript:void(0)">
 									<Icon type="question-circle" /> 帮助
 								</a>
 							</li>
 							<li>
-								<a key="mail">
+								<a
+									target="_blank"
+									href="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=cx5eAQoSHTMVHAseEhofXRAcHg"
+								>
 									<Icon type="mail" /> 反馈
 								</a>
 							</li>

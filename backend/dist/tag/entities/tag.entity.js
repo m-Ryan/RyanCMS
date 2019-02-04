@@ -31,8 +31,8 @@ let TagEntity = TagEntity_1 = class TagEntity extends typeorm_1.BaseEntity {
             const existTag = yield this.findOne({
                 where: {
                     name,
-                    user_id: userId,
-                },
+                    user_id: userId
+                }
             });
             return existTag;
         });
@@ -64,8 +64,8 @@ let TagEntity = TagEntity_1 = class TagEntity extends typeorm_1.BaseEntity {
                 where: {
                     tag_id,
                     deleted_at: 0,
-                    user_id: userId,
-                },
+                    user_id: userId
+                }
             });
             if (!tag) {
                 throw new userError_1.UserError('分类不存在');
@@ -89,9 +89,9 @@ let TagEntity = TagEntity_1 = class TagEntity extends typeorm_1.BaseEntity {
                 where: {
                     tag_id: tagId,
                     deleted_at: 0,
-                    user_id: userId,
+                    user_id: userId
                 },
-                relations: ['articles'],
+                relations: ['articles']
             });
             if (!tag) {
                 throw new userError_1.UserError('标签不存在');
@@ -107,8 +107,8 @@ let TagEntity = TagEntity_1 = class TagEntity extends typeorm_1.BaseEntity {
             const tag = yield this.findOne({
                 where: {
                     user_id: userId,
-                    name,
-                },
+                    name
+                }
             });
             if (!tag) {
                 throw new userError_1.UserError('标签不存在');
@@ -121,17 +121,23 @@ let TagEntity = TagEntity_1 = class TagEntity extends typeorm_1.BaseEntity {
             const result = yield this.findAndCount({
                 where: {
                     deleted_at: 0,
-                    user_id: userId,
+                    user_id: userId
                 },
+                relations: ['articles'],
                 skip: (page - 1) * size,
                 take: size,
                 order: {
-                    name: 'ASC',
-                },
+                    name: 'ASC'
+                }
+            });
+            const formatData = result;
+            formatData.articlesCount = formatData[0].forEach((item) => {
+                item.articlesCount = item.articles.length;
+                delete item.articles;
             });
             return {
-                list: result[0],
-                count: result[1],
+                list: formatData[0],
+                count: formatData[1]
             };
         });
     }
@@ -144,7 +150,7 @@ __decorate([
     typeorm_1.Column({
         type: 'varchar',
         length: 20,
-        default: '',
+        default: ''
     }),
     __metadata("design:type", String)
 ], TagEntity.prototype, "name", void 0);
@@ -152,7 +158,7 @@ __decorate([
     typeorm_1.Column({
         type: 'varchar',
         length: 255,
-        default: '',
+        default: ''
     }),
     __metadata("design:type", String)
 ], TagEntity.prototype, "picture", void 0);
@@ -160,40 +166,40 @@ __decorate([
     typeorm_1.Column({
         type: 'varchar',
         length: 255,
-        default: '',
+        default: ''
     }),
     __metadata("design:type", String)
 ], TagEntity.prototype, "desc", void 0);
 __decorate([
     typeorm_1.Column({
         type: 'int',
-        default: 0,
+        default: 0
     }),
     __metadata("design:type", Number)
 ], TagEntity.prototype, "created_at", void 0);
 __decorate([
     typeorm_1.Column({
         type: 'int',
-        default: 0,
+        default: 0
     }),
     __metadata("design:type", Number)
 ], TagEntity.prototype, "user_id", void 0);
 __decorate([
     typeorm_1.Column({
         type: 'int',
-        default: 0,
+        default: 0
     }),
     __metadata("design:type", Number)
 ], TagEntity.prototype, "update_at", void 0);
 __decorate([
     typeorm_1.Column({
         type: 'int',
-        default: 0,
+        default: 0
     }),
     __metadata("design:type", Number)
 ], TagEntity.prototype, "deleted_at", void 0);
 __decorate([
-    typeorm_1.ManyToMany(type => article_entity_1.ArticleEntity, ArticleEntity => ArticleEntity.tags),
+    typeorm_1.ManyToMany((type) => article_entity_1.ArticleEntity, (ArticleEntity) => ArticleEntity.tags),
     __metadata("design:type", Array)
 ], TagEntity.prototype, "articles", void 0);
 TagEntity = TagEntity_1 = __decorate([

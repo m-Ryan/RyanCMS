@@ -6,6 +6,7 @@ export declare class UpdateArticleDto extends Model {
     summary?: string;
     picture?: string;
     secret?: number;
+    level?: number;
     tags?: number[];
     category_id?: number;
     constructor(data: UpdateArticleDto);

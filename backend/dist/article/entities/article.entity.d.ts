@@ -15,6 +15,7 @@ export declare class ArticleEntity extends BaseEntity {
     readcount: number;
     user_id: number;
     secret: number;
+    level: number;
     user: UserEntity;
     created_at: number;
     updated_at: number;

@@ -29,7 +29,7 @@ export class ArticleEntity extends BaseEntity {
 
 	@Column({
 		type: 'varchar',
-		length: 20,
+		length: 40,
 		default: ''
 	})
 	title: string;
@@ -81,6 +81,13 @@ export class ArticleEntity extends BaseEntity {
 		default: 0
 	})
 	secret: number;
+
+	// 私密
+	@Column({
+		type: 'smallint',
+		default: 10
+	})
+	level: number;
 
 	@ManyToOne((type) => UserEntity, (UserEntity) => UserEntity.articles)
 	@JoinColumn({ name: 'user_id' })
@@ -176,7 +183,7 @@ export class ArticleEntity extends BaseEntity {
 	}
 
 	public static async updateArticle(updateArticleDto: UpdateArticleDto, userId: number) {
-		const { article_id, title, content, summary, picture, tags, category_id, secret } = updateArticleDto;
+		const { article_id, title, content, summary, picture, tags, category_id, secret, level } = updateArticleDto;
 		return getConnection().transaction(async (transactionalEntityManager) => {
 			const article = await this.findOne({
 				where: {
@@ -204,6 +211,10 @@ export class ArticleEntity extends BaseEntity {
 				article.picture = picture;
 			}
 
+			if (level) {
+				article.level = level;
+			}
+
 			if (tags) {
 				const tagEntitys = await TagEntity.find({
 					where: {
@@ -227,6 +238,7 @@ export class ArticleEntity extends BaseEntity {
 				if (!category) {
 					throw new UserError('所选的分类不存在');
 				}
+				article.category_id = category_id;
 			}
 			if (content) {
 				await ArticleContentEntity.updateArticleContent(transactionalEntityManager, article_id, content);
@@ -312,6 +324,7 @@ export class ArticleEntity extends BaseEntity {
 				.where(condition)
 				.andWhere('tag.tag_id = :tag_id', { tag_id: tagId })
 				.orderBy({
+					'article.level': 'DESC',
 					[orderColumn]: 'DESC'
 				})
 				.take(size)
@@ -323,6 +336,7 @@ export class ArticleEntity extends BaseEntity {
 				.leftJoinAndSelect('article.category', 'category')
 				.where(condition)
 				.orderBy({
+					'article.level': 'DESC',
 					[orderColumn]: 'DESC'
 				})
 				.take(size)
