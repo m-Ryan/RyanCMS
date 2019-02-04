@@ -1,7 +1,7 @@
 @charset "UTF-8";
 @import './variable.scss';
 
-#loading-container {
+.loading-container {
   z-index: 999;
   position: fixed;
   top: 0;
@@ -16,7 +16,7 @@
   color: #fff;
 }
 
-#loading-container:after {
+.loading-container:after {
   content: '';
   height: 100%;
   vertical-align: middle;
