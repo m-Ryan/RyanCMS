@@ -4,24 +4,24 @@ self.__precacheManifest = [
     "url": "/static/js/runtime~main.5b47ec21.js"
   },
   {
-    "revision": "06b5af369ce201f3fb5e",
-    "url": "/static/css/main.ca8e67e0.chunk.css"
+    "revision": "bbef81cb8a69c1ef1596",
+    "url": "/static/css/main.2f58b389.chunk.css"
   },
   {
-    "revision": "8fed057c8d8d7e4b73e0",
-    "url": "/static/js/vendors.8fed057c.chunk.js"
+    "revision": "a30add13a90459792df5",
+    "url": "/static/js/vendors.a30add13.chunk.js"
   },
   {
     "revision": "fde004da4673562666c73cb0d3e5c9db",
     "url": "/static/media/welcome.fde004da.svg"
   },
   {
-    "revision": "e4f9a9c3add3895ca033",
-    "url": "/static/js/ant-design.e4f9a9c3.chunk.js"
+    "revision": "501dc5737a8debacd171",
+    "url": "/static/js/ant-design.501dc573.chunk.js"
   },
   {
-    "revision": "06b5af369ce201f3fb5e",
-    "url": "/static/js/main.06b5af36.chunk.js"
+    "revision": "bbef81cb8a69c1ef1596",
+    "url": "/static/js/main.bbef81cb.chunk.js"
   },
   {
     "revision": "e33471629415c521f7ab25608d016801",
@@ -36,11 +36,11 @@ self.__precacheManifest = [
     "url": "/static/media/no_found.8c382430.png"
   },
   {
-    "revision": "e4f9a9c3add3895ca033",
-    "url": "/static/css/ant-design.bd70b5b5.chunk.css"
+    "revision": "501dc5737a8debacd171",
+    "url": "/static/css/ant-design.db6fc9e4.chunk.css"
   },
   {
-    "revision": "2f03c16f92e7a0deb92fb4416cc21146",
+    "revision": "385d3e789f1431f274b42da1163a01d3",
     "url": "/index.html"
   }
 ];
