@@ -184,12 +184,14 @@ export class ArticleEntity extends BaseEntity {
 
 	public static async updateArticle(updateArticleDto: UpdateArticleDto, userId: number) {
 		const { article_id, title, content, summary, picture, tags, category_id, secret, level } = updateArticleDto;
+		const condition: any = {
+			article_id,
+			user_id: userId
+		}
+		
 		return getConnection().transaction(async (transactionalEntityManager) => {
 			const article = await this.findOne({
-				where: {
-					article_id,
-					user_id: userId
-				}
+				where: condition
 			});
 			if (!article) {
 				throw new UserError('文章不存在');
@@ -265,7 +267,6 @@ export class ArticleEntity extends BaseEntity {
 
 	public static async getArticle(articleId: number, userId: number, title: string, secret?: number) {
 		const condition: any = {
-			user_id: userId,
 			deleted_at: 0
 		};
 		if (_.isInteger(secret)) {
@@ -274,7 +275,10 @@ export class ArticleEntity extends BaseEntity {
 		if (!articleId && !title) {
 			throw new UserError('文章不存在');
 		}
-		if (articleId) {
+		if (userId) {
+			condition.user_id = userId;
+		}
+		if(articleId) {
 			condition.article_id = articleId;
 		}
 		if (title) {
