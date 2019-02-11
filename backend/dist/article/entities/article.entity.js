@@ -85,12 +85,13 @@ let ArticleEntity = ArticleEntity_1 = class ArticleEntity extends typeorm_1.Base
     static updateArticle(updateArticleDto, userId) {
         return __awaiter(this, void 0, void 0, function* () {
             const { article_id, title, content, summary, picture, tags, category_id, secret, level } = updateArticleDto;
+            const condition = {
+                article_id,
+                user_id: userId
+            };
             return typeorm_1.getConnection().transaction((transactionalEntityManager) => __awaiter(this, void 0, void 0, function* () {
                 const article = yield this.findOne({
-                    where: {
-                        article_id,
-                        user_id: userId
-                    }
+                    where: condition
                 });
                 if (!article) {
                     throw new userError_1.UserError('文章不存在');
@@ -161,7 +162,6 @@ let ArticleEntity = ArticleEntity_1 = class ArticleEntity extends typeorm_1.Base
     static getArticle(articleId, userId, title, secret) {
         return __awaiter(this, void 0, void 0, function* () {
             const condition = {
-                user_id: userId,
                 deleted_at: 0
             };
             if (lodash_1.default.isInteger(secret)) {
@@ -169,6 +169,9 @@ let ArticleEntity = ArticleEntity_1 = class ArticleEntity extends typeorm_1.Base
             }
             if (!articleId && !title) {
                 throw new userError_1.UserError('文章不存在');
+            }
+            if (userId) {
+                condition.user_id = userId;
             }
             if (articleId) {
                 condition.article_id = articleId;

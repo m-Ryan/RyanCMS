@@ -26,6 +26,7 @@ const create_article_dto_1 = require("../form/create_article.dto");
 const user_guard_1 = require("../../common/guards/user.guard");
 const update_article_dto_1 = require("../form/update_article.dto");
 const successResponse_1 = require("../../common/filters/successResponse");
+const userError_1 = require("../../common/filters/userError");
 let UserController = class UserController {
     constructor(articleService) {
         this.articleService = articleService;
@@ -46,6 +47,9 @@ let UserController = class UserController {
         });
     }
     getArticle(title, articleId, auth) {
+        if (!articleId && !title) {
+            throw new userError_1.UserError('文章不存在');
+        }
         return this.articleService.getArticle(auth.user_id, articleId, title);
     }
     getList(page, size, auth, categoryId, secret, tagId, order) {
