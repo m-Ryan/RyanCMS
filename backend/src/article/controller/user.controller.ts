@@ -16,6 +16,7 @@ import { UserGuard } from '../../common/guards/user.guard';
 import { Auth } from '../../common/interface/Auth';
 import { UpdateArticleDto } from '../form/update_article.dto';
 import { SuccessResponse } from '../../common/filters/successResponse';
+import { UserError } from '../../common/filters/userError';
 @Controller('article/user')
 @UseGuards(UserGuard)
 export class UserController {
@@ -47,6 +48,9 @@ export class UserController {
     @Query('article_id') articleId: number,
     @Headers('auth') auth: Auth,
   ) {
+    if (!articleId && !title) {
+			throw new UserError('文章不存在');
+		}
     return this.articleService.getArticle(auth.user_id, articleId, title);
   }
 
