@@ -4,34 +4,40 @@ import { UserEntity } from '../entities/user.entity';
 import { LoginDto } from '../form/login.dto';
 import { UpdateUserDto } from '../form/updateUser.dto';
 import { UserResumeEntity } from '../entities/user_resume.entity';
+import { UserThemeEntity } from '../entities/user_theme.entity';
+import { UpdateThemeDto } from '../form/updateTheme.dto';
 @Injectable()
 export class UserService {
-  constructor() {}
+	constructor() {}
 
-  register(registerDto: RegisterDto, userRank: number) {
-    return UserEntity.register(registerDto, userRank);
-  }
+	register(registerDto: RegisterDto, userRank: number) {
+		return UserEntity.register(registerDto, userRank);
+	}
 
-  getUser(userId: number) {
-    return UserEntity.getUser(userId);
-  }
+	getUser(userId: number) {
+		return UserEntity.getUser(userId);
+	}
 
-  getBaseInfo(nickname: string) {
-    return UserEntity.getBaseInfo(nickname);
-  }
+	getBaseInfo(nickname?: string, userId?: number) {
+		return UserEntity.getBaseInfo(nickname, userId);
+	}
 
-  login(loginDto: LoginDto) {
-    return UserEntity.login(loginDto);
-  }
+	login(loginDto: LoginDto) {
+		return UserEntity.login(loginDto);
+	}
 
-  updateUser(updateUserDto: UpdateUserDto, userId: number) {
-    return UserEntity.updateUser(updateUserDto, userId);
-  }
-  getResume(userId: number) {
-    return UserResumeEntity.getResume(userId);
-  }
+	updateUser(updateUserDto: UpdateUserDto, userId: number) {
+		return UserEntity.updateUser(updateUserDto, userId);
+	}
+	getResume(userId: number) {
+		return UserResumeEntity.getResume(userId);
+	}
 
-  updateResume(userId: number, content: string) {
-    return UserResumeEntity.updateResume(userId, content);
-  }
+	updateResume(userId: number, content: string) {
+		return UserResumeEntity.updateResume(userId, content);
+	}
+
+	updateTheme(userId: number, theme: UpdateThemeDto) {
+		return UserThemeEntity.updateTheme(userId, theme);
+	}
 }

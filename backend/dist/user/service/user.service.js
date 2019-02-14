@@ -12,6 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const common_1 = require("@nestjs/common");
 const user_entity_1 = require("../entities/user.entity");
 const user_resume_entity_1 = require("../entities/user_resume.entity");
+const user_theme_entity_1 = require("../entities/user_theme.entity");
 let UserService = class UserService {
     constructor() { }
     register(registerDto, userRank) {
@@ -20,8 +21,8 @@ let UserService = class UserService {
     getUser(userId) {
         return user_entity_1.UserEntity.getUser(userId);
     }
-    getBaseInfo(nickname) {
-        return user_entity_1.UserEntity.getBaseInfo(nickname);
+    getBaseInfo(nickname, userId) {
+        return user_entity_1.UserEntity.getBaseInfo(nickname, userId);
     }
     login(loginDto) {
         return user_entity_1.UserEntity.login(loginDto);
@@ -34,6 +35,9 @@ let UserService = class UserService {
     }
     updateResume(userId, content) {
         return user_resume_entity_1.UserResumeEntity.updateResume(userId, content);
+    }
+    updateTheme(userId, theme) {
+        return user_theme_entity_1.UserThemeEntity.updateTheme(userId, theme);
     }
 };
 UserService = __decorate([

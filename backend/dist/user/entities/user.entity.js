@@ -36,19 +36,17 @@ const article_entity_1 = require("../../article/entities/article.entity");
 const user_concat_entity_1 = require("./user_concat.entity");
 const category_entity_1 = require("../../category/entities/category.entity");
 const tag_entity_1 = require("../../tag/entities/tag.entity");
+const user_theme_entity_1 = require("./user_theme.entity");
 const key = 'cms_blog';
 let UserEntity = UserEntity_1 = class UserEntity extends typeorm_1.BaseEntity {
     static encodePassword(password) {
-        return crypto_1.default
-            .createHmac('sha256', key)
-            .update(password)
-            .digest('hex');
+        return crypto_1.default.createHmac('sha256', key).update(password).digest('hex');
     }
     static sign(userId, rank) {
         return jsonwebtoken_1.default.sign({
             user_id: userId,
             rank,
-            expiresIn: '7d',
+            expiresIn: '7d'
         }, key);
     }
     static verify(token) {
@@ -64,8 +62,8 @@ let UserEntity = UserEntity_1 = class UserEntity extends typeorm_1.BaseEntity {
             const user = yield this.findOne({
                 where: {
                     user_id: userId,
-                    deleted_at: 0,
-                },
+                    deleted_at: 0
+                }
             });
             if (!user) {
                 throw new userError_1.UserError('用户不存在');
@@ -77,13 +75,19 @@ let UserEntity = UserEntity_1 = class UserEntity extends typeorm_1.BaseEntity {
             return user;
         });
     }
-    static getBaseInfo(nickname) {
+    static getBaseInfo(nickname, userId) {
         return __awaiter(this, void 0, void 0, function* () {
+            const condition = {
+                deleted_at: 0
+            };
+            if (nickname) {
+                condition.nickname = nickname;
+            }
+            if (userId) {
+                condition.user_id = userId;
+            }
             const user = yield this.findOne({
-                where: {
-                    nickname,
-                    deleted_at: 0,
-                },
+                where: condition
             });
             if (!user) {
                 throw new userError_1.UserError('用户不存在');
@@ -94,16 +98,16 @@ let UserEntity = UserEntity_1 = class UserEntity extends typeorm_1.BaseEntity {
     static hasRegisterNickname(nickname) {
         return this.count({
             where: {
-                nickname,
-            },
+                nickname
+            }
         });
     }
     static hasRegisterPhone(phone) {
         if (phone) {
             return this.count({
                 where: {
-                    phone,
-                },
+                    phone
+                }
             });
         }
     }
@@ -136,12 +140,15 @@ let UserEntity = UserEntity_1 = class UserEntity extends typeorm_1.BaseEntity {
                 const resume = new user_resume_entity_1.UserResumeEntity();
                 resume.user = user;
                 yield transactionalEntityManager.save(resume);
+                const theme = new user_theme_entity_1.UserThemeEntity();
+                theme.user = user;
+                yield transactionalEntityManager.save(theme);
+                user.theme = theme;
                 const comment = new comment_entity_1.CommentEntity();
                 comment.blogger_id = user.user_id;
                 yield transactionalEntityManager.save(comment);
                 const category = new category_entity_1.CategoryEntity();
-                category.picture =
-                    'http://assets.maocanhua.cn/Fi-dy45B8oqzE5_spxwT2nSila14';
+                category.picture = 'http://assets.maocanhua.cn/Fi-dy45B8oqzE5_spxwT2nSila14';
                 category.desc = '原创';
                 category.name = '原创';
                 category.user_id = user.user_id;
@@ -167,16 +174,16 @@ let UserEntity = UserEntity_1 = class UserEntity extends typeorm_1.BaseEntity {
             const isExist = yield user_password_entity_1.UserPasswordEntity.findOne({
                 where: {
                     phone,
-                    password: this.encodePassword(password),
-                },
+                    password: this.encodePassword(password)
+                }
             });
             if (!isExist) {
                 throw new userError_1.UserError('密码错误');
             }
             const user = yield this.findOne({
                 where: {
-                    phone,
-                },
+                    phone
+                }
             });
             if (!user) {
                 throw new userError_1.UserError('用户不存在');
@@ -193,12 +200,12 @@ let UserEntity = UserEntity_1 = class UserEntity extends typeorm_1.BaseEntity {
     }
     static updateUser(updateUserDto, userId) {
         return __awaiter(this, void 0, void 0, function* () {
-            const { nickname, phone, password, sex, intro, avatar, github, email, weibo, zhihu, } = updateUserDto;
+            const { nickname, phone, password, sex, intro, avatar, github, email, weibo, zhihu } = updateUserDto;
             const user = yield this.findOne({
                 where: {
                     user_id: userId,
-                    deleted_at: 0,
-                },
+                    deleted_at: 0
+                }
             });
             if (!user) {
                 throw new userError_1.UserError('没有此用户');
@@ -229,7 +236,7 @@ let UserEntity = UserEntity_1 = class UserEntity extends typeorm_1.BaseEntity {
                 user.intro = intro;
             }
             const concat = yield user_concat_entity_1.UserConcatEntity.findOne({
-                where: { user_id: userId },
+                where: { user_id: userId }
             });
             if (!concat) {
                 throw new userError_1.UserError('用户信息有误');
@@ -252,7 +259,7 @@ let UserEntity = UserEntity_1 = class UserEntity extends typeorm_1.BaseEntity {
                         throw new userError_1.UserError('密码格式错误');
                     }
                     const userPassword = yield user_password_entity_1.UserPasswordEntity.findOne({
-                        where: { user_id: userId },
+                        where: { user_id: userId }
                     });
                     if (!userPassword) {
                         throw new userError_1.UserError('用户信息有误');
@@ -276,7 +283,7 @@ __decorate([
     typeorm_1.Column({
         type: 'varchar',
         length: 20,
-        default: '',
+        default: ''
     }),
     __metadata("design:type", String)
 ], UserEntity.prototype, "nickname", void 0);
@@ -284,7 +291,7 @@ __decorate([
     typeorm_1.Column({
         type: 'varchar',
         length: 11,
-        default: '',
+        default: ''
     }),
     __metadata("design:type", String)
 ], UserEntity.prototype, "phone", void 0);
@@ -292,7 +299,7 @@ __decorate([
     typeorm_1.Column({
         type: 'varchar',
         length: 200,
-        default: 'http://assets.maocanhua.cn/FlYNsz6pq2voMT4z0citFEuFa-lc',
+        default: 'http://assets.maocanhua.cn/FlYNsz6pq2voMT4z0citFEuFa-lc'
     }),
     __metadata("design:type", String)
 ], UserEntity.prototype, "avatar", void 0);
@@ -300,50 +307,42 @@ __decorate([
     typeorm_1.Column({
         type: 'varchar',
         length: 200,
-        default: '',
+        default: ''
     }),
     __metadata("design:type", String)
 ], UserEntity.prototype, "intro", void 0);
 __decorate([
     typeorm_1.Column({
         type: 'smallint',
-        default: 1,
+        default: 1
     }),
     __metadata("design:type", Number)
 ], UserEntity.prototype, "sex", void 0);
 __decorate([
     typeorm_1.Column({
         type: 'smallint',
-        default: 1,
+        default: 1
     }),
     __metadata("design:type", Number)
 ], UserEntity.prototype, "rank", void 0);
 __decorate([
     typeorm_1.Column({
-        type: 'varchar',
-        length: 40,
-        default: 'Ryan',
-    }),
-    __metadata("design:type", String)
-], UserEntity.prototype, "theme", void 0);
-__decorate([
-    typeorm_1.Column({
         type: 'int',
-        default: 0,
+        default: 0
     }),
     __metadata("design:type", Number)
 ], UserEntity.prototype, "created_at", void 0);
 __decorate([
     typeorm_1.Column({
         type: 'int',
-        default: 0,
+        default: 0
     }),
     __metadata("design:type", Number)
 ], UserEntity.prototype, "updated_at", void 0);
 __decorate([
     typeorm_1.Column({
         type: 'int',
-        default: 0,
+        default: 0
     }),
     __metadata("design:type", Number)
 ], UserEntity.prototype, "last_login", void 0);
@@ -352,39 +351,43 @@ __decorate([
         type: 'varchar',
         length: 255,
         default: '',
-        select: false,
+        select: false
     }),
     __metadata("design:type", String)
 ], UserEntity.prototype, "token", void 0);
 __decorate([
     typeorm_1.Column({
         type: 'int',
-        default: 0,
+        default: 0
     }),
     __metadata("design:type", Number)
 ], UserEntity.prototype, "deleted_at", void 0);
 __decorate([
-    typeorm_1.OneToOne(type => user_password_entity_1.UserPasswordEntity, UserPasswordEntity => UserPasswordEntity.user),
+    typeorm_1.OneToOne((type) => user_password_entity_1.UserPasswordEntity, (UserPasswordEntity) => UserPasswordEntity.user),
     __metadata("design:type", user_password_entity_1.UserPasswordEntity)
 ], UserEntity.prototype, "password", void 0);
 __decorate([
-    typeorm_1.OneToOne(type => user_concat_entity_1.UserConcatEntity, UserConcatEntity => UserConcatEntity.user, { eager: true }),
+    typeorm_1.OneToOne((type) => user_concat_entity_1.UserConcatEntity, (UserConcatEntity) => UserConcatEntity.user, { eager: true }),
     __metadata("design:type", user_concat_entity_1.UserConcatEntity)
 ], UserEntity.prototype, "concat", void 0);
 __decorate([
-    typeorm_1.OneToOne(type => user_resume_entity_1.UserResumeEntity, UserResumeEntity => UserResumeEntity.user),
+    typeorm_1.OneToOne((type) => user_resume_entity_1.UserResumeEntity, (UserResumeEntity) => UserResumeEntity.user),
     __metadata("design:type", user_resume_entity_1.UserResumeEntity)
 ], UserEntity.prototype, "resume", void 0);
 __decorate([
-    typeorm_1.OneToMany(type => message_entity_1.MessageEntity, MessageEntity => MessageEntity.user),
+    typeorm_1.OneToOne((type) => user_theme_entity_1.UserThemeEntity, (UserThemeEntity) => UserThemeEntity.user, { eager: true }),
+    __metadata("design:type", user_theme_entity_1.UserThemeEntity)
+], UserEntity.prototype, "theme", void 0);
+__decorate([
+    typeorm_1.OneToMany((type) => message_entity_1.MessageEntity, (MessageEntity) => MessageEntity.user),
     __metadata("design:type", Array)
 ], UserEntity.prototype, "messages", void 0);
 __decorate([
-    typeorm_1.OneToMany(type => replace_entity_1.ReplayEntity, ReplayEntity => ReplayEntity.user),
+    typeorm_1.OneToMany((type) => replace_entity_1.ReplayEntity, (ReplayEntity) => ReplayEntity.user),
     __metadata("design:type", Array)
 ], UserEntity.prototype, "replays", void 0);
 __decorate([
-    typeorm_1.OneToMany(type => article_entity_1.ArticleEntity, ArticleEntity => ArticleEntity.user),
+    typeorm_1.OneToMany((type) => article_entity_1.ArticleEntity, (ArticleEntity) => ArticleEntity.user),
     __metadata("design:type", Array)
 ], UserEntity.prototype, "articles", void 0);
 UserEntity = UserEntity_1 = __decorate([

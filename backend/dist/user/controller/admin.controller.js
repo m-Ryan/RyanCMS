@@ -23,6 +23,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const common_1 = require("@nestjs/common");
 const user_service_1 = require("../service/user.service");
 const register_dto_1 = require("../form/register.dto");
+const admin_guard_1 = require("../../common/guards/admin.guard");
 const User_1 = require("../../common/constant/User");
 let AdminController = class AdminController {
     constructor(userService) {
@@ -45,6 +46,7 @@ __decorate([
 ], AdminController.prototype, "register", null);
 AdminController = __decorate([
     common_1.Controller('admin'),
+    common_1.UseGuards(admin_guard_1.AdminGuard),
     __metadata("design:paramtypes", [user_service_1.UserService])
 ], AdminController);
 exports.AdminController = AdminController;

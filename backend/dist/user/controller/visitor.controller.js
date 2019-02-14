@@ -25,6 +25,7 @@ const user_service_1 = require("../service/user.service");
 const register_dto_1 = require("../form/register.dto");
 const login_dto_1 = require("../form/login.dto");
 const User_1 = require("../../common/constant/User");
+const userError_1 = require("../../common/filters/userError");
 let VisitorController = class VisitorController {
     constructor(userService) {
         this.userService = userService;
@@ -43,9 +44,12 @@ let VisitorController = class VisitorController {
             return this.userService.login(loginDto);
         });
     }
-    getBaseInfo(nickname) {
+    getBaseInfo(nickname, userId) {
         return __awaiter(this, void 0, void 0, function* () {
-            return this.userService.getBaseInfo(nickname);
+            if (!nickname && !userId) {
+                throw new userError_1.UserError('bad request');
+            }
+            return this.userService.getBaseInfo(nickname, userId);
         });
     }
     getResume(userId) {
@@ -70,9 +74,9 @@ __decorate([
 ], VisitorController.prototype, "login", null);
 __decorate([
     common_1.Get('/base_info'),
-    __param(0, common_1.Query('nickname')),
+    __param(0, common_1.Query('nickname')), __param(1, common_1.Query('user_id')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String]),
+    __metadata("design:paramtypes", [String, Number]),
     __metadata("design:returntype", Promise)
 ], VisitorController.prototype, "getBaseInfo", null);
 __decorate([

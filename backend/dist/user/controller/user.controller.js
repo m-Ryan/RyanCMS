@@ -25,6 +25,7 @@ const user_service_1 = require("../service/user.service");
 const user_guard_1 = require("../../common/guards/user.guard");
 const updateUser_dto_1 = require("../form/updateUser.dto");
 const successResponse_1 = require("../../common/filters/successResponse");
+const updateTheme_dto_1 = require("../form/updateTheme.dto");
 let UserController = class UserController {
     constructor(userService) {
         this.userService = userService;
@@ -53,12 +54,20 @@ let UserController = class UserController {
             return successResponse_1.SuccessResponse;
         });
     }
+    updateTheme(auth, updateThemeDto) {
+        return __awaiter(this, void 0, void 0, function* () {
+            console.log(updateThemeDto);
+            const data = new updateTheme_dto_1.UpdateThemeDto(updateThemeDto);
+            yield data.validate();
+            yield this.userService.updateTheme(auth.user_id, data);
+            return successResponse_1.SuccessResponse;
+        });
+    }
 };
 __decorate([
     common_1.UseGuards(user_guard_1.UserGuard),
     common_1.Post('/update'),
-    __param(0, common_1.Body()),
-    __param(1, common_1.Headers('auth')),
+    __param(0, common_1.Body()), __param(1, common_1.Headers('auth')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [updateUser_dto_1.UpdateUserDto, Object]),
     __metadata("design:returntype", Promise)
@@ -82,12 +91,19 @@ __decorate([
 __decorate([
     common_1.UseGuards(user_guard_1.UserGuard),
     common_1.Post('/update-resume'),
-    __param(0, common_1.Headers('auth')),
-    __param(1, common_1.Body('content')),
+    __param(0, common_1.Headers('auth')), __param(1, common_1.Body('content')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object, String]),
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "updateResume", null);
+__decorate([
+    common_1.UseGuards(user_guard_1.UserGuard),
+    common_1.Post('/update-theme'),
+    __param(0, common_1.Headers('auth')), __param(1, common_1.Body()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, updateTheme_dto_1.UpdateThemeDto]),
+    __metadata("design:returntype", Promise)
+], UserController.prototype, "updateTheme", null);
 UserController = __decorate([
     common_1.Controller('user/user'),
     common_1.UseGuards(user_guard_1.UserGuard),

@@ -8,6 +8,7 @@ import { MessageEntity } from '../../comment/entities/message.entity';
 import { ReplayEntity } from '../../comment/entities/replace.entity';
 import { ArticleEntity } from '../../article/entities/article.entity';
 import { UserConcatEntity } from './user_concat.entity';
+import { UserThemeEntity } from './user_theme.entity';
 export declare class UserEntity extends BaseEntity {
     user_id: number;
     nickname: string;
@@ -16,7 +17,6 @@ export declare class UserEntity extends BaseEntity {
     intro: string;
     sex: number;
     rank: number;
-    theme: string;
     created_at: number;
     updated_at: number;
     last_login: number;
@@ -25,6 +25,7 @@ export declare class UserEntity extends BaseEntity {
     password: UserPasswordEntity;
     concat: UserConcatEntity;
     resume: UserResumeEntity;
+    theme: UserThemeEntity;
     messages: MessageEntity[];
     replays: ReplayEntity[];
     articles: ArticleEntity[];
@@ -32,7 +33,7 @@ export declare class UserEntity extends BaseEntity {
     static sign(userId: number, rank: number): string;
     static verify(token: string): string | object;
     static getUser(userId: number): Promise<UserEntity>;
-    static getBaseInfo(nickname: string): Promise<UserEntity>;
+    static getBaseInfo(nickname?: string, userId?: number): Promise<UserEntity>;
     static hasRegisterNickname(nickname: string): Promise<number>;
     static hasRegisterPhone(phone: string): Promise<number>;
     static register(registerDto: RegisterDto, userRank: number): Promise<UserEntity>;
