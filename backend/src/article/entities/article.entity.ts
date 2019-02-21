@@ -187,8 +187,8 @@ export class ArticleEntity extends BaseEntity {
 		const condition: any = {
 			article_id,
 			user_id: userId
-		}
-		
+		};
+
 		return getConnection().transaction(async (transactionalEntityManager) => {
 			const article = await this.findOne({
 				where: condition
@@ -278,7 +278,7 @@ export class ArticleEntity extends BaseEntity {
 		if (userId) {
 			condition.user_id = userId;
 		}
-		if(articleId) {
+		if (articleId) {
 			condition.article_id = articleId;
 		}
 		if (title) {

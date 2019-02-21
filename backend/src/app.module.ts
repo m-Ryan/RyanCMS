@@ -8,24 +8,28 @@ import { UploadModule } from './upload/upload.module';
 import { CommentModule } from './comment/comment.module';
 import { CommonModule } from './common/common.module';
 import { UserAuthorizeMiddleware } from './common/middlewares/user.authorize.middleware';
+import { AlbumModule } from './album/album.module';
+import { NoticeModule } from './notice/notice.module';
 
 const file = process.cwd() + '/config/ormconfig.json';
 const ormConfig = require(file);
 
 @Module({
-  imports: [
-    TypeOrmModule.forRoot(ormConfig as any),
-    CommonModule,
-    UserModule,
-    TagModule,
-    ArticleModule,
-    CategoryModule,
-    UploadModule,
-    CommentModule,
-  ],
+	imports: [
+		TypeOrmModule.forRoot(ormConfig as any),
+		CommonModule,
+		UserModule,
+		TagModule,
+		ArticleModule,
+		CategoryModule,
+		UploadModule,
+		AlbumModule,
+		NoticeModule,
+		CommentModule
+	]
 })
 export class AppModule {
-  configure(consumer: MiddlewareConsumer) {
-    consumer.apply(UserAuthorizeMiddleware).forRoutes('');
-  }
+	configure(consumer: MiddlewareConsumer) {
+		consumer.apply(UserAuthorizeMiddleware).forRoutes('');
+	}
 }

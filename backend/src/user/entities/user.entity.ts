@@ -27,6 +27,7 @@ import { UserConcatEntity } from './user_concat.entity';
 import { CategoryEntity } from '../../category/entities/category.entity';
 import { TagEntity } from '../../tag/entities/tag.entity';
 import { UserThemeEntity } from './user_theme.entity';
+import { AlbumEntity } from '../../album/entities/album.entity';
 const key = 'cms_blog';
 @Entity('user')
 export class UserEntity extends BaseEntity {
@@ -118,6 +119,9 @@ export class UserEntity extends BaseEntity {
 
 	@OneToMany((type) => MessageEntity, (MessageEntity) => MessageEntity.user)
 	messages: MessageEntity[];
+
+	@OneToMany((type) => AlbumEntity, (AlbumEntity) => AlbumEntity.user)
+	albums: AlbumEntity[];
 
 	@OneToMany((type) => ReplayEntity, (ReplayEntity) => ReplayEntity.user)
 	replays: ReplayEntity[];

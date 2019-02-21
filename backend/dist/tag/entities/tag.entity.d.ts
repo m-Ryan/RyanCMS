@@ -9,7 +9,7 @@ export declare class TagEntity extends BaseEntity {
     desc: string;
     created_at: number;
     user_id: number;
-    update_at: number;
+    updated_at: number;
     deleted_at: number;
     articles: ArticleEntity[];
     static checkExist(name: string, userId: number): Promise<TagEntity>;

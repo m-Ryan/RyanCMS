@@ -47,7 +47,7 @@ export class TagEntity extends BaseEntity {
 		type: 'int',
 		default: 0
 	})
-	update_at: number;
+	updated_at: number;
 
 	@Column({
 		type: 'int',
@@ -62,7 +62,8 @@ export class TagEntity extends BaseEntity {
 		const existTag = await this.findOne({
 			where: {
 				name,
-				user_id: userId
+				user_id: userId,
+				deleted_at: 0
 			}
 		});
 		return existTag;
@@ -109,7 +110,7 @@ export class TagEntity extends BaseEntity {
 		if (desc) {
 			tag.desc = desc;
 		}
-		tag.update_at = dayjs().unix();
+		tag.updated_at = dayjs().unix();
 		return this.save(tag);
 	}
 

@@ -79,7 +79,7 @@ let TagEntity = TagEntity_1 = class TagEntity extends typeorm_1.BaseEntity {
             if (desc) {
                 tag.desc = desc;
             }
-            tag.update_at = dayjs_1.default().unix();
+            tag.updated_at = dayjs_1.default().unix();
             return this.save(tag);
         });
     }
@@ -190,7 +190,7 @@ __decorate([
         default: 0
     }),
     __metadata("design:type", Number)
-], TagEntity.prototype, "update_at", void 0);
+], TagEntity.prototype, "updated_at", void 0);
 __decorate([
     typeorm_1.Column({
         type: 'int',

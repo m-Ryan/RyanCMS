@@ -83,7 +83,7 @@ let CategoryEntity = CategoryEntity_1 = class CategoryEntity extends typeorm_1.B
             if (desc) {
                 category.desc = desc;
             }
-            category.update_at = dayjs_1.default().unix();
+            category.updated_at = dayjs_1.default().unix();
             return this.save(category);
         });
     }
@@ -173,7 +173,7 @@ __decorate([
         default: 0,
     }),
     __metadata("design:type", Number)
-], CategoryEntity.prototype, "update_at", void 0);
+], CategoryEntity.prototype, "updated_at", void 0);
 __decorate([
     typeorm_1.Column({
         type: 'int',
