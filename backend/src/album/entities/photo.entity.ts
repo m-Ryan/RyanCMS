@@ -110,7 +110,7 @@ export class PhototEntity extends BaseEntity {
 	public static deletePhotos(photoIds: number[], userId: number) {
 		return this.update(
 			{
-				photo_id: In(photoIds),
+				photo_id: In(photoIds) as any,
 				user_id: userId,
 				deleted_at: 0
 			},

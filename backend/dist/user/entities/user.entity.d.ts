@@ -9,6 +9,7 @@ import { ReplayEntity } from '../../comment/entities/replace.entity';
 import { ArticleEntity } from '../../article/entities/article.entity';
 import { UserConcatEntity } from './user_concat.entity';
 import { UserThemeEntity } from './user_theme.entity';
+import { AlbumEntity } from '../../album/entities/album.entity';
 export declare class UserEntity extends BaseEntity {
     user_id: number;
     nickname: string;
@@ -27,6 +28,7 @@ export declare class UserEntity extends BaseEntity {
     resume: UserResumeEntity;
     theme: UserThemeEntity;
     messages: MessageEntity[];
+    albums: AlbumEntity[];
     replays: ReplayEntity[];
     articles: ArticleEntity[];
     static encodePassword(password: string): string;

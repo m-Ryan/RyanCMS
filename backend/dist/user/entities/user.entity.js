@@ -37,6 +37,7 @@ const user_concat_entity_1 = require("./user_concat.entity");
 const category_entity_1 = require("../../category/entities/category.entity");
 const tag_entity_1 = require("../../tag/entities/tag.entity");
 const user_theme_entity_1 = require("./user_theme.entity");
+const album_entity_1 = require("../../album/entities/album.entity");
 const key = 'cms_blog';
 let UserEntity = UserEntity_1 = class UserEntity extends typeorm_1.BaseEntity {
     static encodePassword(password) {
@@ -382,6 +383,10 @@ __decorate([
     typeorm_1.OneToMany((type) => message_entity_1.MessageEntity, (MessageEntity) => MessageEntity.user),
     __metadata("design:type", Array)
 ], UserEntity.prototype, "messages", void 0);
+__decorate([
+    typeorm_1.OneToMany((type) => album_entity_1.AlbumEntity, (AlbumEntity) => AlbumEntity.user),
+    __metadata("design:type", Array)
+], UserEntity.prototype, "albums", void 0);
 __decorate([
     typeorm_1.OneToMany((type) => replace_entity_1.ReplayEntity, (ReplayEntity) => ReplayEntity.user),
     __metadata("design:type", Array)

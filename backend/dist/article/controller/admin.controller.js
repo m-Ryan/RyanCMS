@@ -30,9 +30,7 @@ let AdminController = class AdminController {
 };
 __decorate([
     common_1.Get('detail'),
-    __param(0, common_1.Query('title')),
-    __param(1, common_1.Query('article_id')),
-    __param(2, common_1.Headers('auth')),
+    __param(0, common_1.Query('title')), __param(1, common_1.Query('article_id')), __param(2, common_1.Headers('auth')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String, Number, Object]),
     __metadata("design:returntype", void 0)

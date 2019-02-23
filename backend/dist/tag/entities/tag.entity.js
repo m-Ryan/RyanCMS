@@ -31,7 +31,8 @@ let TagEntity = TagEntity_1 = class TagEntity extends typeorm_1.BaseEntity {
             const existTag = yield this.findOne({
                 where: {
                     name,
-                    user_id: userId
+                    user_id: userId,
+                    deleted_at: 0
                 }
             });
             return existTag;

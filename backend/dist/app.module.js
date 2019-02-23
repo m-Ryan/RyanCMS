@@ -16,6 +16,9 @@ const upload_module_1 = require("./upload/upload.module");
 const comment_module_1 = require("./comment/comment.module");
 const common_module_1 = require("./common/common.module");
 const user_authorize_middleware_1 = require("./common/middlewares/user.authorize.middleware");
+const album_module_1 = require("./album/album.module");
+const notice_module_1 = require("./notice/notice.module");
+const map_module_1 = require("./map/map.module");
 const file = process.cwd() + '/config/ormconfig.json';
 const ormConfig = require(file);
 let AppModule = class AppModule {
@@ -33,8 +36,11 @@ AppModule = __decorate([
             article_module_1.ArticleModule,
             category_module_1.CategoryModule,
             upload_module_1.UploadModule,
-            comment_module_1.CommentModule,
-        ],
+            album_module_1.AlbumModule,
+            notice_module_1.NoticeModule,
+            map_module_1.MapModule,
+            comment_module_1.CommentModule
+        ]
     })
 ], AppModule);
 exports.AppModule = AppModule;

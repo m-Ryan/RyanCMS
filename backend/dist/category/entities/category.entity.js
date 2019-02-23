@@ -32,7 +32,8 @@ let CategoryEntity = CategoryEntity_1 = class CategoryEntity extends typeorm_1.B
                 where: {
                     name,
                     user_id: userId,
-                },
+                    deleted_at: 0
+                }
             });
             return existCategory;
         });
@@ -64,9 +65,9 @@ let CategoryEntity = CategoryEntity_1 = class CategoryEntity extends typeorm_1.B
                 where: {
                     category_id,
                     deleted_at: 0,
-                    user_id: userId,
+                    user_id: userId
                 },
-                relations: ['articles'],
+                relations: ['articles']
             });
             if (!category) {
                 throw new userError_1.UserError('分类不存在');
@@ -93,8 +94,8 @@ let CategoryEntity = CategoryEntity_1 = class CategoryEntity extends typeorm_1.B
                 where: {
                     category_id: categoryId,
                     deleted_at: 0,
-                    user_id: userId,
-                },
+                    user_id: userId
+                }
             });
             if (!category) {
                 throw new userError_1.UserError('分类不存在');
@@ -105,7 +106,7 @@ let CategoryEntity = CategoryEntity_1 = class CategoryEntity extends typeorm_1.B
     static getList(page, size, userId) {
         return __awaiter(this, void 0, void 0, function* () {
             const condition = {
-                deleted_at: 0,
+                deleted_at: 0
             };
             if (userId) {
                 condition.user_id = userId;
@@ -115,12 +116,12 @@ let CategoryEntity = CategoryEntity_1 = class CategoryEntity extends typeorm_1.B
                 skip: (page - 1) * size,
                 take: size,
                 order: {
-                    name: 'ASC',
-                },
+                    name: 'ASC'
+                }
             });
             return {
                 list: result[0],
-                count: result[1],
+                count: result[1]
             };
         });
     }
@@ -133,7 +134,7 @@ __decorate([
     typeorm_1.Column({
         type: 'varchar',
         length: 20,
-        default: '',
+        default: ''
     }),
     __metadata("design:type", String)
 ], CategoryEntity.prototype, "name", void 0);
@@ -141,7 +142,7 @@ __decorate([
     typeorm_1.Column({
         type: 'varchar',
         length: 255,
-        default: '',
+        default: ''
     }),
     __metadata("design:type", String)
 ], CategoryEntity.prototype, "picture", void 0);
@@ -149,40 +150,40 @@ __decorate([
     typeorm_1.Column({
         type: 'varchar',
         length: 255,
-        default: '',
+        default: ''
     }),
     __metadata("design:type", String)
 ], CategoryEntity.prototype, "desc", void 0);
 __decorate([
     typeorm_1.Column({
         type: 'int',
-        default: 0,
+        default: 0
     }),
     __metadata("design:type", Number)
 ], CategoryEntity.prototype, "created_at", void 0);
 __decorate([
     typeorm_1.Column({
         type: 'int',
-        default: 0,
+        default: 0
     }),
     __metadata("design:type", Number)
 ], CategoryEntity.prototype, "user_id", void 0);
 __decorate([
     typeorm_1.Column({
         type: 'int',
-        default: 0,
+        default: 0
     }),
     __metadata("design:type", Number)
 ], CategoryEntity.prototype, "updated_at", void 0);
 __decorate([
     typeorm_1.Column({
         type: 'int',
-        default: 0,
+        default: 0
     }),
     __metadata("design:type", Number)
 ], CategoryEntity.prototype, "deleted_at", void 0);
 __decorate([
-    typeorm_1.OneToMany(type => article_entity_1.ArticleEntity, ArticleEntity => ArticleEntity.category),
+    typeorm_1.OneToMany((type) => article_entity_1.ArticleEntity, (ArticleEntity) => ArticleEntity.category),
     __metadata("design:type", Array)
 ], CategoryEntity.prototype, "articles", void 0);
 CategoryEntity = CategoryEntity_1 = __decorate([
