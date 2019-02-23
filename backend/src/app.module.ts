@@ -10,6 +10,7 @@ import { CommonModule } from './common/common.module';
 import { UserAuthorizeMiddleware } from './common/middlewares/user.authorize.middleware';
 import { AlbumModule } from './album/album.module';
 import { NoticeModule } from './notice/notice.module';
+import { MapModule } from './map/map.module';
 
 const file = process.cwd() + '/config/ormconfig.json';
 const ormConfig = require(file);
@@ -25,6 +26,7 @@ const ormConfig = require(file);
 		UploadModule,
 		AlbumModule,
 		NoticeModule,
+		MapModule,
 		CommentModule
 	]
 })
