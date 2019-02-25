@@ -4,24 +4,24 @@ self.__precacheManifest = [
     "url": "/static/js/runtime~main.5b47ec21.js"
   },
   {
-    "revision": "d488489a886e7e4eac70",
-    "url": "/static/css/main.2f58b389.chunk.css"
+    "revision": "d3b3eebd922f4206b832",
+    "url": "/static/css/main.1cee6842.chunk.css"
   },
   {
-    "revision": "50ad09146ef3e93aaed3",
-    "url": "/static/js/vendors.50ad0914.chunk.js"
+    "revision": "8fd6d7cec3be66904e8e",
+    "url": "/static/js/vendors.8fd6d7ce.chunk.js"
   },
   {
     "revision": "fde004da4673562666c73cb0d3e5c9db",
     "url": "/static/media/welcome.fde004da.svg"
   },
   {
-    "revision": "f3807ac8367184436a53",
-    "url": "/static/js/ant-design.f3807ac8.chunk.js"
+    "revision": "adb9f42ac6b25e9428a8",
+    "url": "/static/js/ant-design.adb9f42a.chunk.js"
   },
   {
-    "revision": "d488489a886e7e4eac70",
-    "url": "/static/js/main.d488489a.chunk.js"
+    "revision": "d3b3eebd922f4206b832",
+    "url": "/static/js/main.d3b3eebd.chunk.js"
   },
   {
     "revision": "e33471629415c521f7ab25608d016801",
@@ -36,11 +36,11 @@ self.__precacheManifest = [
     "url": "/static/media/no_found.8c382430.png"
   },
   {
-    "revision": "f3807ac8367184436a53",
-    "url": "/static/css/ant-design.db6fc9e4.chunk.css"
+    "revision": "adb9f42ac6b25e9428a8",
+    "url": "/static/css/ant-design.fde3d22f.chunk.css"
   },
   {
-    "revision": "79e3ac485b8c22596a2a7974c8146bf0",
+    "revision": "eba40a2767e1e8ff3ed20b2adbbda712",
     "url": "/index.html"
   }
 ];
