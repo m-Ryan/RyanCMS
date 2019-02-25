@@ -17,6 +17,7 @@ import { TagResponse } from '../../../../services/tag';
 import { CategoryResponse } from '../../../../services/category';
 import CustomImageUpload from '../../../../components/CustomImageUpload/CustomImageUpload';
 import { CustomLoading } from '../../../../components/CustomLoading/CustomLoading';
+import { unescapeHTML } from '../../../../util/escape';
 
 const InputGroup = Input.Group;
 const TextArea = Input.TextArea;
@@ -91,6 +92,7 @@ export default class ArticleEditor extends React.Component<Props, State> {
 			user_id: user.user_id,
 			article_id: articleId
 		});
+		result.content.content = unescapeHTML(result.content.content);
 		this.setState({
 			formData: result
 		});
