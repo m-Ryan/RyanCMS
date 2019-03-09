@@ -1,11 +1,11 @@
-import { Icon, Drawer, message } from 'antd';
+import { Icon, Drawer, message, Popover } from 'antd';
 import React from 'react';
 import styles from './CustomEditor.module.scss';
 import ReactMarkdown from 'react-markdown';
 import LightCode from '../LightCode/LightCode';
 import CustomUpload from '../CustomUpload/CustomUpload';
 import { RcFile } from 'antd/lib/upload/interface';
-
+import { GithubPicker, ColorResult } from 'react-color';
 interface ToolOption {
 	name: string;
 	icon: React.ReactNode;
@@ -150,6 +150,29 @@ export default class CustomEditor extends React.Component<Props, State> {
 		return attributes;
 	}
 
+	setFontColor = async (colorResult: ColorResult) => {
+		const { beginPos, endPos, value, instance } = this.getEditorInstance();
+		const { onChange } = this.props;
+		const listText = `<span style="color: ${colorResult.hex}">\n${value.slice(beginPos, endPos)}\n</span>`;
+		const newValue = value.slice(0, beginPos) + listText + value.slice(endPos);
+		await onChange(newValue);
+		instance.focus();
+		instance.setSelectionRange(newValue.length, newValue.length);
+	};
+
+	setBgColor = async (colorResult: ColorResult) => {
+		const { beginPos, endPos, value, instance } = this.getEditorInstance();
+		const { onChange } = this.props;
+		const listText = `<span style="background-color: ${colorResult.hex}">\n${value.slice(
+			beginPos,
+			endPos
+		)}\n</span>`;
+		const newValue = value.slice(0, beginPos) + listText + value.slice(endPos);
+		await onChange(newValue);
+		instance.focus();
+		instance.setSelectionRange(newValue.length, newValue.length);
+	};
+
 	getTools() {}
 
 	public render() {
@@ -165,6 +188,28 @@ export default class CustomEditor extends React.Component<Props, State> {
 				name: 'italic',
 				icon: <Icon type="italic" />,
 				method: this.setItalic
+			},
+			{
+				name: 'font-colors',
+				icon: (
+					<Popover
+						content={<GithubPicker onChangeComplete={this.setFontColor} />}
+						title={null}
+						trigger="click"
+					>
+						<Icon type="font-colors" />
+					</Popover>
+				),
+				method: () => {}
+			},
+			{
+				name: 'bg-colors',
+				icon: (
+					<Popover content={<GithubPicker onChangeComplete={this.setBgColor} />} title={null} trigger="click">
+						<Icon type="bg-colors" />
+					</Popover>
+				),
+				method: () => {}
 			},
 			{
 				name: 'link',
@@ -223,7 +268,7 @@ export default class CustomEditor extends React.Component<Props, State> {
 					)}
 				</div>
 				<div className={styles['editor-container']}>
-					<div className={styles['editor-textarea-wrap']}>
+					<div className={`${styles['editor-textarea-wrap']} ${fullScreen ? ' hidden-sm hidden-xs' : ''}`}>
 						<textarea
 							placeholder={placeholder}
 							className={styles['editor-textarea']}
@@ -233,7 +278,7 @@ export default class CustomEditor extends React.Component<Props, State> {
 						/>
 					</div>
 					<ReactMarkdown
-						className={`${styles['editor-view']} ry-table`}
+						className={`${styles['editor-view']} ry-table ${fullScreen ? '' : ' hidden-sm hidden-xs'}`}
 						source={value}
 						renderers={{ code: LightCode as any }}
 						escapeHtml={false}

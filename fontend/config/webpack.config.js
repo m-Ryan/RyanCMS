@@ -139,6 +139,7 @@ module.exports = function (webpackEnv) {
 			isEnvDevelopment && require.resolve('webpack/hot/dev-server'),
 			isEnvDevelopment && require.resolve('react-dev-utils/webpackHotDevClient'),
 			// Finally, this is your app's code:
+			require.resolve('antd/dist/antd.less'),
 			paths.appIndexJs
 			// We include the app code last so that if there is a runtime error during
 			// initialization, it doesn't blow up the WebpackDevServer client, and
@@ -357,8 +358,7 @@ module.exports = function (webpackEnv) {
 										before: [
 											tsImportPluginFactory([{
 												libraryName: 'antd',
-												libraryDirectory: 'lib',
-												style: true
+												libraryDirectory: 'lib'
 											}])
 										]
 									}),

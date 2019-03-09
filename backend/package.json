@@ -7,6 +7,7 @@
   "scripts": {
     "format": "prettier --write \"src/**/*.ts\"",
     "start": "cross-env NODE_ENV=development nodemon",
+    "start:prod": "ts-node -r tsconfig-paths/register src/main.ts",
     "build": "rimraf dist && tsc",
     "build:product": "node dist/main.js",
     "server:product": "pm2 start dist/main.js"

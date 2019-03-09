@@ -100,4 +100,8 @@ export { default as ClockCircleOutline } from '@ant-design/icons/lib/outline/Clo
 
 export { default as ClockCircleFill } from '@ant-design/icons/lib/fill/ClockCircleFill';
 
+export { default as FontColorsOutline } from '@ant-design/icons/lib/outline/FontColorsOutline';
+
+export { default as BgColorsOutline } from '@ant-design/icons/lib/outline/BgColorsOutline';
+
 export { default as QuestionCircle } from '@ant-design/icons/lib/outline/QuestionCircleOutline';

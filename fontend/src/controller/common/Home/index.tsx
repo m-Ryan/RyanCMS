@@ -2,8 +2,20 @@ import React, { Component } from 'react';
 import { Button } from 'antd';
 import styles from './index.module.scss';
 import { Link } from 'react-router-dom';
+import TokenStorage from '../../../util/TokenStorage';
+import { dispatchState } from '../../../store';
+import { RouterProps } from 'react-router';
+interface Props extends RouterProps {}
+export default class Welcome extends Component<Props> {
+	async componentDidMount() {
+		if (TokenStorage.getToken()) {
+			await dispatchState({
+				type: 'user/getUser'
+			});
+			this.props.history.push('/admin');
+		}
+	}
 
-export default class Welcome extends Component {
 	render() {
 		return (
 			<div className={styles['container']}>

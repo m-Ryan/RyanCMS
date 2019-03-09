@@ -4,8 +4,19 @@ import styles from './Register.module.scss';
 import { RegisterInfo } from './components/RegisterInfo/RegisterInfo';
 import RegisterForm from './components/RegisterForm/RegisterForm';
 import { RouterProps } from 'react-router';
+import TokenStorage from '../../../util/TokenStorage';
+import { dispatchState } from '../../../store';
 interface Props extends RouterProps {}
 export default class Register extends React.Component<Props> {
+	async componentDidMount() {
+		if (TokenStorage.getToken()) {
+			await dispatchState({
+				type: 'user/getUser'
+			});
+			this.props.history.push('/admin');
+		}
+	}
+
 	render() {
 		return (
 			<div className={styles['container']}>
