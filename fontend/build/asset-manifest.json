@@ -1,7 +1,7 @@
 {
   "main.css": "/static/css/main.0c67e4b9.chunk.css",
-  "main.js": "/static/js/main.bc66186f.chunk.js",
-  "main.js.map": "/static/js/main.bc66186f.chunk.js.map",
+  "main.js": "/static/js/main.2cc694ff.chunk.js",
+  "main.js.map": "/static/js/main.2cc694ff.chunk.js.map",
   "vendors.js": "/static/js/vendors.afea0e0b.chunk.js",
   "vendors.js.map": "/static/js/vendors.afea0e0b.chunk.js.map",
   "ant-design.css": "/static/css/ant-design.d6a0be97.chunk.css",
@@ -13,9 +13,9 @@
   "static/media/no_found.png": "/static/media/no_found.8c382430.png",
   "static/media/welcome.svg": "/static/media/welcome.fde004da.svg",
   "static/media/Register.module.scss": "/static/media/bg.6ecf79db.jpg",
-  "static/css/main.0c67e4b9.chunk.css.map": "/static/css/main.0c67e4b9.chunk.css.map",
   "static/css/ant-design.d6a0be97.chunk.css.map": "/static/css/ant-design.d6a0be97.chunk.css.map",
+  "static/css/main.0c67e4b9.chunk.css.map": "/static/css/main.0c67e4b9.chunk.css.map",
   "index.html": "/index.html",
-  "precache-manifest.160374e84fd43ce88b9d73044f8d6dfc.js": "/precache-manifest.160374e84fd43ce88b9d73044f8d6dfc.js",
+  "precache-manifest.3c9a175b298b87a9e4082668ea328bae.js": "/precache-manifest.3c9a175b298b87a9e4082668ea328bae.js",
   "service-worker.js": "/service-worker.js"
 }
