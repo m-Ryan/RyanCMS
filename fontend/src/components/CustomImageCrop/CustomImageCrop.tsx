@@ -13,7 +13,7 @@ interface State {
 	crop: ReactCrop.Crop;
 	mineType: string;
 	src: string;
-	croppedFile: Blob;
+	croppedFile: Blob | null;
 	loading: boolean;
 }
 interface Props {
@@ -23,7 +23,7 @@ interface Props {
 }
 const initState = {
 	loading: false,
-	croppedFile: new Blob(),
+	croppedFile: null,
 	mineType: 'image/png',
 	src: '',
 	crop: {
@@ -118,7 +118,7 @@ export class CustomImageCrop extends PureComponent<Props, State> {
 	async uploadCropImage() {
 		const { croppedFile } = this.state;
 		const qiNiuConfig = await qiNiuConfigModel.getConfig();
-		const url = await API.upload.user.uploadByQiniu(croppedFile, qiNiuConfig);
+		const url = await API.upload.user.uploadByQiniu(croppedFile!, qiNiuConfig);
 		this.props.onSuccess(url);
 	}
 

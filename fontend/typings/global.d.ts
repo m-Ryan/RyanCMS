@@ -1,8 +1,14 @@
 declare namespace NodeJS {
-	interface ProcessEnv {
-		NODE_SCENE: 'local' | 'server';
-		NODE_ENV: 'development' | 'production' | 'test';
-		PUBLIC_URL: string;
+	interface Global {
+		Window: {
+			__INITIAL_STATE__: Object | undefined;
+		};
+		Blob: {
+			readonly size: number;
+			readonly type: string;
+			slice(start?: number, end?: number, contentType?: string): Blob;
+			new (blobParts?: BlobPart[], options?: BlobPropertyBag): Blob;
+		};
 	}
 }
 
