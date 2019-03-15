@@ -43,7 +43,6 @@ export default class UserRouter extends React.Component<Props> {
 
 	render() {
 		const { user, location } = this.props;
-		console.log(user);
 		return user ? (
 			<React.Fragment>
 				<Header user={user} />
