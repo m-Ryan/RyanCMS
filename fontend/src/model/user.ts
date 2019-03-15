@@ -1,64 +1,53 @@
 import { User as IUser } from '../interface/user.interface';
 import { API } from '../services/API';
 import { UpdateUser } from '../services/user';
-import { Dispatch } from 'redux';
-import Model from '../react-redux-model/Model';
 import TokenStorage from '../util/TokenStorage';
-export default new class User implements Model<IUser | null> {
-  nameSpace = 'user';
+import { ReduxModel } from 'ryan-redux';
+class UserModel extends ReduxModel<IUser | null> {
+	nameSpace = 'user';
 
-  state = null;
+	state: IUser | null = null;
 
-  reducers = {
-    set: (state: IUser, payload: IUser) => {
-      if (payload.token) {
-        TokenStorage.setToken(payload.token);
-      }
-      return payload;
-    },
-    logout: () => {
-      TokenStorage.clearToken();
-      return null;
-    },
-  };
+	setUser(payload: IUser) {
+		if (payload.token) {
+			TokenStorage.setToken(payload.token);
+		}
+		this.setState(payload);
+		return payload;
+	}
 
-  effects = {
-    getUser: async (state: IUser, payload: any, dispatch: Dispatch) => {
-      if (!state) {
-        state = await API.user.user.getInfo();
-      }
-      dispatch({ type: 'user/set', payload: { ...state } });
-    },
-    postLogin: async (
-      state: IUser,
-      payload: { phone: string; password: string },
-      dispatch: Dispatch,
-    ) => {
-      const user = await API.user.visitor.login(
-        payload.phone,
-        payload.password,
-      );
-      dispatch({ type: 'user/set', payload: { ...user } });
-    },
-    postUpdate: async (
-      state: IUser,
-      payload: UpdateUser,
-      dispatch: Dispatch,
-    ) => {
-      await API.user.user.update(payload);
-      dispatch({ type: 'user/getUser' });
-    },
-    postRegister: async (
-      state: IUser,
-      payload: { nickname: string; phone: string; password: string },
-      dispatch: Dispatch,
-    ) => {
-      const user = await API.user.visitor.register(
-        payload.nickname,
-        payload.phone,
-        payload.password,
-      );
-      dispatch({ type: 'user/set', payload: { ...user } });
-    },
-  };
-}();
+	logout() {
+		TokenStorage.clearToken();
+		this.setState(null);
+	}
+
+	async getUser() {
+		if (!this.state) {
+			this.state = await API.user.user.getInfo();
+			this.setState(this.state);
+		}
+		return this.state;
+	}
+
+	async postLogin(payload: { phone: string; password: string }) {
+		const user = await API.user.visitor.login(payload.phone, payload.password);
+		this.setState(user);
+		return user;
+	}
+
+	async postUpdate(payload: UpdateUser) {
+		await API.user.user.update(payload);
+		const user = { ...this.state!, ...payload };
+		this.setState(user);
+		return user;
+	}
+
+	async postRegister(payload: { nickname: string; phone: string; password: string }) {
+		const user = await API.user.visitor.register(payload.nickname, payload.phone, payload.password);
+		this.setState(user);
+		return user;
+	}
+}
+
+const userModel = new UserModel();
+export default userModel;

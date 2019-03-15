@@ -2,9 +2,6 @@ import React from 'react';
 import styles from './UserContainer.module.scss';
 import { User } from '../../../../interface/user.interface';
 import Header from '../Header/Header';
-import { Link } from 'react-router-dom';
-import { Button } from 'antd';
-import { dispatchState } from '../../../../store';
 interface Props {
 	blogger: User;
 	children: any;

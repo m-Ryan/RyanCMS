@@ -1,22 +1,22 @@
 import React from 'react';
 import styles from './Article.module.scss';
-import { User } from '../../../../interface/user.interface';
+import { User } from '@/interface/user.interface';
 import { UserContainer } from '../../components/UserContainer/UserContainer';
-import { ClearUnmountState } from '../../../../util/decorators/clearUnmountState';
-import { ReactAutoBind } from '../../../../util/decorators/reactAutoBind';
-import { API } from '../../../../services/API';
-import { catchError } from '../../../../util/decorators/catchError';
-import { Article as IArticle } from '../../../../interface/article.interface';
-import { CustomLoading } from '../../../../components/CustomLoading/CustomLoading';
-import { NOT_FOUND_PAGE } from '../../../../config/constant';
+import { ClearUnmountState } from '@/util/decorators/clearUnmountState';
+import { ReactAutoBind } from '@/util/decorators/reactAutoBind';
+import { API } from '@/services/API';
+import { catchError } from '@/util/decorators/catchError';
+import { Article as IArticle } from '@/interface/article.interface';
+import { CustomLoading } from '@/components/CustomLoading/CustomLoading';
+import { NOT_FOUND_PAGE } from '@/config/constant';
 import { History, Location } from 'history';
 import dayjs from 'dayjs';
 import ReactMarkdown from 'react-markdown';
-import LightCode from '../../../../components/LightCode/LightCode';
-import CustomComment from '../../../../components/CustomComment/CustomComment';
-import { checkRenderFromServer } from '../../../../util/decorators/checkRenderFromServer';
-import { dispatchState } from '../../../../store';
+import LightCode from '@/components/LightCode/LightCode';
+import CustomComment from '@/components/CustomComment/CustomComment';
+import { checkRenderFromServer } from '@/util/decorators/checkRenderFromServer';
 import { connect } from 'react-redux';
+import articleModel from '../../../../model/articles';
 interface Props {
 	history: History;
 	location: Location;
@@ -52,10 +52,7 @@ export default class Article extends React.Component<Props, State> {
 	async initData() {
 		const { blogger } = this.props;
 		const title = this.props.location.pathname.split('/')[4];
-		await dispatchState({
-			type: 'articles/get',
-			payload: { userId: blogger.user_id, title: decodeURIComponent(title) }
-		});
+		await articleModel.getArticle({ userId: blogger.user_id, title: decodeURIComponent(title) });
 	}
 
 	static async initServerData(

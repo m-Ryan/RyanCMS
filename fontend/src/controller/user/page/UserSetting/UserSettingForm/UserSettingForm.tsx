@@ -8,16 +8,16 @@ import {
 	CustomForm,
 	Trigger,
 	SwitchItemProps
-} from '../../../../../components/CustomForm/CustomForm';
-import { checkPassword, checkEqual } from '../../../../../util/decorators/validator/rules';
-import { loading } from '../../../../../util/decorators/loading';
-import { catchError } from '../../../../../util/decorators/catchError';
-import { User } from '../../../../../interface/user.interface';
-import { ClearUnmountState } from '../../../../../util/decorators/clearUnmountState';
-import { ReactAutoBind } from '../../../../../util/decorators/reactAutoBind';
-import { UpdateUser } from '../../../../../services/user';
+} from '@/components/CustomForm/CustomForm';
+import { checkPassword, checkEqual } from '@/util/decorators/validator/rules';
+import { loading } from '@/util/decorators/loading';
+import { catchError } from '@/util/decorators/catchError';
+import { User } from '@/interface/user.interface';
+import { ClearUnmountState } from '@/util/decorators/clearUnmountState';
+import { ReactAutoBind } from '@/util/decorators/reactAutoBind';
+import { UpdateUser } from '@/services/user';
 import { History } from 'history';
-import { dispatchState } from '../../../../../store';
+import userModel from '../../../../../model/user';
 
 interface State {
 	options: Array<any>;
@@ -229,7 +229,7 @@ export default class UserSettingForm extends React.Component<Props, State> {
 		if (isUpdateConcat) {
 			postData = { ...postData, ...concatOption };
 		}
-		await dispatchState({ type: 'user/postUpdate', payload: postData });
+		await userModel.postUpdate(postData);
 
 		if (isUpdatePassword) {
 			message.success('修改密码后需重新登录');

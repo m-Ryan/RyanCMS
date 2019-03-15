@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom';
 import { Menu, Icon, Dropdown } from 'antd';
 
 import styles from './Header.module.scss';
-import { User } from '../../../../interface/user.interface';
-import { dispatchState } from '../../../../store';
-import { ReactAutoBind } from '../../../../util/decorators/reactAutoBind';
+import { User } from '@/interface/user.interface';
+import { ReactAutoBind } from '@/util/decorators/reactAutoBind';
+import userModel from '../../../../model/user';
 
 interface Props {
 	user: User;
@@ -14,9 +14,7 @@ interface State {}
 @ReactAutoBind()
 export default class Header extends React.Component<Props, State> {
 	logout() {
-		dispatchState({
-			type: 'user/logout'
-		});
+		userModel.logout();
 	}
 	static defaultProps = {};
 	render() {

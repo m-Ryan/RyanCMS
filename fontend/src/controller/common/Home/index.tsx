@@ -3,15 +3,13 @@ import { Button } from 'antd';
 import styles from './index.module.scss';
 import { Link } from 'react-router-dom';
 import TokenStorage from '../../../util/TokenStorage';
-import { dispatchState } from '../../../store';
 import { RouterProps } from 'react-router';
+import userModel from '../../../model/user';
 interface Props extends RouterProps {}
 export default class Welcome extends Component<Props> {
 	async componentDidMount() {
 		if (TokenStorage.getToken()) {
-			await dispatchState({
-				type: 'user/getUser'
-			});
+			await userModel.getUser();
 			this.props.history.push('/admin');
 		}
 	}

@@ -3,9 +3,9 @@ import { RouteProps, RouterProps } from 'react-router';
 import { Row, Col } from 'antd';
 import styles from './Login.module.scss';
 import LoginForm from './components/LoginForm/LoginForm';
-import { User } from '../../../interface/user.interface';
-import TokenStorage from '../../../util/TokenStorage';
-import { dispatchState } from '../../../store';
+import { User } from '@/interface/user.interface';
+import TokenStorage from '@/util/TokenStorage';
+import userModel from '../../../model/user';
 interface Props extends RouteProps, RouterProps {
 	user: User;
 }
@@ -13,9 +13,7 @@ interface Props extends RouteProps, RouterProps {
 export default class Login extends React.Component<Props> {
 	async componentDidMount() {
 		if (TokenStorage.getToken()) {
-			await dispatchState({
-				type: 'user/getUser'
-			});
+			await userModel.getUser();
 			this.props.history.push('/admin');
 		}
 	}

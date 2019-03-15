@@ -2,14 +2,14 @@ import React from 'react';
 import { Button, message } from 'antd';
 import styles from './LoginForm.module.scss';
 import { RouterProps } from 'react-router';
-import { validate } from '../../../../../util/decorators/validator/validate';
-import { phone, password } from '../../../../../util/decorators/validator/rules';
-import { loading } from '../../../../../util/decorators/loading';
-import { catchError } from '../../../../../util/decorators/catchError';
-import { Trigger, InputItemProps, getFormValues, CustomForm } from '../../../../../components/CustomForm/CustomForm';
-import { checkPhone, checkPassword } from '../../../../../util/decorators/validator/rules';
-import { dispatchState } from '../../../../../store';
+import { validate } from '@/util/decorators/validator/validate';
+import { phone, password } from '@/util/decorators/validator/rules';
+import { loading } from '@/util/decorators/loading';
+import { catchError } from '@/util/decorators/catchError';
+import { Trigger, InputItemProps, getFormValues, CustomForm } from '@/components/CustomForm/CustomForm';
+import { checkPhone, checkPassword } from '@/util/decorators/validator/rules';
 import { Link } from 'react-router-dom';
+import userModel from '@/model/user';
 
 const options = [
 	{
@@ -75,12 +75,9 @@ export default class LoginForm extends React.Component<Props, State> {
 	@loading()
 	@catchError()
 	async login(@phone() phone: string, @password() password: string) {
-		await dispatchState({
-			type: 'user/postLogin',
-			payload: {
-				phone,
-				password
-			}
+		await userModel.postLogin({
+			phone,
+			password
 		});
 		this.props.history.push('/admin');
 		message.success('登录成功，正在跳转');

@@ -1,22 +1,22 @@
 import React from 'react';
 import styles from './Home.module.scss';
-import { User } from '../../../../interface/user.interface';
+import { User } from '@/interface/user.interface';
 import { List } from './components/LIst/List';
 import { UserContainer } from '../../components/UserContainer/UserContainer';
-import { ClearUnmountState } from '../../../../util/decorators/clearUnmountState';
-import { ReactAutoBind } from '../../../../util/decorators/reactAutoBind';
-import { catchError } from '../../../../util/decorators/catchError';
-import { loading } from '../../../../util/decorators/loading';
-import CustomScrollView from '../../../../components/CustomScrollView/CustomScrollView';
-import { CustomLoading } from '../../../../components/CustomLoading/CustomLoading';
+import { ClearUnmountState } from '@/util/decorators/clearUnmountState';
+import { ReactAutoBind } from '@/util/decorators/reactAutoBind';
+import { catchError } from '@/util/decorators/catchError';
+import { loading } from '@/util/decorators/loading';
+import CustomScrollView from '@/components/CustomScrollView/CustomScrollView';
+import { CustomLoading } from '@/components/CustomLoading/CustomLoading';
 import { History, Location } from 'history';
-import { Condition } from '../../../../components/Condition';
+import { Condition } from '@/components/Condition';
 import { connect } from 'react-redux';
-import { dispatchState } from '../../../../store';
-import { checkRenderFromServer } from '../../../../util/decorators/checkRenderFromServer';
-import articleList, { IArticleList } from '../../../../model/articleList';
-import { API } from '../../../../services/API';
-import { EmptyPlaceholder } from '../../../../components/EmptyPlaceholder/EmptyPlaceholder';
+import { checkRenderFromServer } from '@/util/decorators/checkRenderFromServer';
+import articleList, { IArticleList } from '@/model/articleList';
+import { API } from '@/services/API';
+import { EmptyPlaceholder } from '@/components/EmptyPlaceholder/EmptyPlaceholder';
+import articleListModel from '@/model/articleList';
 
 interface Props {
 	history: History;
@@ -74,7 +74,7 @@ export default class Home extends React.PureComponent<Props, State> {
 	@loading()
 	async getArticleList() {
 		const { blogger } = this.props;
-		await dispatchState({ type: 'articleList/getList', payload: blogger.user_id });
+		await articleListModel.getList(blogger.user_id);
 	}
 
 	render() {

@@ -4,10 +4,10 @@ import 'react-image-crop/dist/ReactCrop.css';
 import { Modal } from 'antd';
 import { ReactAutoBind } from '../../util/decorators/reactAutoBind';
 import { API } from '../../services/API';
-import { dispatchState } from '../../store';
 import { catchError } from '../../util/decorators/catchError';
 import Uploader from '../../util/uploader';
 import { loading } from '../../util/decorators/loading';
+import qiNiuConfigModel from '../../model/qiNiuConfig';
 
 interface State {
 	crop: ReactCrop.Crop;
@@ -117,7 +117,7 @@ export class CustomImageCrop extends PureComponent<Props, State> {
 	@loading()
 	async uploadCropImage() {
 		const { croppedFile } = this.state;
-		const qiNiuConfig = await dispatchState({ type: 'qiNiuConfig/getConfig' });
+		const qiNiuConfig = await qiNiuConfigModel.getConfig();
 		const url = await API.upload.user.uploadByQiniu(croppedFile, qiNiuConfig);
 		this.props.onSuccess(url);
 	}

@@ -1,30 +1,20 @@
 import { API } from '../services/API';
 import { QiNiuConfig as IQiNiuConfig } from '../services/upload/user';
-import { Dispatch } from 'redux';
-import Model from '../react-redux-model/Model';
+import { ReduxModel } from 'ryan-redux';
 
-export default new class QiNiuConfig implements Model<IQiNiuConfig | null> {
-  nameSpace = 'qiNiuConfig';
+class QiNiuConfigModel extends ReduxModel<IQiNiuConfig | null> {
+	nameSpace = 'qiNiuConfig';
 
-  state: IQiNiuConfig | null = null;
+	state: IQiNiuConfig | null = null;
 
-  reducers = {
-    set: (state: IQiNiuConfig, payload: IQiNiuConfig) => {
-      return payload;
-    },
-  };
+	async getConfig() {
+		if (!this.state) {
+			this.state = await API.upload.user.getQiNiuConfig();
+			this.setState(this.state);
+		}
 
-  effects = {
-    getConfig: async (
-      state: IQiNiuConfig,
-      payload: IQiNiuConfig,
-      dispatch: Dispatch,
-    ) => {
-      if (!state) {
-        state = await API.upload.user.getQiNiuConfig();
-      }
-      dispatch({ type: 'qiNiuConfig/set', payload: { ...state } });
-      return state;
-    },
-  };
-}();
+		return this.state;
+	}
+}
+const qiNiuConfigModel = new QiNiuConfigModel();
+export default qiNiuConfigModel;

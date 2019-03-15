@@ -1,5 +1,4 @@
 export const TOKEN = 'RyanToken';
-console.log(process.env.NODE_SCENE);
 let proxyPrefix = '/api';
 // 服务端渲染必须要有完整的
 if (process.env.NODE_SCENE === 'server') {

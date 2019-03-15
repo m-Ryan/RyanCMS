@@ -1,30 +1,26 @@
 import { API } from '../services/API';
-import { Dispatch } from 'redux';
-import Model from '../react-redux-model/Model';
 import { Resume } from '../interface/user.interface';
-export default new class Resumes implements Model<Resume[]> {
-  nameSpace = 'resumes';
+import { ReduxModel } from 'ryan-redux';
+class ResumesModel extends ReduxModel<Resume[]> {
+	nameSpace = 'resumes';
 
-  state: Resume[] = [];
+	state: Resume[] = [];
 
-  reducers = {
-    set: (state: Resume[], payload: Resume[]) => {
-      return payload;
-    },
-    add: (state: Resume[], payload: Resume) => {
-      state.push(payload);
-      return [...state];
-    },
-  };
+	addResume(payload: Resume) {
+		this.state.push(payload);
+		this.setState([ ...this.state ]);
+	}
 
-  effects = {
-    get: async (state: Resume[], payload: number, dispatch: Dispatch) => {
-      let resume = state.filter(item => item.user_id === payload)[0];
-      if (!resume) {
-        resume = await API.user.visitor.getResume(payload);
-        dispatch({ type: 'resumes/add', payload: resume });
-      }
-      return resume;
-    },
-  };
-}();
+	async getResume(payload: number) {
+		let resume = this.state.filter((item) => item.user_id === payload)[0];
+		if (!resume) {
+			resume = await API.user.visitor.getResume(payload);
+			this.addResume(resume);
+		}
+		return resume;
+	}
+}
+
+const resumeModel = new ResumesModel();
+
+export default resumeModel;

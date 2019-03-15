@@ -1,15 +1,15 @@
-import Bloggers from './bloggers';
-import User from './user';
-import QiNiuConfig from './qiNiuConfig';
-import articleList from './articleList';
-import articles from './articles';
-import resumes from './resumes';
+import bloggersModel from './bloggers';
+import userModel from './user';
+import qiNiuConfigModel from './qiNiuConfig';
+import articleModel from './articles';
+import resumeModel from './resumes';
+import articleListModel from './articleList';
 
-export const model = [
-  Bloggers,
-  User,
-  QiNiuConfig,
-  articleList,
-  articles,
-  resumes,
-];
+export default {
+	bloggersModel,
+	userModel,
+	qiNiuConfigModel,
+	articleListModel,
+	articleModel,
+	resumeModel
+};

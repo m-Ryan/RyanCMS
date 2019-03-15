@@ -1,18 +1,18 @@
 import React from 'react';
 import { Route, Switch } from 'react-router';
 import { blogRoutes } from './blogRoutes';
-import { User } from '../../../interface/user.interface';
-import bloggersModel from '../../../model/bloggers';
-import { API } from '../../../services/API';
-import { dispatchState } from '../../../store';
+import { User } from '@/interface/user.interface';
+import { API } from '@/services/API';
 import { connect } from 'react-redux';
-import { CustomerPageLoading } from '../../../components/CustomerPageLoading/CustomerPageLoading';
-import { catchError } from '../../../util/decorators/catchError';
-import { comparePath } from '../../../util/util';
-import TokenStorage from '../../../util/TokenStorage';
+import { CustomerPageLoading } from '@/components/CustomerPageLoading/CustomerPageLoading';
+import { catchError } from '@/util/decorators/catchError';
+import { comparePath } from '@/util/util';
+import TokenStorage from '@/util/TokenStorage';
 import { History } from 'history';
-import { NOT_FOUND_PAGE } from '../../../config/constant';
-import { ServerData } from '../../../interface/serverData.interface';
+import { NOT_FOUND_PAGE } from '@/config/constant';
+import { ServerData } from '@/interface/serverData.interface';
+import bloggersModel from '@/model/bloggers';
+import userModel from '../../../model/user';
 interface Props {
 	history: History;
 	location: Location;
@@ -40,10 +40,7 @@ export default class BlogRouter extends React.PureComponent<Props> {
 	})
 	async initData() {
 		const nickname = this.props.location.pathname.split('/')[2];
-		await dispatchState({
-			type: 'bloggers/getByName',
-			payload: nickname
-		});
+		await bloggersModel.getByName(nickname);
 
 		if (TokenStorage.getToken()) {
 			this.getUser();
@@ -52,9 +49,7 @@ export default class BlogRouter extends React.PureComponent<Props> {
 
 	@catchError(TokenStorage.clearToken)
 	async getUser() {
-		await dispatchState({
-			type: 'user/getUser'
-		});
+		await userModel.getUser();
 	}
 
 	static async initServerData(pathname: string): Promise<ServerData> {

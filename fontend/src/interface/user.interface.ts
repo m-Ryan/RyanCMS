@@ -3,7 +3,7 @@ export interface User {
 	nickname: string;
 	phone: string;
 	avatar: string;
-	sex: string;
+	sex: Number;
 	intro: string;
 	created_at: string;
 	updated_at: string;

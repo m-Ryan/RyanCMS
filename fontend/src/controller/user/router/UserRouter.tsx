@@ -1,25 +1,26 @@
 import React from 'react';
 import { Route, Switch } from 'react-router';
-import { User } from '../../../interface/user.interface';
-import { dispatchState } from '../../../store';
+import { User } from '@/interface/user.interface';
 import { connect } from 'react-redux';
-import { CustomerPageLoading } from '../../../components/CustomerPageLoading/CustomerPageLoading';
+import { CustomerPageLoading } from '@/components/CustomerPageLoading/CustomerPageLoading';
 import { userRoutes } from './userRoutes';
 import Header from '../components/Header/Header';
 import AdminBody from '../components/AdminBody/AdminBody';
 import LayoutNavigator from '../components/LayoutNavigator/LayoutNavigator';
 import styles from './UserRouter.module.scss';
-import { catchError } from '../../../util/decorators/catchError';
+import { catchError } from '@/util/decorators/catchError';
 import { History } from 'history';
-import TokenStorage from '../../../util/TokenStorage';
-interface Props {
+import TokenStorage from '@/util/TokenStorage';
+import userModel from '../../../model/user';
+
+interface ConnectProps {
+	user: User;
+}
+
+interface Props extends ConnectProps {
 	history: History;
 	location: Location;
 	bloggers: User[];
-	user?: User;
-}
-interface ConnectProps {
-	user: User;
 }
 
 @connect(({ user }: ConnectProps) => ({ user }))
@@ -31,9 +32,7 @@ export default class UserRouter extends React.Component<Props> {
 		this.props.history.push('/login');
 	})
 	async initData() {
-		await dispatchState({
-			type: 'user/getUser'
-		});
+		await userModel.getUser();
 	}
 
 	componentDidUpdate() {
@@ -44,6 +43,7 @@ export default class UserRouter extends React.Component<Props> {
 
 	render() {
 		const { user, location } = this.props;
+		console.log(user);
 		return user ? (
 			<React.Fragment>
 				<Header user={user} />

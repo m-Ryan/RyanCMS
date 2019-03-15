@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, message } from 'antd';
 import styles from './RegisterForm.module.scss';
-import { CustomForm, InputItemProps, getFormValues, Trigger } from '../../../../../components/CustomForm/CustomForm';
+import { CustomForm, InputItemProps, getFormValues, Trigger } from '@/components/CustomForm/CustomForm';
 import {
 	name,
 	password,
@@ -11,13 +11,13 @@ import {
 	checkEqual,
 	phone,
 	checkPhone
-} from '../../../../../util/decorators/validator/rules';
-import { catchError } from '../../../../../util/decorators/catchError';
+} from '@/util/decorators/validator/rules';
+import { catchError } from '@/util/decorators/catchError';
 import { RouterProps } from 'react-router';
-import { loading } from '../../../../../util/decorators/loading';
-import { validate } from '../../../../../util/decorators/validator/validate';
-import { dispatchState } from '../../../../../store';
+import { loading } from '@/util/decorators/loading';
+import { validate } from '@/util/decorators/validator/validate';
 import { Link } from 'react-router-dom';
+import userModel from '../../../../../model/user';
 const options = [
 	{
 		name: 'name',
@@ -122,13 +122,10 @@ export default class RegisterForm extends React.Component<Props, State> {
 		@equal('两次输入的密码') passwords: Array<string>
 	) {
 		this.setState({ loading: true });
-		await dispatchState({
-			type: 'user/postRegister',
-			payload: {
-				nickname,
-				phone,
-				password
-			}
+		await userModel.postRegister({
+			nickname,
+			phone,
+			password
 		});
 		message.success('注册成功，正在跳转');
 		this.props.history.push('/admin');
