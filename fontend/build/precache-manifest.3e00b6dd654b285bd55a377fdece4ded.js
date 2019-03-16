@@ -40,7 +40,7 @@ self.__precacheManifest = [
     "url": "/static/css/ant-design.2dd4e35f.chunk.css"
   },
   {
-    "revision": "24866ee117a5156d6ac9f492adb712d4",
+    "revision": "4e14b964fb5d9719737483e3fc5e8033",
     "url": "/index.html"
   }
 ];
