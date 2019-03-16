@@ -25,6 +25,7 @@ const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin-alt')
 const typescriptFormatter = require('react-dev-utils/typescriptFormatter');
 const tsImportPluginFactory = require('ts-import-plugin');
 const antdTheme = require('../src/config//antd.theme');
+const dayjs = require('dayjs');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 // Source maps are resource heavy and can cause out of memory issue for large source files.
 const shouldUseSourceMap = process.env.GENERATE_SOURCEMAP !== 'false';
@@ -534,7 +535,10 @@ module.exports = function (webpackEnv) {
 			new HtmlWebpackPlugin(
 				Object.assign({}, {
 						inject: true,
-						template: paths.appHtml
+						template: paths.appHtml,
+						meta: {
+							"x-updated-time": dayjs().format('YYYY-MM-DD HH:mm')
+						}
 					},
 					isEnvProduction ? {
 						minify: {
