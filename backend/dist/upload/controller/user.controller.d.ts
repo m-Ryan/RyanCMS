@@ -8,4 +8,8 @@ export declare class UserController {
         token: string;
         origin: string;
     };
+    uploadQiuNiuFile(fileData: {
+        data: string;
+        name: string;
+    }): Promise<{}>;
 }

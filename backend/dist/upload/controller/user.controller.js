@@ -21,6 +21,7 @@ const upload_service_1 = require("../service/upload.service");
 const userError_1 = require("../../common/filters/userError");
 const upload_1 = require("../../util/upload");
 const qiniu_1 = __importDefault(require("qiniu"));
+const string_to_stream_1 = __importDefault(require("string-to-stream"));
 let UserController = class UserController {
     constructor(uploadService) {
         this.uploadService = uploadService;
@@ -32,18 +33,37 @@ let UserController = class UserController {
         return upload_1.Upload.writeImage(file);
     }
     getQiuNiuToken() {
-        const accessKey = '2WAZdi48g5fLK3645nwy8FEb5_XaqYooOhh35AuG';
-        const secretKey = 'XIKjs-HKSEiOusWztCRQ565KvDAcQRxHtY5ZO_xh';
-        const mac = new qiniu_1.default.auth.digest.Mac(accessKey, secretKey);
-        const options = {
-            scope: 'mryan',
-        };
-        const putPolicy = new qiniu_1.default.rs.PutPolicy(options);
-        const uploadToken = putPolicy.uploadToken(mac);
+        const { token, origin } = getQiniu();
         return {
-            token: uploadToken,
-            origin: 'http://assets.maocanhua.cn',
+            token,
+            origin
         };
+    }
+    uploadQiuNiuFile(fileData) {
+        if (!fileData.data) {
+            throw new userError_1.UserError('文件数据不能为空');
+        }
+        if (!fileData.name) {
+            throw new userError_1.UserError('文件名不能为空');
+        }
+        const { token, origin, options } = getQiniu(fileData.name);
+        const readerStream = string_to_stream_1.default(fileData.data);
+        const formUploader = new qiniu_1.default.form_up.FormUploader(options);
+        const putExtra = new qiniu_1.default.form_up.PutExtra();
+        return new Promise((resolve, reject) => {
+            formUploader.putStream(token, fileData.name, readerStream, putExtra, (respErr, respBody, respInfo) => {
+                if (respErr) {
+                    throw respErr;
+                }
+                if (respInfo.statusCode === 200) {
+                    resolve(origin + '/' + respBody.key);
+                }
+                else {
+                    console.log(respInfo);
+                    throw new userError_1.UserError('上传失败');
+                }
+            });
+        });
     }
 };
 __decorate([
@@ -62,9 +82,34 @@ __decorate([
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", void 0)
 ], UserController.prototype, "getQiuNiuToken", null);
+__decorate([
+    common_1.Post('/upload-qiniu-file'),
+    __param(0, common_1.Body()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", void 0)
+], UserController.prototype, "uploadQiuNiuFile", null);
 UserController = __decorate([
     common_1.Controller('upload/user'),
     __metadata("design:paramtypes", [upload_service_1.UploadService])
 ], UserController);
 exports.UserController = UserController;
+function getQiniu(name) {
+    const accessKey = '2WAZdi48g5fLK3645nwy8FEb5_XaqYooOhh35AuG';
+    const secretKey = 'XIKjs-HKSEiOusWztCRQ565KvDAcQRxHtY5ZO_xh';
+    const mac = new qiniu_1.default.auth.digest.Mac(accessKey, secretKey);
+    const options = {
+        scope: 'mryan'
+    };
+    if (name) {
+        options.scope = 'mryan:' + name;
+    }
+    const putPolicy = new qiniu_1.default.rs.PutPolicy(options);
+    const uploadToken = putPolicy.uploadToken(mac);
+    return {
+        token: uploadToken,
+        origin: 'http://assets.maocanhua.cn',
+        options
+    };
+}
 //# sourceMappingURL=user.controller.js.map
