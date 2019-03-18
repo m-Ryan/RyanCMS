@@ -4,6 +4,9 @@ let proxyPrefix = '/api';
 if (process.env.NODE_SCENE === 'server') {
 	proxyPrefix = 'http://localhost:3100/api';
 }
+if (process.env.NODE_SCENE === 'local') {
+	proxyPrefix = 'http://localhost:3100/api';
+}
 
 export const PROXY_PREFIX = proxyPrefix;
 

@@ -10,6 +10,7 @@ require('css-modules-require-hook')({
 });
 import Router from 'koa-router';
 import { renderFullPage } from './renderFullPage';
+import { API_HOST } from './constant';
 const router = new Router();
 const app = new Koa();
 app.use(bodyParser());
@@ -22,7 +23,7 @@ app.use(
 router.all('/api/*', async (ctx: Koa.ParameterizedContext<{}, Router.IRouterContext>, next) => {
 	const method = ctx.request.method;
 	const headers = ctx.request.header;
-	const url = ctx.request.url.replace(/^\/api/, 'http://localhost:8080');
+	const url = ctx.request.url.replace(/^\/api/, API_HOST);
 	const data = ctx.request.body;
 	try {
 		const res = await axios({
@@ -40,7 +41,7 @@ router.all('/api/*', async (ctx: Koa.ParameterizedContext<{}, Router.IRouterCont
 router.post('/api/*', async (ctx, next) => {
 	const method = ctx.request.method;
 	const headers = ctx.request.header;
-	const url = ctx.request.url.replace(/^\/api/, 'http://localhost:8080');
+	const url = ctx.request.url.replace(/^\/api/, API_HOST);
 	const data = ctx.req;
 	try {
 		const res = await axios(url, {
