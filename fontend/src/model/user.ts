@@ -24,27 +24,27 @@ class UserModel extends ReduxModel<IUser | null> {
 	async getUser() {
 		if (!this.state) {
 			this.state = await API.user.user.getInfo();
-			this.setState(this.state);
+			this.setUser(this.state);
 		}
 		return this.state;
 	}
 
 	async postLogin(payload: { phone: string; password: string }) {
 		const user = await API.user.visitor.login(payload.phone, payload.password);
-		this.setState(user);
+		this.setUser(user);
 		return user;
 	}
 
 	async postUpdate(payload: UpdateUser) {
 		await API.user.user.update(payload);
 		const user = { ...this.state!, ...payload };
-		this.setState(user);
+		this.setUser(user);
 		return user;
 	}
 
 	async postRegister(payload: { nickname: string; phone: string; password: string }) {
 		const user = await API.user.visitor.register(payload.nickname, payload.phone, payload.password);
-		this.setState(user);
+		this.setUser(user);
 		return user;
 	}
 }
