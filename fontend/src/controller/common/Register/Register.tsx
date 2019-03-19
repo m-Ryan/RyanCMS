@@ -7,17 +7,27 @@ import { RouterProps } from 'react-router';
 import TokenStorage from '@/util/TokenStorage';
 import userModel from '../../../model/user';
 interface Props extends RouterProps {}
-export default class Register extends React.Component<Props> {
+interface State {
+	isMounted: boolean
+}
+export default class Register extends React.Component<Props, State> {
+	state:State = {
+		isMounted: false
+	}
 	async componentDidMount() {
 		if (TokenStorage.getToken()) {
 			await userModel.getUser();
 			this.props.history.push('/admin');
+			return;
 		}
+		this.setState({
+			isMounted: true
+		})
 	}
 
 	render() {
 		return (
-			<div className={styles['container']}>
+			this.state.isMounted &&	<div className={styles['container']}>
 				<Row gutter={24}>
 					<Col span={12}>
 						<RegisterInfo />
