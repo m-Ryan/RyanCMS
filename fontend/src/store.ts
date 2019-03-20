@@ -1,5 +1,5 @@
 import { createStore } from 'ryan-redux';
-import model from './model';
+import * as model from './model';
 import { createLogger } from 'redux-logger';
 import { applyMiddleware } from 'redux';
 // 通过服务端注入的全局变量得到初始 state

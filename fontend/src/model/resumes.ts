@@ -1,7 +1,7 @@
 import { API } from '../services/API';
 import { Resume } from '../interface/user.interface';
 import { ReduxModel } from 'ryan-redux';
-class ResumesModel extends ReduxModel<Resume[]> {
+export default class ResumesModel extends ReduxModel<Resume[]> {
 	nameSpace = 'resumes';
 
 	state: Resume[] = [];
@@ -20,7 +20,3 @@ class ResumesModel extends ReduxModel<Resume[]> {
 		return resume;
 	}
 }
-
-const resumeModel = new ResumesModel();
-
-export default resumeModel;

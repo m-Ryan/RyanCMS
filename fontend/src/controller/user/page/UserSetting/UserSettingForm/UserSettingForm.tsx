@@ -17,7 +17,7 @@ import { ClearUnmountState } from '@/util/decorators/clearUnmountState';
 import { ReactAutoBind } from '@/util/decorators/reactAutoBind';
 import { UpdateUser } from '@/services/user';
 import { History } from 'history';
-import userModel from '../../../../../model/user';
+import { userModel } from '../../../../../model';
 
 interface State {
 	options: Array<any>;

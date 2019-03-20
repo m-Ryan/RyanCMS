@@ -13,10 +13,10 @@ import { History, Location } from 'history';
 import { Condition } from '@/components/Condition';
 import { connect } from 'react-redux';
 import { checkRenderFromServer } from '@/util/decorators/checkRenderFromServer';
-import articleList, { IArticleList } from '@/model/articleList';
+import { IArticleList } from '@/model/articleList';
 import { API } from '@/services/API';
 import { EmptyPlaceholder } from '@/components/EmptyPlaceholder/EmptyPlaceholder';
-import articleListModel from '@/model/articleList';
+import { articleListModel } from '../../../../model';
 
 interface Props {
 	history: History;
@@ -54,7 +54,7 @@ export default class Home extends React.PureComponent<Props, State> {
 		blogger: User,
 		pathname: string
 	): Promise<{
-		articleList: typeof articleList['state'];
+		articleList: typeof articleListModel['state'];
 	}> {
 		const page = 1;
 		const size = 10;

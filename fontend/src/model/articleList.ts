@@ -8,7 +8,7 @@ export interface IArticleList {
 	count: number;
 	noMore: boolean;
 }
-class ArticleListModel extends ReduxModel<IArticleList> {
+export default class ArticleListModel extends ReduxModel<IArticleList> {
 	nameSpace = 'articleList';
 
 	state: IArticleList = {
@@ -30,6 +30,3 @@ class ArticleListModel extends ReduxModel<IArticleList> {
 		return state;
 	}
 }
-
-const articleListModel = new ArticleListModel();
-export default articleListModel;

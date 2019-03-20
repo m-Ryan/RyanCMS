@@ -4,7 +4,7 @@ import { SSR } from '../router/SSR';
 import { createStore } from 'ryan-redux';
 import BlogRouter from '../controller/blog/router/BlogRouter';
 import { ServerData } from '../interface/serverData.interface';
-import model from '../model';
+import * as model from '../model';
 import axios from 'axios';
 import { API_HOST } from './constant';
 export const renderFullPage = async (url: string) => {

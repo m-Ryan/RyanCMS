@@ -1,15 +1,15 @@
-import bloggersModel from './bloggers';
-import userModel from './user';
-import qiNiuConfigModel from './qiNiuConfig';
-import articleModel from './articles';
-import resumeModel from './resumes';
-import articleListModel from './articleList';
+import BloggersModel from './bloggers';
+import UserModel from './user';
+import QiNiuConfigModel from './qiNiuConfig';
+import ArticleListModel from './articleList';
+import ArticlesModel from './articles';
+import ResumesModel from './resumes';
 
-export default {
-	bloggersModel,
-	userModel,
-	qiNiuConfigModel,
-	articleListModel,
-	articleModel,
-	resumeModel
-};
+const bloggersModel = new BloggersModel();
+const userModel = new UserModel();
+const qiNiuConfigModel = new QiNiuConfigModel();
+const articleListModel = new ArticleListModel();
+const articleModel = new ArticlesModel();
+const resumeModel = new ResumesModel();
+
+export { bloggersModel, userModel, qiNiuConfigModel, articleListModel, articleModel, resumeModel };

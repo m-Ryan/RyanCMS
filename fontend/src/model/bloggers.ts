@@ -2,7 +2,7 @@ import { User } from '../interface/user.interface';
 import { API } from '../services/API';
 import { ReduxModel } from 'ryan-redux';
 
-class BloggersModel extends ReduxModel<User[]> {
+export default class BloggersModel extends ReduxModel<User[]> {
 	nameSpace = 'bloggers';
 
 	state: User[] = [];
@@ -24,6 +24,3 @@ class BloggersModel extends ReduxModel<User[]> {
 		return blogger;
 	}
 }
-const bloggersModel = new BloggersModel();
-
-export default bloggersModel;

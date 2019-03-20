@@ -11,7 +11,7 @@ import styles from './UserRouter.module.scss';
 import { catchError } from '@/util/decorators/catchError';
 import { History } from 'history';
 import TokenStorage from '@/util/TokenStorage';
-import userModel from '../../../model/user';
+import { userModel } from '../../../model';
 
 interface ConnectProps {
 	user: User;

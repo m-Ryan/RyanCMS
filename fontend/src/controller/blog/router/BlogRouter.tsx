@@ -11,8 +11,7 @@ import TokenStorage from '@/util/TokenStorage';
 import { History } from 'history';
 import { NOT_FOUND_PAGE } from '@/config/constant';
 import { ServerData } from '@/interface/serverData.interface';
-import bloggersModel from '@/model/bloggers';
-import userModel from '../../../model/user';
+import { bloggersModel, userModel } from '../../../model';
 interface Props {
 	history: History;
 	location: Location;

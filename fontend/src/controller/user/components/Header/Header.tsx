@@ -5,7 +5,7 @@ import { Menu, Icon, Dropdown } from 'antd';
 import styles from './Header.module.scss';
 import { User } from '@/interface/user.interface';
 import { ReactAutoBind } from '@/util/decorators/reactAutoBind';
-import userModel from '../../../../model/user';
+import { userModel } from '../../../../model';
 
 interface Props {
 	user: User;

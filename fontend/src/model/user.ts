@@ -3,7 +3,7 @@ import { API } from '../services/API';
 import { UpdateUser } from '../services/user';
 import TokenStorage from '../util/TokenStorage';
 import { ReduxModel } from 'ryan-redux';
-class UserModel extends ReduxModel<IUser | null> {
+export default class UserModel extends ReduxModel<IUser | null> {
 	nameSpace = 'user';
 
 	state: IUser | null = null;
@@ -48,6 +48,3 @@ class UserModel extends ReduxModel<IUser | null> {
 		return user;
 	}
 }
-
-const userModel = new UserModel();
-export default userModel;

@@ -14,7 +14,7 @@ import CustomComment from '@/components/CustomComment/CustomComment';
 import CustomEditor from '@/components/CustomEditor/CustomEditor';
 import { connect } from 'react-redux';
 import { checkRenderFromServer } from '@/util/decorators/checkRenderFromServer';
-import resumeModel from '../../../../model/resumes';
+import { resumeModel } from '../../../../model';
 CustomEditor;
 interface Props {
 	history: History;

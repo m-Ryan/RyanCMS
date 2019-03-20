@@ -65,7 +65,7 @@ export default class Record extends React.PureComponent<Props, State> {
 		data.sort((a, b) => b.created_at - a.created_at).forEach((item) => {
 			const currentYear = dayjs(item.created_at * 1000).year();
 			const currentMonth = dayjs(item.created_at * 1000).month() + 1;
-			let month = months.filter((item) => item.month === currentMonth)[0];
+			let month = months.filter((item) => item.month === currentMonth && item.year === currentYear)[0];
 			if (!month) {
 				month = {
 					year: currentYear,

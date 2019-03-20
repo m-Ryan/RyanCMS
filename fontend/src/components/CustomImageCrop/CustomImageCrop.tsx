@@ -7,7 +7,7 @@ import { API } from '../../services/API';
 import { catchError } from '../../util/decorators/catchError';
 import Uploader from '../../util/uploader';
 import { loading } from '../../util/decorators/loading';
-import qiNiuConfigModel from '../../model/qiNiuConfig';
+import { qiNiuConfigModel } from '../../model';
 
 interface State {
 	crop: ReactCrop.Crop;

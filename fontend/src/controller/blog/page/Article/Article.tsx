@@ -16,7 +16,7 @@ import LightCode from '@/components/LightCode/LightCode';
 import CustomComment from '@/components/CustomComment/CustomComment';
 import { checkRenderFromServer } from '@/util/decorators/checkRenderFromServer';
 import { connect } from 'react-redux';
-import articleModel from '../../../../model/articles';
+import { articleModel } from '../../../../model';
 interface Props {
 	history: History;
 	location: Location;

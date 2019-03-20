@@ -5,7 +5,7 @@ import styles from './Login.module.scss';
 import LoginForm from './components/LoginForm/LoginForm';
 import { User } from '@/interface/user.interface';
 import TokenStorage from '@/util/TokenStorage';
-import userModel from '../../../model/user';
+import { userModel } from '../../../model';
 interface Props extends RouteProps, RouterProps {
 	user: User;
 }

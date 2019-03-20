@@ -2,7 +2,7 @@ import { API } from '../services/API';
 import { Article as IArticle } from '../interface/article.interface';
 import { unescapeHTML } from '../util/escape';
 import { ReduxModel } from 'ryan-redux';
-class ArticlesModel extends ReduxModel<IArticle[]> {
+export default class ArticlesModel extends ReduxModel<IArticle[]> {
 	nameSpace = 'articles';
 
 	state: IArticle[] = [];
@@ -22,7 +22,3 @@ class ArticlesModel extends ReduxModel<IArticle[]> {
 		return article;
 	}
 }
-
-const articleModel = new ArticlesModel();
-
-export default articleModel;

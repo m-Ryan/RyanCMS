@@ -4,7 +4,7 @@ import styles from './index.module.scss';
 import { Link } from 'react-router-dom';
 import TokenStorage from '../../../util/TokenStorage';
 import { RouterProps } from 'react-router';
-import userModel from '../../../model/user';
+import { userModel } from '../../../model';
 interface Props extends RouterProps {}
 export default class Welcome extends Component<Props> {
 	async componentDidMount() {

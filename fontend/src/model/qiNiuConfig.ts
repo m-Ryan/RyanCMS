@@ -2,7 +2,7 @@ import { API } from '../services/API';
 import { QiNiuConfig as IQiNiuConfig } from '../services/upload/user';
 import { ReduxModel } from 'ryan-redux';
 
-class QiNiuConfigModel extends ReduxModel<IQiNiuConfig | null> {
+export default class QiNiuConfigModel extends ReduxModel<IQiNiuConfig | null> {
 	nameSpace = 'qiNiuConfig';
 
 	state: IQiNiuConfig | null = null;
@@ -16,5 +16,3 @@ class QiNiuConfigModel extends ReduxModel<IQiNiuConfig | null> {
 		return this.state;
 	}
 }
-const qiNiuConfigModel = new QiNiuConfigModel();
-export default qiNiuConfigModel;

@@ -1,6 +1,6 @@
 import { API } from '../services/API';
 import { message } from 'antd';
-import qiNiuConfigModel from '../model/qiNiuConfig';
+import { qiNiuConfigModel } from '../model';
 
 const defaultOptions = {
 	count: 1,

@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { ReactAutoBind } from '../../util/decorators/reactAutoBind';
 import { QiNiuConfig } from '../../services/upload/user';
 import { UploadChangeParam, UploadFileStatus, RcFile } from 'antd/lib/upload/interface';
-import qiNiuConfigModel from '../../model/qiNiuConfig';
+import { qiNiuConfigModel } from '../../model';
 export interface CustomUploadProps extends UploadProps {
 	accept: string;
 	beforeUpload?: (file: RcFile, fileList: RcFile[]) => any;

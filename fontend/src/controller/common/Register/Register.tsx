@@ -5,7 +5,7 @@ import { RegisterInfo } from './components/RegisterInfo/RegisterInfo';
 import RegisterForm from './components/RegisterForm/RegisterForm';
 import { RouterProps } from 'react-router';
 import TokenStorage from '@/util/TokenStorage';
-import userModel from '../../../model/user';
+import { userModel } from '../../../model';
 interface Props extends RouterProps {}
 export default class Register extends React.Component<Props> {
 	async componentDidMount() {
