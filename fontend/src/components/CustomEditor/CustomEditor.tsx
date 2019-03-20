@@ -1,4 +1,4 @@
-import { Icon, Drawer, message, Popover } from 'antd';
+import { Icon, Drawer, message, Popover, Tooltip } from 'antd';
 import React from 'react';
 import styles from './CustomEditor.module.scss';
 import ReactMarkdown from 'react-markdown';
@@ -8,8 +8,9 @@ import { RcFile } from 'antd/lib/upload/interface';
 import { GithubPicker, ColorResult } from 'react-color';
 interface ToolOption {
 	name: string;
+	tip: string;
 	icon: React.ReactNode;
-	method: any;
+	method: ()=> void;
 }
 interface Props {
 	height: string;
@@ -38,16 +39,18 @@ export default class CustomEditor extends React.Component<Props, State> {
 	}
 
 	getEditorInstance() {
-		const instance = this.editor.current;
+		const instance = this.editor.current!;
 		if (instance) {
 			const beginPos = instance.selectionStart;
 			const endPos = instance.selectionEnd;
 			const value = instance.value;
+			const scrollTop = instance.scrollTop;
 			return {
 				beginPos,
 				endPos,
 				value,
-				instance
+				instance,
+				scrollTop
 			};
 		} else {
 			throw new Error('发生未知错误');
@@ -60,14 +63,15 @@ export default class CustomEditor extends React.Component<Props, State> {
 	};
 
 	setPic = async (url: string) => {
-		const pic: string = `![图片1](${url}) \n\r`;
+		const pic: string = `![图片1](${url})`;
 		const { onChange } = this.props;
-		const { beginPos, endPos, value, instance } = this.getEditorInstance();
+		const { beginPos, endPos, value, instance, scrollTop } = this.getEditorInstance();
 		const newValue = value.slice(0, beginPos) + pic + value.slice(endPos);
 		await onChange(newValue);
 		message.destroy();
-		// instance.focus();
-		// instance.setSelectionRange(beginPos + pic.length, endPos + pic.length);
+		instance.focus();
+		instance.setSelectionRange(beginPos + pic.length, endPos + pic.length);
+		instance.scrollTo(0, scrollTop);
 		this.setState({
 			loading: false
 		});
@@ -81,7 +85,7 @@ export default class CustomEditor extends React.Component<Props, State> {
 	};
 
 	setLink = async () => {
-		const { beginPos, endPos, value, instance } = this.getEditorInstance();
+		const { beginPos, endPos, value, instance, scrollTop } = this.getEditorInstance();
 		const { onChange } = this.props;
 		const link = '**' + value.slice(beginPos, endPos) + '**';
 		const newValue = value.slice(0, beginPos) + `[${link}](链接地址)` + value.slice(endPos);
@@ -89,47 +93,93 @@ export default class CustomEditor extends React.Component<Props, State> {
 		await onChange(newValue);
 		instance.focus();
 		instance.setSelectionRange(beginPos + 9, endPos + 11);
+		instance.scrollTo(0, scrollTop);
 	};
 
 	setBold = async () => {
-		const { beginPos, endPos, value, instance } = this.getEditorInstance();
+		const { beginPos, endPos, value, instance, scrollTop } = this.getEditorInstance();
 		const { onChange } = this.props;
 		const boldText = '**' + value.slice(beginPos, endPos) + '**';
 		const newValue = value.slice(0, beginPos) + boldText + value.slice(endPos);
 		await onChange(newValue);
 		instance.focus();
 		instance.setSelectionRange(beginPos + 2, endPos + 2);
+		instance.scrollTo(0, scrollTop);
 	};
 
 	setItalic = async () => {
-		const { beginPos, endPos, value, instance } = this.getEditorInstance();
+		const { beginPos, endPos, value, instance, scrollTop } = this.getEditorInstance();
 		const { onChange } = this.props;
 		const italicText = '*' + value.slice(beginPos, endPos) + '*';
 		const newValue = value.slice(0, beginPos) + italicText + value.slice(endPos);
 		await onChange(newValue);
 		instance.focus();
 		instance.setSelectionRange(beginPos + 1, endPos + 1);
+		instance.scrollTo(0, scrollTop);
 	};
 
 	setQuote = async () => {
-		const { beginPos, endPos, value, instance } = this.getEditorInstance();
+		const { beginPos, endPos, value, instance, scrollTop } = this.getEditorInstance();
 		const { onChange } = this.props;
 		const quoteText = '\n > ' + value.slice(beginPos, endPos) + '\n';
 		const newValue = value.slice(0, beginPos) + quoteText + value.slice(endPos);
 		await onChange(newValue);
 		instance.focus();
 		instance.setSelectionRange(beginPos + quoteText.length, endPos + quoteText.length);
+		instance.scrollTo(0, scrollTop);
 	};
 
 	setList = async () => {
-		const { beginPos, endPos, value, instance } = this.getEditorInstance();
+		const { beginPos, endPos, value, instance, scrollTop } = this.getEditorInstance();
 		const { onChange } = this.props;
 		const listText = '- ' + value.slice(beginPos, endPos);
 		const newValue = value.slice(0, beginPos) + listText + value.slice(endPos);
 		await onChange(newValue);
 		instance.focus();
 		instance.setSelectionRange(newValue.length, newValue.length);
+		instance.scrollTo(0, scrollTop);
 	};
+
+	setFontColor = async (colorResult: ColorResult) => {
+		const { beginPos, endPos, value, instance, scrollTop} = this.getEditorInstance();
+		const { onChange } = this.props;
+		const listText = `<span style="color: ${colorResult.hex}">\n${value.slice(beginPos, endPos)}\n</span>`;
+		const newValue = value.slice(0, beginPos) + listText + value.slice(endPos);
+		await onChange(newValue);
+		instance.focus();
+		instance.setSelectionRange(newValue.length, newValue.length);
+		instance.scrollTo(0, scrollTop);
+	};
+
+	setBgColor = async (colorResult: ColorResult) => {
+		const { beginPos, endPos, value, instance, scrollTop } = this.getEditorInstance();
+		const { onChange } = this.props;
+		const listText = `<span style="background-color: ${colorResult.hex}">\n${value.slice(
+			beginPos,
+			endPos
+		)}\n</span>`;
+		const newValue = value.slice(0, beginPos) + listText + value.slice(endPos);
+		await onChange(newValue);
+		instance.focus();
+		instance.setSelectionRange(newValue.length, newValue.length);
+		instance.scrollTo(0, scrollTop);
+	};
+
+	setCode = async () => {
+		const { beginPos, endPos, value, instance, scrollTop } = this.getEditorInstance();
+		const { onChange } = this.props;
+		const listText = `\n\`\`\`js\n${value.slice(
+			beginPos,
+			endPos
+		)}\n\`\`\`\n`;
+		const newValue = value.slice(0, beginPos) + listText + value.slice(endPos);
+		await onChange(newValue);
+		instance.focus();
+		instance.setSelectionRange(newValue.length, newValue.length);
+		instance.scrollTo(0, scrollTop);
+	};
+
+	getTools() {}
 
 	setFullScreen = () => {
 		this.setState({ fullScreen: !this.state.fullScreen });
@@ -150,43 +200,20 @@ export default class CustomEditor extends React.Component<Props, State> {
 		return attributes;
 	}
 
-	setFontColor = async (colorResult: ColorResult) => {
-		const { beginPos, endPos, value, instance } = this.getEditorInstance();
-		const { onChange } = this.props;
-		const listText = `<span style="color: ${colorResult.hex}">\n${value.slice(beginPos, endPos)}\n</span>`;
-		const newValue = value.slice(0, beginPos) + listText + value.slice(endPos);
-		await onChange(newValue);
-		instance.focus();
-		instance.setSelectionRange(newValue.length, newValue.length);
-	};
-
-	setBgColor = async (colorResult: ColorResult) => {
-		const { beginPos, endPos, value, instance } = this.getEditorInstance();
-		const { onChange } = this.props;
-		const listText = `<span style="background-color: ${colorResult.hex}">\n${value.slice(
-			beginPos,
-			endPos
-		)}\n</span>`;
-		const newValue = value.slice(0, beginPos) + listText + value.slice(endPos);
-		await onChange(newValue);
-		instance.focus();
-		instance.setSelectionRange(newValue.length, newValue.length);
-	};
-
-	getTools() {}
-
 	public render() {
 		const { className, style, height, value, onChange, tools, placeholder } = this.props;
 		const { fullScreen, loading } = this.state;
-		const toolsOption = [
+		const toolsOption: ToolOption[] = [
 			{
 				name: 'bold',
 				icon: <Icon type="bold" />,
+				tip: '加粗',
 				method: this.setBold
 			},
 			{
 				name: 'italic',
 				icon: <Icon type="italic" />,
+				tip: '斜体',
 				method: this.setItalic
 			},
 			{
@@ -200,6 +227,7 @@ export default class CustomEditor extends React.Component<Props, State> {
 						<Icon type="font-colors" />
 					</Popover>
 				),
+				tip: '字体颜色',
 				method: () => {}
 			},
 			{
@@ -209,11 +237,13 @@ export default class CustomEditor extends React.Component<Props, State> {
 						<Icon type="bg-colors" />
 					</Popover>
 				),
+				tip: '背景颜色',
 				method: () => {}
 			},
 			{
 				name: 'link',
 				icon: <Icon type="link" />,
+				tip: '链接',
 				method: this.setLink
 			},
 			{
@@ -230,21 +260,31 @@ export default class CustomEditor extends React.Component<Props, State> {
 				) : (
 					<Icon type="picture" />
 				),
+				tip: '图片',
 				method: () => {}
+			},
+			{
+				name: 'code',
+				icon: <Icon type="code" />,
+				tip: '代码块',
+				method: this.setCode
 			},
 			{
 				name: 'quote',
 				icon: <Icon type="right" />,
+				tip: '引用',
 				method: this.setQuote
 			},
 			{
 				name: 'ordered-list',
 				icon: <Icon type="ordered-list" />,
+				tip: '列表',
 				method: this.setList
 			},
 			{
 				name: 'full-screen',
 				icon: <Icon type="fullscreen" />,
+				tip: '全屏',
 				method: this.setFullScreen
 			}
 		];
@@ -255,13 +295,13 @@ export default class CustomEditor extends React.Component<Props, State> {
 				<div className={styles['editor-tool']}>
 					{tools ? (
 						toolsOption.filter((item) => tools.includes(item.name)).map((item) => (
-							<a onClick={item.method} key={item.name}>
+							<a key={item.name} onClick={item.method} title={item.tip}>
 								{item.icon}
 							</a>
 						))
 					) : (
 						toolsOption.map((item) => (
-							<a onClick={item.method} key={item.name}>
+							<a key={item.name} onClick={item.method} title={item.tip}>
 								{item.icon}
 							</a>
 						))

@@ -20,9 +20,7 @@ import { UploadService } from '../service/upload.service';
 import { UserError } from '../../common/filters/userError';
 import { Upload } from '../../util/upload';
 import qiniu from 'qiniu';
-import stream from 'stream';
-import stringToStream from 'string-to-stream';
-
+import TranformToReadStream from 'tranform-to-readstream';
 @Controller('upload/user')
 export class UserController {
 	constructor(private readonly uploadService: UploadService) {}
@@ -48,7 +46,7 @@ export class UserController {
 	}
 
 	@Post('/upload-qiniu-file')
-	uploadQiuNiuFile(@Body() fileData: { data: string; name: string }) {
+	async uploadQiuNiuFile(@Body() fileData: { data: string; name: string }) {
 		if (!fileData.data) {
 			throw new UserError('文件数据不能为空');
 		}
@@ -56,9 +54,8 @@ export class UserController {
 			throw new UserError('文件名不能为空');
 		}
 		const { token, origin, options } = getQiniu(fileData.name);
-
 		// 创建可读流
-		const readerStream = stringToStream(fileData.data);
+		const readerStream = new TranformToReadStream(fileData.data);
 		const formUploader = new qiniu.form_up.FormUploader(options);
 		const putExtra = new qiniu.form_up.PutExtra();
 		return new Promise((resolve, reject) => {

@@ -105,3 +105,5 @@ export { default as FontColorsOutline } from '@ant-design/icons/lib/outline/Font
 export { default as BgColorsOutline } from '@ant-design/icons/lib/outline/BgColorsOutline';
 
 export { default as QuestionCircle } from '@ant-design/icons/lib/outline/QuestionCircleOutline';
+
+export { default as CodeOutline } from '@ant-design/icons/lib/outline/CodeOutline';

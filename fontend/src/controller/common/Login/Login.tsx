@@ -9,18 +9,27 @@ import { userModel } from '../../../model';
 interface Props extends RouteProps, RouterProps {
 	user: User;
 }
-
-export default class Login extends React.Component<Props> {
+interface State {
+	isMounted: boolean
+}
+export default class Login extends React.Component<Props, State> {
+	state:State = {
+		isMounted: false
+	}
 	async componentDidMount() {
 		if (TokenStorage.getToken()) {
 			await userModel.getUser();
 			this.props.history.push('/admin');
+			return;
 		}
+		this.setState({
+			isMounted: true
+		})
 	}
 
 	public render() {
 		return (
-			<div className={styles['container']}>
+			this.state.isMounted &&	<div className={styles['container']}>
 				<Row gutter={24}>
 					<Col span={14} />
 					<Col span={8}>
