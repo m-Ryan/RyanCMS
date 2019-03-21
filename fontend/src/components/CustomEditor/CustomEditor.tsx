@@ -320,8 +320,8 @@ export default class CustomEditor extends React.Component<Props, State> {
 
 	setFontColor = async (colorResult: ColorResult) => {
 		const { beginPos, endPos, value, scrollTop } = this.getEditorInstance();
-		const beginText = `\n<span style="color: ${colorResult.hex}">\n`;
-		const endText = `\n</span>\n`;
+		const beginText = `\n\n<span style="color: ${colorResult.hex}">\n`;
+		const endText = `\n</span>\n\n`;
 		const selectdText = `${beginText + value.slice(beginPos, endPos) + endText}`;
 		const newValue = value.slice(0, beginPos) + selectdText + value.slice(endPos);
 
@@ -338,8 +338,8 @@ export default class CustomEditor extends React.Component<Props, State> {
 
 	setBgColor = async (colorResult: ColorResult) => {
 		const { beginPos, endPos, value, scrollTop } = this.getEditorInstance();
-		const beginText = `\n<span style="background-color: ${colorResult.hex}">\n`;
-		const endText = `\n</span>\n`;
+		const beginText = `\n\n<span style="background-color: ${colorResult.hex}">\n`;
+		const endText = `\n</span>\n\n`;
 		const selectdText = `${beginText + value.slice(beginPos, endPos) + endText}`;
 		const newValue = value.slice(0, beginPos) + selectdText + value.slice(endPos);
 		const selectionRangeBegin = beginPos + beginText.length;
