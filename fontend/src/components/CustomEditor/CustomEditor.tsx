@@ -286,11 +286,12 @@ export default class CustomEditor extends React.Component<Props, State> {
 
 	setQuote = async () => {
 		const { beginPos, endPos, value, scrollTop } = this.getEditorInstance();
-		const quoteText = '\n > ' + value.slice(beginPos, endPos) + '\n';
+		const beginText = '\n > ';
+		const quoteText = beginText + value.slice(beginPos, endPos) + '\n';
 		const newValue = value.slice(0, beginPos) + quoteText + value.slice(endPos);
 
-		const selectionRangeBegin = beginPos + quoteText.length;
-		const selectionRangeEnd = endPos + quoteText.length;
+		const selectionRangeBegin = beginPos + beginText.length;
+		const selectionRangeEnd = endPos + beginText.length;
 		this.putStep({
 			value: newValue,
 			selectionRangeBegin,
