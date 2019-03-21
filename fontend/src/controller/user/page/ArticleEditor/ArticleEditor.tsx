@@ -374,12 +374,14 @@ export default class ArticleEditor extends React.Component<Props, State> {
 						onChange={(checked) => this.onSetPrivate(checked ? 1 : 0)}
 					/>
 				</div>
-				<CustomEditor
-					value={formData.content.content}
-					uploadAddress={'/api/upload/user/image'}
-					onChange={this.onChangeContent}
-					height={'500px'}
-				/>
+				{!fetched && (
+					<CustomEditor
+						initValue={formData.content.content}
+						uploadAddress={'/api/upload/user/image'}
+						onChange={this.onChangeContent}
+						height={'500px'}
+					/>
+				)}
 			</div>
 		) : (
 			<CustomLoading />

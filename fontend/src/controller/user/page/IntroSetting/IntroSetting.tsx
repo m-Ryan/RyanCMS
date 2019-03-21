@@ -17,6 +17,7 @@ interface Props extends RouteProps, RouterProps {
 
 interface State {
 	loading: boolean;
+	initLoading: boolean;
 	resume: string;
 }
 
@@ -25,6 +26,7 @@ interface State {
 export default class IntroSetting extends React.Component<Props, State> {
 	state: State = {
 		loading: false,
+		initLoading: false,
 		resume: ''
 	};
 
@@ -34,10 +36,18 @@ export default class IntroSetting extends React.Component<Props, State> {
 
 	@catchError()
 	async getResume() {
-		const resume = await API.user.user.getResume();
-		this.setState({
-			resume: resume.content
-		});
+		this.setState(
+			{
+				initLoading: true
+			},
+			async () => {
+				const resume = await API.user.user.getResume();
+				this.setState({
+					resume: resume.content,
+					initLoading: false
+				});
+			}
+		);
 	}
 
 	onChangeContent(value: string) {
@@ -60,7 +70,7 @@ export default class IntroSetting extends React.Component<Props, State> {
 	}
 
 	public render() {
-		const { loading, resume } = this.state;
+		const { loading, resume, initLoading } = this.state;
 		return (
 			<div className={styles['container']}>
 				<LayoutTitle
@@ -72,13 +82,15 @@ export default class IntroSetting extends React.Component<Props, State> {
 					}
 				/>
 
-				<CustomEditor
-					placeholder="个人的介绍、想法等等..."
-					value={resume}
-					uploadAddress={'/api/upload/user/image'}
-					onChange={this.onChangeContent}
-					height={'calc(100vh - 200px)'}
-				/>
+				{!initLoading && (
+					<CustomEditor
+						placeholder="个人的介绍、想法等等..."
+						initValue={resume}
+						uploadAddress={'/api/upload/user/image'}
+						onChange={this.onChangeContent}
+						height={'calc(100vh - 200px)'}
+					/>
+				)}
 			</div>
 		);
 	}

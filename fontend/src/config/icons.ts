@@ -107,3 +107,7 @@ export { default as BgColorsOutline } from '@ant-design/icons/lib/outline/BgColo
 export { default as QuestionCircle } from '@ant-design/icons/lib/outline/QuestionCircleOutline';
 
 export { default as CodeOutline } from '@ant-design/icons/lib/outline/CodeOutline';
+
+export { default as RedoOutline } from '@ant-design/icons/lib/outline/RedoOutline';
+
+export { default as UndoOutline } from '@ant-design/icons/lib/outline/UndoOutline';
