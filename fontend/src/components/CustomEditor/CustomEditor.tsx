@@ -143,7 +143,7 @@ export default class CustomEditor extends React.Component<Props, State> {
 				history.push(data);
 				newStep += 1;
 			} else {
-				lastHistory.value = data.value;
+				Object.assign(lastHistory, data);
 			}
 		} else {
 			history.push(data);
@@ -240,9 +240,9 @@ export default class CustomEditor extends React.Component<Props, State> {
 	};
 
 	onInputChange = (value: string) => {
-		const { beginPos, endPos, scrollTop } = this.getEditorInstance();
-		const selectionRangeBegin = beginPos;
-		const selectionRangeEnd = endPos;
+		const { scrollTop } = this.getEditorInstance();
+		const selectionRangeBegin = value.length;
+		const selectionRangeEnd = value.length;
 		this.putStep({
 			value,
 			selectionRangeBegin,
