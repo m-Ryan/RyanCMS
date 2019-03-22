@@ -18,9 +18,9 @@
 
 
  * [x] 装饰器的一些妙用
-       例如编写一个autobind 绑定react中的this
+     - 例如编写一个autobind 绑定react中的this
      - 例如编写一个catchError 捕获错误
-    -  例如编写一个loading 设置加载状态等等
+     - 例如编写一个loading 设置加载状态等等
      - ![图片1](http://assets.maocanhua.cn/FqYe1F8tn5aHooNgL_RMNFo2jq4t)
 
 **[项目地址 http://cms.maocanhua.cn](http://cms.maocanhua.cn)** 
