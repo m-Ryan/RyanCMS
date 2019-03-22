@@ -1,9 +1,27 @@
 # RyanCMS 
 
-## 特色
-> * [x] 前后端分离
-> * [x] typeScript
-> * [x] 服务端渲染
+基于这个项目，你可以了解到
+ * [x] 前后端分离的实践
+ * [x] react如何搭配typeScript
+      - 例如编写基本的接口，枚举、泛型
+      - 例如使用第三方包如何编写d.ts
+ * [x] react服务端渲染
+      - 如何通过nodejs中间层做服务端渲染
+      - 如何在服务端渲染时向redux注入数据
+      - 如何避免服务端已经调用的接口，在浏览器端重复调用
+ * [x] 一种简单易用的redux模型
+      - 这样的redux模型你用过没
+     ![图片1](http://assets.maocanhua.cn/FscX6YmM2PzZniBm2A20EDE2Ox82)
+
+     -  只要这样调用
+     ![图片1](http://assets.maocanhua.cn/FpzfJcR_a-GY71hq3f-ombJ-FdXY)
+
+
+ * [x] 装饰器的一些妙用
+       例如编写一个autobind 绑定react中的this
+     - 例如编写一个catchError 捕获错误
+    -  例如编写一个loading 设置加载状态等等
+     - ![图片1](http://assets.maocanhua.cn/FqYe1F8tn5aHooNgL_RMNFo2jq4t)
 
 **[项目地址 http://cms.maocanhua.cn](http://cms.maocanhua.cn)** 
 
@@ -11,14 +29,16 @@
 
 **如何使用** 
 
-> git clone git@github.com:m-Ryan/RyanCMS.git
+```js
+ git clone git@github.com:m-Ryan/RyanCMS.git
+```
 
 在 backend下新建一个文件夹config，在下面新建 ormconfig.json
 
 ![图片1](http://assets.maocanhua.cn/FtJVhfhzvMiGuIHuIKqIN3QtvfO3) 
 
 里面的内容大概是这样
-```
+```json
 {
   "type": "mysql",
   "host": "localhost",
