@@ -240,9 +240,9 @@ export default class CustomEditor extends React.Component<Props, State> {
 	};
 
 	onInputChange = (value: string) => {
-		const { scrollTop } = this.getEditorInstance();
-		const selectionRangeBegin = value.length;
-		const selectionRangeEnd = value.length;
+		const { beginPos, endPos, scrollTop } = this.getEditorInstance();
+		const selectionRangeBegin = beginPos;
+		const selectionRangeEnd = endPos;
 		this.putStep({
 			value,
 			selectionRangeBegin,
