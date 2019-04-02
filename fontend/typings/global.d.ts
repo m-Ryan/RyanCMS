@@ -1,15 +1,10 @@
-declare namespace NodeJS {
-	interface Global {
-		Window: {
-			__INITIAL_STATE__: Object | undefined;
-		};
-		Blob: {
-			readonly size: number;
-			readonly type: string;
-			slice(start?: number, end?: number, contentType?: string): Blob;
-			new (blobParts?: BlobPart[], options?: BlobPropertyBag): Blob;
-		};
-	}
+declare interface Window {
+	__INITIAL_STATE__: Object | undefined;
+	CSS_EXTRACT_COLOR_PLUGIN: {
+		source: string;
+		fileName: string;
+		matchColors: string[];
+	}[] | undefined;
 }
 
 declare module '*.bmp' {

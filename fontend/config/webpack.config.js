@@ -24,7 +24,8 @@ const ModuleNotFoundPlugin = require('react-dev-utils/ModuleNotFoundPlugin');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin-alt');
 const typescriptFormatter = require('react-dev-utils/typescriptFormatter');
 const tsImportPluginFactory = require('ts-import-plugin');
-const antdTheme = require('../src/config//antd.theme');
+const antdTheme = require('../src/config/antd.theme');
+const CssColorExtractPlugin = require('css-color-extract-plugin').default;
 const dayjs = require('dayjs');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 // Source maps are resource heavy and can cause out of memory issue for large source files.
@@ -83,6 +84,14 @@ module.exports = function (webpackEnv) {
 			{
 				loader: require.resolve('css-loader'),
 				options: cssOptions
+			},
+			{
+				loader: CssColorExtractPlugin.loader,
+				options: {
+					...cssOptions,
+					only: true,
+					colors: ['#067785']
+				}
 			},
 			{
 				// Options for PostCSS as we reference these options twice
@@ -504,6 +513,15 @@ module.exports = function (webpackEnv) {
 										sass: true
 									},
 								},
+								{
+									loader: require.resolve(CssColorExtractPlugin.loader),
+									options: {
+										only: true,
+										modules: true,
+										localIdentName: '[path][name]__[local]',
+										colors: ['#067785']
+									}
+								},
 								'sass-loader'
 							].filter(Boolean),
 							sideEffects: true
@@ -531,6 +549,7 @@ module.exports = function (webpackEnv) {
 			]
 		},
 		plugins: [
+			new CssColorExtractPlugin({fileName: 'theme'}),
 			// Generates an `index.html` file with the <script> injected.
 			new HtmlWebpackPlugin(
 				Object.assign({}, {
