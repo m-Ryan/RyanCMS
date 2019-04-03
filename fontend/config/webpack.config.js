@@ -28,6 +28,7 @@ const antdTheme = require('../src/config/antd.theme');
 const CssColorExtractPlugin = require('css-color-extract-plugin').default;
 const dayjs = require('dayjs');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const getColors = require('./antdTheme');
 // Source maps are resource heavy and can cause out of memory issue for large source files.
 const shouldUseSourceMap = process.env.GENERATE_SOURCEMAP !== 'false';
 // Some apps do not need the benefits of saving a web request, so not inlining the chunk
@@ -90,7 +91,7 @@ module.exports = function (webpackEnv) {
 				options: {
 					...cssOptions,
 					only: true,
-					colors: ['#067785']
+					colors: getColors('#067785')
 				}
 			},
 			{

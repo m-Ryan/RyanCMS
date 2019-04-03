@@ -13,9 +13,9 @@ module.exports = function (app) {
 
   app.use(proxy('/api', {
     "target": "http://cms.maocanhua.cn/", 
-    "pathRewrite": {
-      "^/api": "/"
-    },
+    // "pathRewrite": {
+    //   "^/api": "/"
+    // },
     "secure": false,
     "changeOrigin": true
   }));

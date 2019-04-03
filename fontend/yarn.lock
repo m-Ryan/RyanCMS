@@ -1740,6 +1740,16 @@ ant-design-palettes@^1.1.3:
   dependencies:
     tinycolor2 "^1.4.1"
 
+antd-color-palette@^0.0.3:
+  version "0.0.3"
+  resolved "http://registry.npm.taobao.org/antd-color-palette/download/antd-color-palette-0.0.3.tgz?cache=0&other_urls=http%3A%2F%2Fregistry.npm.taobao.org%2Fantd-color-palette%2Fdownload%2Fantd-color-palette-0.0.3.tgz#5bc27db5cb28be8e0b850aa3f1a2b500c82be2ae"
+  integrity sha1-W8J9tcsovo4LhQqj8aK1AMgr4q4=
+  dependencies:
+    "@types/redux" "^3.6.0"
+    react-redux "^6.0.1"
+    redux "^4.0.1"
+    typescript "^3.3.3333"
+
 antd@^3.12.3:
   version "3.12.3"
   resolved "http://registry.npm.taobao.org/antd/download/antd-3.12.3.tgz#ffb409c5317e17583bf8493a4726d77ac839c7d2"
@@ -3098,6 +3108,13 @@ colors@~1.1.2:
   resolved "http://registry.npm.taobao.org/colors/download/colors-1.1.2.tgz#168a4701756b6a7f51a12ce0c97bfa28c084ed63"
   integrity sha1-FopHAXVran9RoSzgyXv6KMCE7WM=
 
+colour-palette@^1.0.7:
+  version "1.0.7"
+  resolved "http://registry.npm.taobao.org/colour-palette/download/colour-palette-1.0.7.tgz#7c394ef9b56ef7056c50c813826ee024ca41fc65"
+  integrity sha1-fDlO+bVu9wVsUMgTgm7gJMpB/GU=
+  dependencies:
+    tinycolor2 "^1.4.1"
+
 colour@0.7.1:
   version "0.7.1"
   resolved "http://registry.npm.taobao.org/colour/download/colour-0.7.1.tgz#9cb169917ec5d12c0736d3e8685746df1cadf778"
@@ -3456,10 +3473,10 @@ css-animation@1.x, css-animation@^1.3.2, css-animation@^1.5.0:
     babel-runtime "6.x"
     component-classes "^1.2.5"
 
-css-color-extract-plugin@^0.2.2:
-  version "0.2.2"
-  resolved "http://registry.npm.taobao.org/css-color-extract-plugin/download/css-color-extract-plugin-0.2.2.tgz#ef4200c816da67d86700dbb18e4c31d81e66634a"
-  integrity sha1-70IAyBbaZ9hnANuxjkwx2B5mY0o=
+css-color-extract-plugin@^0.2.4:
+  version "0.2.4"
+  resolved "http://registry.npm.taobao.org/css-color-extract-plugin/download/css-color-extract-plugin-0.2.4.tgz#0db03816f0b4468ccf2387a3bacc7a7a1186683e"
+  integrity sha1-DbA4FvC0RozPI4ejusx6ehGGaD4=
   dependencies:
     "@types/css" "0.0.31"
     "@types/loader-utils" "^1.1.3"

@@ -1,7 +1,7 @@
-import { API } from '../services/API';
 import { ReduxModel } from 'ryan-redux';
 import { ThemeColors } from '@/config/constant';
 import _ from 'lodash';
+import colorPalette from 'antd-color-palette';
 
 interface IThemeColors {
 	name: string,
@@ -68,26 +68,29 @@ export default class ThemeModel extends ReduxModel<ThemeColorModel> {
 		if(!hasMatch) {
 			throw new Error('没有匹配的主题色')
 		}
+		const { cssData, colorObject} = this.state;
+		const fragment = document.createDocumentFragment();
+		cssData.forEach(item=>{
+			let styleText = item.source;
+			const changeColors = colorObject.filter(colorItem=>item.matchColors.some(matchColor=>colorItem.defaultColors === matchColor) && (colorItem.currentColors !== colorItem.defaultColors));
+			changeColors.forEach(changeColor=>{
+				let count = 10;
+				let isT =false;
+				while(count > 0) {
+					styleText = replaceColor(styleText, colorPalette(changeColor.defaultColors, count), colorPalette(changeColor.currentColors, count));
+					count -= 1;
+				}
+				styleText = replaceColor(styleText, changeColor.defaultColors, changeColor.currentColors);
+			})
+			const style = document.createElement('style');
+			fragment.appendChild(style)
+			style.innerHTML = styleText;
+		});
+		document.body.appendChild(fragment);
 		this.setState({ ...this.state });
-		this.changeTheme();
 		return this.state;
 	}
 
-	changeTheme() {
-		const { cssData, colorObject} = this.state;
-		const newStyle = 	cssData.map(item=>{
-			const changeColors = colorObject.filter(colorItem=>item.matchColors.some(matchColor=>colorItem.defaultColors === matchColor) && (colorItem.currentColors !== colorItem.defaultColors));
-			let source = '';
-			changeColors.forEach(changeColor=>{
-				source = replaceColor(item.source, changeColor.defaultColors, changeColor.currentColors)
-			})
-			return source;
-		}).join('');
-
-		const style = document.createElement('style');
-		style.innerHTML = newStyle;
-		document.body.appendChild(style);
-	}
 }
 
 
