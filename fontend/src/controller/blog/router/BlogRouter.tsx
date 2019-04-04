@@ -11,7 +11,7 @@ import TokenStorage from '@/util/TokenStorage';
 import { History } from 'history';
 import { NOT_FOUND_PAGE } from '@/config/constant';
 import { ServerData } from '@/interface/serverData.interface';
-import { bloggersModel, userModel } from '../../../model';
+import { bloggersModel, userModel, themeModel } from '../../../model';
 interface Props {
 	history: History;
 	location: Location;
@@ -23,11 +23,20 @@ interface ConnectProps {
 	user: User;
 }
 
+interface State {
+	currentTheme: string;
+}
+
 @connect(({ bloggers, user }: ConnectProps) => ({ bloggers, user }))
-export default class BlogRouter extends React.PureComponent<Props> {
-	componentDidMount() {
+export default class BlogRouter extends React.PureComponent<Props, State> {
+	state: State = {
+		currentTheme: ''
+	};
+
+	@catchError()
+	async componentDidMount() {
 		if (!this.getBlogger()) {
-			this.initData();
+			await this.initData();
 		}
 		if (TokenStorage.getToken()) {
 			this.getUser();
@@ -71,6 +80,19 @@ export default class BlogRouter extends React.PureComponent<Props> {
 			const page = blogRoutes.filter((item) => comparePath(nextProps.location.pathname, item.path))[0];
 			document.title = typeof page.title === 'function' ? page.title(nextProps.location.pathname) : page.title;
 		}
+		const blogger = bloggersModel.getCurrentBlogger();
+
+		if (blogger) {
+			const color = blogger.theme.color;
+			if (color !== this.state.currentTheme) {
+				themeModel.saveThemeColor([
+					{
+						name: 'primary',
+						color
+					}
+				]);
+			}
+		}
 	}
 
 	getBlogger() {
@@ -83,7 +105,7 @@ export default class BlogRouter extends React.PureComponent<Props> {
 		const blogger = this.getBlogger();
 		return (
 			<React.Fragment>
-				{blogger ? (
+				{blogger && (
 					<Switch>
 						{blogRoutes.map((route, index) => (
 							<Route
@@ -94,8 +116,6 @@ export default class BlogRouter extends React.PureComponent<Props> {
 							/>
 						))}
 					</Switch>
-				) : (
-					<CustomerPageLoading />
 				)}
 			</React.Fragment>
 		);

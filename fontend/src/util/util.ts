@@ -21,3 +21,14 @@ export function comparePath(path: string, mathPath: string) {
 
 	return true;
 }
+
+export function awaitCssColorOnLoad() {
+	return new Promise((resolve) => {
+		if (window.CSS_EXTRACT_COLOR_PLUGIN) resolve();
+		document.onreadystatechange = (status) => {
+			if (window.CSS_EXTRACT_COLOR_PLUGIN) {
+				resolve();
+			}
+		};
+	});
+}

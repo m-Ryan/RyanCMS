@@ -9,7 +9,10 @@ export interface User {
 	updated_at: string;
 	last_login: string;
 	token: string;
-	theme: string;
+	theme: {
+		color: string;
+		music: string;
+	};
 	concat: Concat;
 	resume?: Resume;
 }

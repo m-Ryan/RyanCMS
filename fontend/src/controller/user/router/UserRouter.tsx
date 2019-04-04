@@ -11,7 +11,8 @@ import styles from './UserRouter.module.scss';
 import { catchError } from '@/util/decorators/catchError';
 import { History } from 'history';
 import TokenStorage from '@/util/TokenStorage';
-import { userModel } from '../../../model';
+import { userModel, themeModel } from '@/model';
+import { awaitCssColorOnLoad } from '@/util/util';
 
 interface ConnectProps {
 	user: User;
@@ -23,16 +24,34 @@ interface Props extends ConnectProps {
 	bloggers: User[];
 }
 
+interface State {
+	inited: boolean;
+}
+
 @connect(({ user }: ConnectProps) => ({ user }))
-export default class UserRouter extends React.Component<Props> {
+export default class UserRouter extends React.Component<Props, State> {
+	state: State = {
+		inited: false
+	};
 	componentDidMount() {
 		this.initData();
 	}
+
 	@catchError(function(this: UserRouter) {
 		this.props.history.push('/login');
 	})
 	async initData() {
-		await userModel.getUser();
+		const user = await userModel.getUser();
+		await awaitCssColorOnLoad();
+		if (user.theme.color) {
+			themeModel.saveThemeColor([
+				{
+					name: 'primary',
+					color: user.theme.color
+				}
+			]);
+		}
+		this.setState({ inited: true });
 	}
 
 	componentDidUpdate() {
@@ -43,30 +62,32 @@ export default class UserRouter extends React.Component<Props> {
 
 	render() {
 		const { user, location } = this.props;
-		return user ? (
-			<React.Fragment>
-				<Header user={user} />
-				<div className={styles['body-container']}>
-					<LayoutNavigator
-						pathname={location.pathname}
-						menuRoutes={userRoutes.filter((item) => !!item.icon)}
-					/>
-					<AdminBody>
-						<Switch>
-							{userRoutes.map((route, index) => (
-								<Route
-									key={index}
-									exact={true}
-									path={route.path}
-									component={() => <route.component user={user} {...this.props} />}
-								/>
-							))}
-						</Switch>
-					</AdminBody>
-				</div>
-			</React.Fragment>
-		) : (
-			<CustomerPageLoading />
+		const { inited } = this.state;
+		return (
+			user &&
+			inited && (
+				<React.Fragment>
+					<Header user={user} />
+					<div className={styles['body-container']}>
+						<LayoutNavigator
+							pathname={location.pathname}
+							menuRoutes={userRoutes.filter((item) => !!item.icon)}
+						/>
+						<AdminBody>
+							<Switch>
+								{userRoutes.map((route, index) => (
+									<Route
+										key={index}
+										exact={true}
+										path={route.path}
+										component={() => <route.component user={user} {...this.props} />}
+									/>
+								))}
+							</Switch>
+						</AdminBody>
+					</div>
+				</React.Fragment>
+			)
 		);
 	}
 }

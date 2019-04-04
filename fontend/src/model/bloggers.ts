@@ -23,4 +23,11 @@ export default class BloggersModel extends ReduxModel<User[]> {
 		}
 		return blogger;
 	}
+
+	getCurrentBlogger() {
+		const nickname = location.pathname.split('/')[2];
+		if (!nickname) return null;
+		const blogger = this.state.filter((item) => item.nickname === decodeURIComponent(nickname))[0];
+		return blogger;
+	}
 }

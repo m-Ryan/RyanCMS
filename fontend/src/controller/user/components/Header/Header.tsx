@@ -1,11 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Menu, Icon, Dropdown } from 'antd';
-
+import { Menu, Icon, Dropdown, Popover, Button, message } from 'antd';
 import styles from './Header.module.scss';
 import { User } from '@/interface/user.interface';
 import { ReactAutoBind } from '@/util/decorators/reactAutoBind';
-import { userModel } from '../../../../model';
+import { userModel } from '@/model';
+import { SketchPicker, ColorResult } from 'react-color';
+import { themeModel } from '@/model';
+import { API } from '@/services/API';
+import { catchError } from '@/util/decorators/catchError';
+import { awaitCssColorOnLoad } from '@/util/util';
 
 interface Props {
 	user: User;
@@ -16,6 +20,19 @@ export default class Header extends React.Component<Props, State> {
 	logout() {
 		userModel.logout();
 	}
+
+	@catchError()
+	async setColor(colorResult: ColorResult) {
+		themeModel.saveThemeColor([
+			{
+				name: 'primary',
+				color: colorResult.hex
+			}
+		]);
+		await API.user.user.updateTheme({ color: colorResult.hex });
+		message.success('已更改主题');
+	}
+
 	static defaultProps = {};
 	render() {
 		const { user } = this.props;
@@ -39,6 +56,11 @@ export default class Header extends React.Component<Props, State> {
 					</div>
 					<div className={styles['header-navbar']}>
 						<ul className={styles['header-menu']}>
+							<li>
+								<Popover content={<SketchPicker onChangeComplete={this.setColor} />} title="选择主题颜色">
+									<Icon type="bg-colors" /> 主题
+								</Popover>
+							</li>
 							<li>
 								<a href="javascript:void(0)">
 									<Icon type="question-circle" /> 帮助

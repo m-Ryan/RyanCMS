@@ -44,7 +44,6 @@ export class UserController {
 	@UseGuards(UserGuard)
 	@Post('/update-theme')
 	async updateTheme(@Headers('auth') auth: Auth, @Body() updateThemeDto: UpdateThemeDto) {
-		console.log(updateThemeDto);
 		const data = new UpdateThemeDto(updateThemeDto);
 		await data.validate();
 		await this.userService.updateTheme(auth.user_id, data);
