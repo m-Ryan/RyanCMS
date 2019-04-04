@@ -14,4 +14,12 @@ const articleModel = new ArticlesModel();
 const resumeModel = new ResumesModel();
 const themeModel = new ThemeModel();
 
-export { bloggersModel, userModel, qiNiuConfigModel, articleListModel, articleModel, resumeModel, themeModel };
+export {
+  bloggersModel,
+  userModel,
+  qiNiuConfigModel,
+  articleListModel,
+  articleModel,
+  resumeModel,
+  themeModel,
+};

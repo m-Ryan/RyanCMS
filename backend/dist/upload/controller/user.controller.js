@@ -11,6 +11,14 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -21,7 +29,7 @@ const upload_service_1 = require("../service/upload.service");
 const userError_1 = require("../../common/filters/userError");
 const upload_1 = require("../../util/upload");
 const qiniu_1 = __importDefault(require("qiniu"));
-const string_to_stream_1 = __importDefault(require("string-to-stream"));
+const tranform_to_readstream_1 = __importDefault(require("tranform-to-readstream"));
 let UserController = class UserController {
     constructor(uploadService) {
         this.uploadService = uploadService;
@@ -40,28 +48,30 @@ let UserController = class UserController {
         };
     }
     uploadQiuNiuFile(fileData) {
-        if (!fileData.data) {
-            throw new userError_1.UserError('文件数据不能为空');
-        }
-        if (!fileData.name) {
-            throw new userError_1.UserError('文件名不能为空');
-        }
-        const { token, origin, options } = getQiniu(fileData.name);
-        const readerStream = string_to_stream_1.default(fileData.data);
-        const formUploader = new qiniu_1.default.form_up.FormUploader(options);
-        const putExtra = new qiniu_1.default.form_up.PutExtra();
-        return new Promise((resolve, reject) => {
-            formUploader.putStream(token, fileData.name, readerStream, putExtra, (respErr, respBody, respInfo) => {
-                if (respErr) {
-                    throw respErr;
-                }
-                if (respInfo.statusCode === 200) {
-                    resolve(origin + '/' + respBody.key);
-                }
-                else {
-                    console.log(respInfo);
-                    throw new userError_1.UserError('上传失败');
-                }
+        return __awaiter(this, void 0, void 0, function* () {
+            if (!fileData.data) {
+                throw new userError_1.UserError('文件数据不能为空');
+            }
+            if (!fileData.name) {
+                throw new userError_1.UserError('文件名不能为空');
+            }
+            const { token, origin, options } = getQiniu(fileData.name);
+            const readerStream = new tranform_to_readstream_1.default(fileData.data);
+            const formUploader = new qiniu_1.default.form_up.FormUploader(options);
+            const putExtra = new qiniu_1.default.form_up.PutExtra();
+            return new Promise((resolve, reject) => {
+                formUploader.putStream(token, fileData.name, readerStream, putExtra, (respErr, respBody, respInfo) => {
+                    if (respErr) {
+                        throw respErr;
+                    }
+                    if (respInfo.statusCode === 200) {
+                        resolve(origin + '/' + respBody.key);
+                    }
+                    else {
+                        console.log(respInfo);
+                        throw new userError_1.UserError('上传失败');
+                    }
+                });
             });
         });
     }
@@ -87,7 +97,7 @@ __decorate([
     __param(0, common_1.Body()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
-    __metadata("design:returntype", void 0)
+    __metadata("design:returntype", Promise)
 ], UserController.prototype, "uploadQiuNiuFile", null);
 UserController = __decorate([
     common_1.Controller('upload/user'),

@@ -1,4 +1,4 @@
 export interface ServerData {
-	title: string;
-	props: Object;
+  title: string;
+  props: Object;
 }

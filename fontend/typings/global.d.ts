@@ -1,10 +1,33 @@
-declare interface Window {
-	__INITIAL_STATE__: Object | undefined;
-	CSS_EXTRACT_COLOR_PLUGIN: {
-		source: string;
-		fileName: string;
-		matchColors: string[];
-	}[] | undefined;
+interface Window {
+	__INITIAL_STATE__?: {} | undefined | { [key: string]: any };
+	CSS_EXTRACT_COLOR_PLUGIN?:
+		| {
+				source: string;
+				fileName: string;
+				matchColors: string[];
+			}[]
+		| undefined;
+}
+
+declare namespace NodeJS {
+	interface Global {
+		window: {
+			__INITIAL_STATE__?: {} | undefined | { [key: string]: any };
+		};
+		CSS_EXTRACT_COLOR_PLUGIN?:
+			| {
+					source: string;
+					fileName: string;
+					matchColors: string[];
+				}[]
+			| undefined;
+		Blob: {
+			readonly size: number;
+			readonly type: string;
+			slice(start?: number, end?: number, contentType?: string): Blob;
+			new (blobParts?: BlobPart[], options?: BlobPropertyBag): Blob;
+		};
+	}
 }
 
 declare module '*.bmp' {

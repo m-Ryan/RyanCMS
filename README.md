@@ -22,6 +22,9 @@
      - 例如编写一个catchError 捕获错误
      - 例如编写一个loading 设置加载状态等等
      - ![图片1](http://assets.maocanhua.cn/FqYe1F8tn5aHooNgL_RMNFo2jq4t)
+ 
+ * [x] 写一个webpack插件动态设置主题颜色
+    - ![图片1](http://assets.maocanhua.cn/FtVOaz169WnDLl-rcoVAE4nTBza6)
 
 **[项目地址 http://cms.maocanhua.cn](http://cms.maocanhua.cn)** 
 

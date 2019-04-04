@@ -5276,6 +5276,12 @@ tr46@^1.0.1:
   dependencies:
     punycode "^2.1.0"
 
+tranform-to-readstream@^0.0.2:
+  version "0.0.2"
+  resolved "https://registry.npmjs.org/tranform-to-readstream/-/tranform-to-readstream-0.0.2.tgz#33866bca5f3545537870e7d8760d6cfc077263dd"
+  dependencies:
+    typescript "^3.3.3333"
+
 trim-right@^1.0.1:
   version "1.0.1"
   resolved "http://registry.npm.taobao.org/trim-right/download/trim-right-1.0.1.tgz#cb2e1203067e0c8de1f614094b9fe45704ea6003"
@@ -5407,6 +5413,10 @@ typeorm@^0.2.8:
 typescript@^3.0.1:
   version "3.2.4"
   resolved "http://registry.npm.taobao.org/typescript/download/typescript-3.2.4.tgz#c585cb952912263d915b462726ce244ba510ef3d"
+
+typescript@^3.3.3333:
+  version "3.4.1"
+  resolved "https://registry.npmjs.org/typescript/-/typescript-3.4.1.tgz#b6691be11a881ffa9a05765a205cb7383f3b63c6"
 
 uglify-js@^3.1.4:
   version "3.4.9"

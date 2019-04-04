@@ -1,17 +1,16 @@
 import React from 'react';
 import { Route, Switch } from 'react-router';
 import { blogRoutes } from './blogRoutes';
-import { User } from '@/interface/user.interface';
 import { API } from '@/services/API';
 import { connect } from 'react-redux';
-import { CustomerPageLoading } from '@/components/CustomerPageLoading/CustomerPageLoading';
 import { catchError } from '@/util/decorators/catchError';
-import { comparePath } from '@/util/util';
+import { comparePath, awaitCssColorOnLoad } from '@/util/util';
 import TokenStorage from '@/util/TokenStorage';
 import { History } from 'history';
 import { NOT_FOUND_PAGE } from '@/config/constant';
 import { ServerData } from '@/interface/serverData.interface';
-import { bloggersModel, userModel, themeModel } from '../../../model';
+import { bloggersModel, userModel, themeModel } from '@/model';
+import { User } from '@/interface/user.interface';
 interface Props {
 	history: History;
 	location: Location;
@@ -24,15 +23,14 @@ interface ConnectProps {
 }
 
 interface State {
-	currentTheme: string;
+	inited: boolean;
 }
 
 @connect(({ bloggers, user }: ConnectProps) => ({ bloggers, user }))
 export default class BlogRouter extends React.PureComponent<Props, State> {
 	state: State = {
-		currentTheme: ''
+		inited: false
 	};
-
 	@catchError()
 	async componentDidMount() {
 		if (!this.getBlogger()) {
@@ -41,6 +39,7 @@ export default class BlogRouter extends React.PureComponent<Props, State> {
 		if (TokenStorage.getToken()) {
 			this.getUser();
 		}
+		this.initTheme();
 	}
 
 	@catchError(function(this: BlogRouter) {
@@ -58,6 +57,23 @@ export default class BlogRouter extends React.PureComponent<Props, State> {
 	@catchError(TokenStorage.clearToken)
 	async getUser() {
 		await userModel.getUser();
+	}
+
+	async initTheme() {
+		await awaitCssColorOnLoad();
+		const blogger = bloggersModel.getCurrentBlogger();
+		if (blogger) {
+			const color = blogger.theme.color;
+			if (color) {
+				await themeModel.saveThemeColor([
+					{
+						name: 'primary',
+						color
+					}
+				]);
+			}
+		}
+		this.setState({ inited: true });
 	}
 
 	static async initServerData(pathname: string): Promise<ServerData> {
@@ -80,19 +96,6 @@ export default class BlogRouter extends React.PureComponent<Props, State> {
 			const page = blogRoutes.filter((item) => comparePath(nextProps.location.pathname, item.path))[0];
 			document.title = typeof page.title === 'function' ? page.title(nextProps.location.pathname) : page.title;
 		}
-		const blogger = bloggersModel.getCurrentBlogger();
-
-		if (blogger) {
-			const color = blogger.theme.color;
-			if (color !== this.state.currentTheme) {
-				themeModel.saveThemeColor([
-					{
-						name: 'primary',
-						color
-					}
-				]);
-			}
-		}
 	}
 
 	getBlogger() {
@@ -103,9 +106,11 @@ export default class BlogRouter extends React.PureComponent<Props, State> {
 
 	render() {
 		const blogger = this.getBlogger();
+		const { inited } = this.state;
 		return (
 			<React.Fragment>
-				{blogger && (
+				{blogger &&
+				inited && (
 					<Switch>
 						{blogRoutes.map((route, index) => (
 							<Route

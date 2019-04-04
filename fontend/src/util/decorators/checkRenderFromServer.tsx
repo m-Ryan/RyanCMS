@@ -1,4 +1,4 @@
-
+///<reference path="../../../typings/global.d.ts"/>
 export function checkRenderFromServer() {
 	return function(target: any, propertyKey: string, descriptor: PropertyDescriptor) {
 		const fun = descriptor.value;

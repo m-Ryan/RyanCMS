@@ -56,7 +56,6 @@ let UserController = class UserController {
     }
     updateTheme(auth, updateThemeDto) {
         return __awaiter(this, void 0, void 0, function* () {
-            console.log(updateThemeDto);
             const data = new updateTheme_dto_1.UpdateThemeDto(updateThemeDto);
             yield data.validate();
             yield this.userService.updateTheme(auth.user_id, data);
