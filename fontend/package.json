@@ -40,7 +40,7 @@
     "chalk": "2.4.1",
     "colour-palette": "^1.0.7",
     "cross-env": "^5.2.0",
-    "css-color-extract-plugin": "^0.2.4",
+    "css-color-extract-plugin": "^0.3.2",
     "css-loader": "1.0.0",
     "css-modules-require-hook": "^4.2.3",
     "dayjs": "^1.7.8",
