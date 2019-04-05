@@ -92,6 +92,8 @@
 
 --- 
 
+**如果你喜欢或者对你有帮助，不妨给我个star或者fork一下吧❤️**
+
 ## 部分页面 
 ![博客首页](http://assets.maocanhua.cn/FqmWmTvur0mTxa000AIAWxkycZTI)
 
