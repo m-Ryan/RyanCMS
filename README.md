@@ -30,7 +30,7 @@
      - ![图片1](http://assets.maocanhua.cn/FqYe1F8tn5aHooNgL_RMNFo2jq4t)
  
  * [x] 写一个webpack插件动态设置主题颜色
-    - ![图片1](http://assets.maocanhua.cn/FgvARiyXVDzYELDVvVIB4L3WYxoX)
+    - ![图片1](./show.gif)
 
 ---
 
