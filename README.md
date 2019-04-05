@@ -1,19 +1,25 @@
 # RyanCMS 
 
 基于这个项目，你可以了解到
+
  * [x] 前后端分离的实践
+
  * [x] react如何搭配typeScript
       - 例如编写基本的接口，枚举、泛型
-      - 例如使用第三方包如何编写d.ts
+      - 例如使用第三方包如何编写d.ts,如果扩展window对象
+
  * [x] react服务端渲染
       - 如何通过nodejs中间层做服务端渲染
       - 如何在服务端渲染时向redux注入数据
       - 如何避免服务端已经调用的接口，在浏览器端重复调用
+
  * [x] 一种简单易用的redux模型
       - 这样的redux模型你用过没
+      - 
      ![图片1](http://assets.maocanhua.cn/FscX6YmM2PzZniBm2A20EDE2Ox82)
 
      -  只要这样调用
+     
      ![图片1](http://assets.maocanhua.cn/FpzfJcR_a-GY71hq3f-ombJ-FdXY)
 
 
@@ -24,7 +30,9 @@
      - ![图片1](http://assets.maocanhua.cn/FqYe1F8tn5aHooNgL_RMNFo2jq4t)
  
  * [x] 写一个webpack插件动态设置主题颜色
-    - ![图片1](http://assets.maocanhua.cn/FtVOaz169WnDLl-rcoVAE4nTBza6)
+    - ![图片1](http://assets.maocanhua.cn/FgvARiyXVDzYELDVvVIB4L3WYxoX)
+
+---
 
 **[项目地址 http://cms.maocanhua.cn](http://cms.maocanhua.cn)** 
 

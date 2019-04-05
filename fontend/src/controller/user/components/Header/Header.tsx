@@ -9,7 +9,6 @@ import { SketchPicker, ColorResult } from 'react-color';
 import { themeModel } from '@/model';
 import { API } from '@/services/API';
 import { catchError } from '@/util/decorators/catchError';
-import { awaitCssColorOnLoad } from '@/util/util';
 
 interface Props {
 	user: User;

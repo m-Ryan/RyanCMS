@@ -92,7 +92,6 @@ module.exports = function(webpackEnv) {
 				loader: CssColorExtractPlugin.loader,
 				options: {
 					...cssOptions,
-					only: true,
 					colors: [ ...getColors('#067785'), '#fff' ]
 				}
 			},
@@ -534,7 +533,6 @@ module.exports = function(webpackEnv) {
 								{
 									loader: require.resolve(CssColorExtractPlugin.loader),
 									options: {
-										only: true,
 										modules: true,
 										localIdentName: '[path][name]__[local]',
 										colors: [ '#067785' ]
