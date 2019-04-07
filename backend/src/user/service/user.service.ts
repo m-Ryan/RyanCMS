@@ -18,8 +18,11 @@ export class UserService {
 		return UserEntity.getUser(userId);
 	}
 
-	getBaseInfo(nickname?: string, userId?: number) {
-		return UserEntity.getBaseInfo(nickname, userId);
+	getBaseInfo(nickname?: string, userId?: number, domain?: string) {
+		return UserEntity.getBaseInfo(nickname, userId, domain);
+	}
+	getDomainList() {
+		return UserEntity.getDomainList();
 	}
 
 	login(loginDto: LoginDto) {
