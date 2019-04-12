@@ -9,7 +9,8 @@ export declare class UserService {
     constructor();
     register(registerDto: RegisterDto, userRank: number): Promise<UserEntity>;
     getUser(userId: number): Promise<UserEntity>;
-    getBaseInfo(nickname?: string, userId?: number): Promise<UserEntity>;
+    getBaseInfo(nickname?: string, userId?: number, domain?: string): Promise<UserEntity>;
+    getDomainList(): Promise<UserEntity[]>;
     login(loginDto: LoginDto): Promise<UserEntity>;
     updateUser(updateUserDto: UpdateUserDto, userId: number): Promise<void>;
     getResume(userId: number): Promise<UserResumeEntity>;

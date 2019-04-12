@@ -16,7 +16,7 @@ import { checkRenderFromServer } from '@/util/decorators/checkRenderFromServer';
 import { IArticleList } from '@/model/articleList';
 import { API } from '@/services/API';
 import { EmptyPlaceholder } from '@/components/EmptyPlaceholder/EmptyPlaceholder';
-import { articleListModel } from '../../../../model';
+import { articleListModel } from '@/model';
 
 interface Props {
 	history: History;

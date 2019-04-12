@@ -5,10 +5,11 @@ import UserRouter from '../controller/user/router/UserRouter';
 import Login from '../controller/common/Login/Login';
 import Register from '../controller/common/Register/Register';
 import { NotFound } from '../controller/common/NotFound/NotFound';
-import { NOT_FOUND_PAGE } from '../config/constant';
 import '@/assets/style/public.scss';
 import '@/assets/style/reset.scss';
 import Welcome from '../controller/common/Home';
+import DomainRouter from '../controller/blog/router/DomainRouter';
+import { DOMAIN_PATH } from '@/controller/blog/router/blogRoutes';
 export const BaseRouter = (
 	<Switch>
 		<Route exact path="/" component={Welcome} />
@@ -16,7 +17,7 @@ export const BaseRouter = (
 		<Route path="/register" component={Register} />
 		<Route path="/u/:id" component={BlogRouter} />
 		<Route path="/admin" component={UserRouter} />
-		<Route path={NOT_FOUND_PAGE} component={NotFound} />
-		<Route component={NotFound} />
+		<Route path={DOMAIN_PATH} component={DomainRouter} />
+		<Route path="*" component={NotFound} />
 	</Switch>
 );

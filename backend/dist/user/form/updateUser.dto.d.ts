@@ -10,6 +10,7 @@ export declare class UpdateUserDto extends Model {
     email: string;
     weibo: string;
     zhihu: string;
+    domain: string;
     constructor(data: UpdateUserDto);
     attributeLabels(): {
         nickname: string;
@@ -21,6 +22,7 @@ export declare class UpdateUserDto extends Model {
         email: string;
         zhihu: string;
         weibo: string;
+        domain: string;
     };
     rules(): (string | string[])[][];
 }

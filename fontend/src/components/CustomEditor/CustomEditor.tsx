@@ -195,25 +195,40 @@ export default class CustomEditor extends React.Component<Props, State> {
 		this.setState({
 			toolOptions: [ ...this.state.toolOptions ]
 		});
-		const urls = await upload.chooseFile();
-		const pic: string = `\n![图片1](${urls[0]})\n`;
-		const { beginPos, endPos, value, scrollTop } = this.getEditorInstance();
-		const newValue = value.slice(0, beginPos) + pic + value.slice(endPos);
+		try {
+			const urls = await upload.chooseFile();
+			if (!urls.length) {
+				item.disabled = false;
+				this.setState({
+					toolOptions: [ ...this.state.toolOptions ]
+				});
+				return;
+			}
+			const pic: string = `\n![图片1](${urls[0]})\n`;
+			const { beginPos, endPos, value, scrollTop } = this.getEditorInstance();
+			const newValue = value.slice(0, beginPos) + pic + value.slice(endPos);
 
-		message.destroy();
-		const selectionRangeBegin = beginPos + pic.length;
-		const selectionRangeEnd = endPos + pic.length;
-		this.putStep({
-			value: newValue,
-			selectionRangeBegin,
-			selectionRangeEnd,
-			scrollTop,
-			type: StepType.Picture
-		});
-		item.disabled = false;
-		this.setState({
-			toolOptions: [ ...this.state.toolOptions ]
-		});
+			message.destroy();
+			const selectionRangeBegin = beginPos + pic.length;
+			const selectionRangeEnd = endPos + pic.length;
+			this.putStep({
+				value: newValue,
+				selectionRangeBegin,
+				selectionRangeEnd,
+				scrollTop,
+				type: StepType.Picture
+			});
+			item.disabled = false;
+			this.setState({
+				toolOptions: [ ...this.state.toolOptions ]
+			});
+		} catch (error) {
+			message.error(error.message);
+			item.disabled = false;
+			this.setState({
+				toolOptions: [ ...this.state.toolOptions ]
+			});
+		}
 	};
 
 	uploadPicError = (errMsg: string) => {

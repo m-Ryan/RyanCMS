@@ -1,6 +1,6 @@
 import React from 'react';
-import { Route, Switch } from 'react-router';
-import { blogRoutes, BASE_PATH } from './blogRoutes';
+import { Route, Switch, RouterProps } from 'react-router';
+import { blogRoutes, DOMAIN_PATH } from './blogRoutes';
 import { API } from '@/services/API';
 import { connect } from 'react-redux';
 import { catchError } from '@/util/decorators/catchError';
@@ -27,14 +27,13 @@ interface State {
 }
 
 @connect(({ bloggers, user }: ConnectProps) => ({ bloggers, user }))
-export default class BlogRouter extends React.PureComponent<Props, State> {
+export default class DomainRouter extends React.PureComponent<Props, State> {
 	state: State = {
 		inited: false
 	};
 	@catchError()
 	async componentDidMount() {
 		routerModel.setRouter(this.props.location);
-
 		if (!this.getBlogger()) {
 			await this.initData();
 		}
@@ -44,12 +43,12 @@ export default class BlogRouter extends React.PureComponent<Props, State> {
 		this.initTheme();
 	}
 
-	@catchError(function(this: BlogRouter) {
+	@catchError(function(this: DomainRouter) {
 		this.props.history.push(NOT_FOUND_PAGE);
 	})
 	async initData() {
-		const nickname = this.props.location.pathname.split('/')[2];
-		await bloggersModel.getByName(nickname);
+		const domain = window.location.hostname;
+		await bloggersModel.getByDomain(domain);
 
 		if (TokenStorage.getToken()) {
 			this.getUser();
@@ -78,11 +77,9 @@ export default class BlogRouter extends React.PureComponent<Props, State> {
 		this.setState({ inited: true });
 	}
 
-	static async initServerData(pathname: string): Promise<ServerData> {
-		const page = blogRoutes.filter((item) => comparePath(pathname, BASE_PATH + item.path))[0];
-		const nickname = pathname.split('/')[2];
-		const blogger = await API.user.visitor.getBaseUser({ nickname });
-
+	static async initServerData(pathname: string, domain: string): Promise<ServerData> {
+		const page = blogRoutes.filter((item) => comparePath(pathname, DOMAIN_PATH + item.path))[0];
+		const blogger = await API.user.visitor.getBaseUser({ domain });
 		const initServerData = (page.component as any).initServerData;
 		const pageState = typeof initServerData === 'function' ? await initServerData(blogger, pathname) : {};
 		return {
@@ -101,8 +98,9 @@ export default class BlogRouter extends React.PureComponent<Props, State> {
 			const blogger = this.getBlogger();
 			if (!blogger) return;
 			const page = blogRoutes.filter((item) =>
-				comparePath(nextProps.location.pathname, BASE_PATH + item.path)
+				comparePath(nextProps.location.pathname, DOMAIN_PATH + item.path)
 			)[0];
+
 			document.title =
 				typeof page.title === 'function'
 					? page.title(nextProps.location.pathname, blogger.nickname)
@@ -111,9 +109,7 @@ export default class BlogRouter extends React.PureComponent<Props, State> {
 	}
 
 	getBlogger() {
-		const { bloggers, location } = this.props;
-		const nickname = location.pathname.split('/')[2];
-		return bloggers.filter((item) => item.nickname === nickname)[0];
+		return bloggersModel.getCurrentBlogger();
 	}
 
 	render() {
@@ -128,7 +124,7 @@ export default class BlogRouter extends React.PureComponent<Props, State> {
 							<Route
 								key={index}
 								exact={true}
-								path={BASE_PATH + route.path}
+								path={DOMAIN_PATH + route.path}
 								component={() => <route.component blogger={blogger} {...this.props} />}
 							/>
 						))}

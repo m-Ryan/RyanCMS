@@ -11,12 +11,19 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const common_1 = require("@nestjs/common");
 const tag_entity_1 = require("../entities/tag.entity");
+const userError_1 = require("../../common/filters/userError");
 let TagService = class TagService {
     constructor() { }
     createTag(createTagDto, userId) {
+        if (/[\\\/]/.test(createTagDto.name)) {
+            throw new userError_1.UserError('标题不能包含非法字符');
+        }
         return tag_entity_1.TagEntity.createTag(createTagDto, userId);
     }
     updateTag(updateTagDto, userId) {
+        if (/[\\\/]/.test(updateTagDto.name)) {
+            throw new userError_1.UserError('标题不能包含非法字符');
+        }
         return tag_entity_1.TagEntity.updateTag(updateTagDto, userId);
     }
     daleteTag(tagId, userId) {

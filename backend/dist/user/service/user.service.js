@@ -21,8 +21,11 @@ let UserService = class UserService {
     getUser(userId) {
         return user_entity_1.UserEntity.getUser(userId);
     }
-    getBaseInfo(nickname, userId) {
-        return user_entity_1.UserEntity.getBaseInfo(nickname, userId);
+    getBaseInfo(nickname, userId, domain) {
+        return user_entity_1.UserEntity.getBaseInfo(nickname, userId, domain);
+    }
+    getDomainList() {
+        return user_entity_1.UserEntity.getDomainList();
     }
     login(loginDto) {
         return user_entity_1.UserEntity.login(loginDto);

@@ -2,8 +2,11 @@ import * as React from 'react';
 import * as styles from './Header.module.scss';
 import { Icon } from 'antd';
 import { Link } from 'react-router-dom';
-import { User } from '../../../../interface/user.interface';
-import { blogRoutes } from '../../router/blogRoutes';
+import { User } from '@/interface/user.interface';
+import { blogRoutes, DOMAIN_PATH, BASE_PATH } from '../../router/blogRoutes';
+import { connect } from 'react-redux';
+import { Location } from 'history';
+import { routerModel } from '../../../../model';
 interface Props {
 	blogger: User;
 	user?: User;
@@ -11,6 +14,7 @@ interface Props {
 interface State {
 	collapsed: boolean;
 }
+@connect(({ router }: { router: Location }) => ({ router }))
 class Header extends React.Component<Props, State> {
 	state = {
 		collapsed: true
@@ -19,6 +23,7 @@ class Header extends React.Component<Props, State> {
 	render() {
 		const { collapsed } = this.state;
 		const { blogger, user } = this.props;
+		const prefixPath = routerModel.getPrefixPath();
 		return (
 			<div>
 				<div className={styles['pc_header'] + ' row hidden-sm hidden-xs'}>
@@ -31,7 +36,7 @@ class Header extends React.Component<Props, State> {
 						<ul className={styles['pc_nav']}>
 							{blogRoutes.filter((item) => !!item.icon).map((item) => (
 								<li key={item.path} className={styles['menu-link']}>
-									<Link to={item.path ? item.path.replace(':id', blogger.nickname) : ''}>
+									<Link to={prefixPath.replace(':id', blogger.nickname) + item.path}>
 										<Icon type={item!.icon} />
 										&nbsp;
 										{item.name}
@@ -114,7 +119,7 @@ class Header extends React.Component<Props, State> {
 					>
 						{blogRoutes.filter((item) => !!item.icon).map((item) => (
 							<li key={item.path} className={styles['menu-link']}>
-								<Link to={item.path ? item.path.replace(':id', blogger.nickname) : ''}>
+								<Link to={prefixPath.replace(':id', blogger.nickname) + item.path}>
 									<span>
 										<Icon type={item!.icon} />
 										&nbsp;

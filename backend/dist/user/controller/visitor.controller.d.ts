@@ -6,6 +6,7 @@ export declare class VisitorController {
     constructor(userService: UserService);
     register(registerDto: RegisterDto): Promise<import("../entities/user.entity").UserEntity>;
     login(loginDto: LoginDto): Promise<import("../entities/user.entity").UserEntity>;
-    getBaseInfo(nickname: string, userId: number): Promise<import("../entities/user.entity").UserEntity>;
+    getBaseInfo(nickname: string, domain: string, userId: number): Promise<import("../entities/user.entity").UserEntity>;
+    getDomainList(): Promise<import("../entities/user.entity").UserEntity[]>;
     getResume(userId: number): Promise<import("../entities/user_resume.entity").UserResumeEntity>;
 }

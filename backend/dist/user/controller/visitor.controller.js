@@ -44,12 +44,17 @@ let VisitorController = class VisitorController {
             return this.userService.login(loginDto);
         });
     }
-    getBaseInfo(nickname, userId) {
+    getBaseInfo(nickname, domain, userId) {
         return __awaiter(this, void 0, void 0, function* () {
-            if (!nickname && !userId) {
+            if (!nickname && !userId && !domain) {
                 throw new userError_1.UserError('bad request');
             }
-            return this.userService.getBaseInfo(nickname, userId);
+            return this.userService.getBaseInfo(nickname, userId, domain);
+        });
+    }
+    getDomainList() {
+        return __awaiter(this, void 0, void 0, function* () {
+            return this.userService.getDomainList();
         });
     }
     getResume(userId) {
@@ -74,11 +79,19 @@ __decorate([
 ], VisitorController.prototype, "login", null);
 __decorate([
     common_1.Get('/base_info'),
-    __param(0, common_1.Query('nickname')), __param(1, common_1.Query('user_id')),
+    __param(0, common_1.Query('nickname')),
+    __param(1, common_1.Query('domain')),
+    __param(2, common_1.Query('user_id')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, Number]),
+    __metadata("design:paramtypes", [String, String, Number]),
     __metadata("design:returntype", Promise)
 ], VisitorController.prototype, "getBaseInfo", null);
+__decorate([
+    common_1.Get('/domain-list'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], VisitorController.prototype, "getDomainList", null);
 __decorate([
     common_1.Get('/resume'),
     __param(0, common_1.Query('user_id', new common_1.ParseIntPipe())),

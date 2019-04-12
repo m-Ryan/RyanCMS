@@ -1,16 +1,18 @@
 import React from 'react';
-import { ClearUnmountState } from '../../../../util/decorators/clearUnmountState';
-import { API } from '../../../../services/API';
-import { catchError } from '../../../../util/decorators/catchError';
+import { ClearUnmountState } from '@/util/decorators/clearUnmountState';
+import { API } from '@/services/API';
+import { catchError } from '@/util/decorators/catchError';
 import { History, Location } from 'history';
 import styles from './Tag.module.scss';
-import { User } from '../../../../interface/user.interface';
-import { Tag as ITag } from '../../../../interface/tag.interface';
+import { User } from '@/interface/user.interface';
+import { Tag as ITag } from '@/interface/tag.interface';
 import { Link } from 'react-router-dom';
-import { EmptyPlaceholder } from '../../../../components/EmptyPlaceholder/EmptyPlaceholder';
-import { CustomLoading } from '../../../../components/CustomLoading/CustomLoading';
-import { loading } from '../../../../util/decorators/loading';
+import { EmptyPlaceholder } from '@/components/EmptyPlaceholder/EmptyPlaceholder';
+import { CustomLoading } from '@/components/CustomLoading/CustomLoading';
+import { loading } from '@/util/decorators/loading';
 import { UserContainer } from '../../components/UserContainer/UserContainer';
+import { ListView } from '@/components/ListView';
+import { routerModel } from '@/model';
 interface Props {
 	history: History;
 	location: Location;
@@ -86,14 +88,19 @@ export default class Tag extends React.PureComponent<Props, State> {
 	render() {
 		const { data, count, loading } = this.state;
 		const { blogger } = this.props;
+		const prefixPath = routerModel.getPrefixPath();
 		return (
 			<UserContainer {...this.props}>
 				<div className={styles['container']}>
 					{!loading ? (
 						<div className={styles['tags']}>
-							{count ? (
-								data.map((item, index) => (
-									<Link key={item.tag_id} to={`/u/${blogger.nickname}/t/${item.name}`}>
+							<ListView
+								data={data}
+								renderItem={(item, index) => (
+									<Link
+										key={item.tag_id}
+										to={prefixPath.replace(':id', blogger.nickname) + `/t/${item.name}`}
+									>
 										<div
 											className={styles['tag-item']}
 											style={{ background: '#' + colorBox[index % colorBox.length] }}
@@ -101,12 +108,13 @@ export default class Tag extends React.PureComponent<Props, State> {
 											{item.name}（{item!.articlesCount}）
 										</div>
 									</Link>
-								))
-							) : (
-								<EmptyPlaceholder size={72}>
-									<div style={{ fontSize: '14px' }}>暂无标签</div>
-								</EmptyPlaceholder>
-							)}
+								)}
+								empty={
+									<EmptyPlaceholder size={72}>
+										<div style={{ fontSize: '14px' }}>暂无标签</div>
+									</EmptyPlaceholder>
+								}
+							/>
 						</div>
 					) : (
 						<CustomLoading />

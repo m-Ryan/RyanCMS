@@ -3,19 +3,19 @@ import * as React from 'react';
 import { RouteProps, RouterProps } from 'react-router';
 import * as styles from './ArticleCategory.module.scss';
 import LayoutTitle from '../../components/LayoutTitle/LayoutTitle';
-import { API } from '../../../../services/API';
-import { ListResponse } from '../../../../interface/response/list.response';
-import { catchError } from '../../../../util/decorators/catchError';
-import { ClearUnmountState } from '../../../../util/decorators/clearUnmountState';
-import { User } from '../../../../interface/user.interface';
-import { ReactAutoBind } from '../../../../util/decorators/reactAutoBind';
-import { Category } from '../../../../interface/category.interface';
+import { API } from '@/services/API';
+import { ListResponse } from '@/interface/response/list.response';
+import { catchError } from '@/util/decorators/catchError';
+import { ClearUnmountState } from '@/util/decorators/clearUnmountState';
+import { User } from '@/interface/user.interface';
+import { ReactAutoBind } from '@/util/decorators/reactAutoBind';
+import { Category } from '@/interface/category.interface';
 import CategoryForm from './components/CategoryForm/CategoryForm';
-import { EmptyPlaceholder } from '../../../../components/EmptyPlaceholder/EmptyPlaceholder';
+import { EmptyPlaceholder } from '@/components/EmptyPlaceholder/EmptyPlaceholder';
 import dayjs from 'dayjs';
-import { loading } from '../../../../util/decorators/loading';
-import { Condition } from '../../../../components/Condition';
-import { CustomLoading } from '../../../../components/CustomLoading/CustomLoading';
+import { loading } from '@/util/decorators/loading';
+import { CustomLoading } from '@/components/CustomLoading/CustomLoading';
+import { ListView } from '@/components/ListView';
 
 interface Props extends RouteProps, RouterProps {
 	user: User;
@@ -133,54 +133,52 @@ export default class ArticleCategory extends React.Component<Props, any> {
 					}
 				/>
 				<div className={styles['list']}>
-					<Condition show={!loading}>
-						{data.count ? (
-							data.list.map((item) => (
-								<Popover
-									key={item.category_id}
-									placement="top"
-									overlayClassName={styles['popover']}
-									title={
-										<div className={styles['header']}>
-											<span>栏目：{item.name}</span>
-											<span className={styles['btn-wrap']}>
-												<Icon type="edit" onClick={() => this.onUpdateCategory(item)} />
-												&nbsp;
-												<Popconfirm
-													title="你确定要删除该栏目吗?"
-													onConfirm={() => this.onDelete(item)}
-													okText="确定"
-													cancelText="取消"
-												>
-													<Icon type="delete" />
-												</Popconfirm>
-											</span>
-										</div>
-									}
-									content={item.desc}
-								>
-									<div className={styles['list-item']}>
-										<div className={styles['picture']}>
-											<img src={item.picture} alt="" />
-										</div>
-										<div className={styles['content']}>
-											<div className={styles['title']}>{item.name}</div>
-											<div className={styles['count']}>
-												创建于- {dayjs(item.created_at * 1000).format('YYYY-MM-DD')}
-											</div>
+					<ListView
+						data={data.list}
+						renderItem={(item, index) => (
+							<Popover
+								key={item.category_id}
+								placement="top"
+								overlayClassName={styles['popover']}
+								title={
+									<div className={styles['header']}>
+										<span>栏目：{item.name}</span>
+										<span className={styles['btn-wrap']}>
+											<Icon type="edit" onClick={() => this.onUpdateCategory(item)} />
+											&nbsp;
+											<Popconfirm
+												title="你确定要删除该栏目吗?"
+												onConfirm={() => this.onDelete(item)}
+												okText="确定"
+												cancelText="取消"
+											>
+												<Icon type="delete" />
+											</Popconfirm>
+										</span>
+									</div>
+								}
+								content={item.desc}
+							>
+								<div className={styles['list-item']}>
+									<div className={styles['picture']}>
+										<img src={item.picture} alt="" />
+									</div>
+									<div className={styles['content']}>
+										<div className={styles['title']}>{item.name}</div>
+										<div className={styles['count']}>
+											创建于- {dayjs(item.created_at * 1000).format('YYYY-MM-DD')}
 										</div>
 									</div>
-								</Popover>
-							))
-						) : (
+								</div>
+							</Popover>
+						)}
+						empty={
 							<EmptyPlaceholder size={72}>
 								<div style={{ fontSize: '14px' }}>暂无栏目</div>
 							</EmptyPlaceholder>
-						)}
-					</Condition>
-					<Condition show={loading}>
-						<CustomLoading />
-					</Condition>
+						}
+						renderFooter={loading && data.count && <CustomLoading />}
+					/>
 				</div>
 				<CategoryForm
 					visible={visible}

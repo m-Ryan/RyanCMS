@@ -16,6 +16,7 @@ export declare class UserEntity extends BaseEntity {
     phone: string;
     avatar: string;
     intro: string;
+    domain: string;
     sex: number;
     rank: number;
     created_at: number;
@@ -35,9 +36,11 @@ export declare class UserEntity extends BaseEntity {
     static sign(userId: number, rank: number): string;
     static verify(token: string): string | object;
     static getUser(userId: number): Promise<UserEntity>;
-    static getBaseInfo(nickname?: string, userId?: number): Promise<UserEntity>;
+    static getDomainList(): Promise<UserEntity[]>;
+    static getBaseInfo(nickname?: string, userId?: number, domain?: string): Promise<UserEntity>;
     static hasRegisterNickname(nickname: string): Promise<number>;
     static hasRegisterPhone(phone: string): Promise<number>;
+    static hasRegisterDomain(domain: string): Promise<number>;
     static register(registerDto: RegisterDto, userRank: number): Promise<UserEntity>;
     static login(loginDto: LoginDto): Promise<UserEntity>;
     static updateUser(updateUserDto: UpdateUserDto, userId: number): Promise<void>;

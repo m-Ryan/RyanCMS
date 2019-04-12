@@ -44,6 +44,7 @@ export class CustomImageCrop extends PureComponent<Props, State> {
 	async chooseImg() {
 		const uploader = new Uploader({ autoUpload: false, count: 1, accept: this.props.accept });
 		const files = (await uploader.chooseFile()) as File[];
+		if (!files.length) return;
 		const reader = new FileReader();
 		reader.addEventListener('load', () => {
 			if (reader.result) {
