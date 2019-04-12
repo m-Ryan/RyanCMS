@@ -29,7 +29,6 @@ let MapService = class MapService {
                 .get(`http://restapi.amap.com/v3/geocode/regeo?key=${key}&location=${lng},${lat}`)
                 .pipe(operators_1.take(1))
                 .toPromise();
-            console.log(res);
             return res.data;
         });
     }

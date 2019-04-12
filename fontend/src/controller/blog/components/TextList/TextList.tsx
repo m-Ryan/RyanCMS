@@ -5,19 +5,21 @@ import { Article } from '../../../../interface/article.interface';
 import dayjs from 'dayjs';
 import { User } from '../../../../interface/user.interface';
 import { EmptyPlaceholder } from '../../../../components/EmptyPlaceholder/EmptyPlaceholder';
+import { routerModel } from '@/model';
 interface Props {
 	data: Article[];
 	blogger: User;
 }
 export function TextList(props: Props) {
 	const { data, blogger } = props;
+	const prefixPath = routerModel.getPrefixPath();
 	return (
 		<React.Fragment>
 			{data.length > 0 ? (
 				<ul className={styles['container']}>
 					{data.map((item) => (
 						<li className={styles['list-item']} key={item.article_id}>
-							<Link to={`/u/${blogger.nickname}/a/${item.title}`}>
+							<Link to={prefixPath.replace(':id', blogger.nickname) + `/a/${item.title}`}>
 								<h3>
 									{item.title}
 									&nbsp;

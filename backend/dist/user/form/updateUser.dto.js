@@ -14,6 +14,7 @@ class UpdateUserDto extends model_1.Model {
         this.email = undefined;
         this.weibo = undefined;
         this.zhihu = undefined;
+        this.domain = undefined;
         super.setAttributes(data);
     }
     attributeLabels() {
@@ -27,6 +28,7 @@ class UpdateUserDto extends model_1.Model {
             email: '邮我',
             zhihu: '知乎',
             weibo: '微博',
+            domain: '独立域名'
         };
     }
     rules() {

@@ -3,7 +3,6 @@ import { RouteProps, RouterProps } from 'react-router';
 import styles from './Home.module.scss';
 import LayoutTitle from '../../components/LayoutTitle/LayoutTitle';
 import { User } from '../../../../interface/user.interface';
-import { Button } from 'antd';
 import { ReactAutoBind } from '@/util/decorators/reactAutoBind';
 interface Props extends RouteProps, RouterProps {
 	user: User;

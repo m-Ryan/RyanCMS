@@ -16,54 +16,56 @@ interface RouterProps {
 interface BlogRoutes {
 	path: string;
 	component: typeof React.Component;
-	title: (pathname: string) => string | string;
+	title: (pathname: string, nickname: string) => string | string;
 	exact?: boolean;
 	name?: string;
 	icon?: string;
 }
-const setBlogName = (pageName: string, pathname: string) => `${pageName} | ` + pathname.split('/')[2] + '的小站';
+export const BASE_PATH = '/u/:id';
+export const DOMAIN_PATH = '/domain';
+const setBlogName = (pageName: string, nickname: string) => `${pageName} | ` + nickname + '的小站';
 export const blogRoutes: BlogRoutes[] = [
 	{
-		path: '/u/:id',
+		path: '/',
 		component: Home,
-		title: (pathname: string) => setBlogName('主页', pathname),
+		title: (pathname: string, nickname: string) => setBlogName('主页', nickname),
 		name: '主页',
 		icon: 'home'
 	},
 	{
-		path: '/u/:id/record',
+		path: '/record',
 		component: Record,
-		title: (pathname: string) => setBlogName('归档', pathname),
+		title: (pathname: string, nickname: string) => setBlogName('归档', nickname),
 		name: '归档',
 		icon: 'bars'
 	},
 	{
-		path: '/u/:id/tag',
+		path: '/tag',
 		component: Tag,
-		title: (pathname: string) => setBlogName('标签', pathname),
+		title: (pathname: string, nickname: string) => setBlogName('标签', nickname),
 		name: '标签',
 		icon: 'tags'
 	},
 	{
-		path: '/u/:id/about',
+		path: '/about',
 		component: About,
-		title: (pathname: string) => setBlogName('关于', pathname),
+		title: (pathname: string, nickname: string) => setBlogName('关于', nickname),
 		name: '关于',
 		icon: 'robot'
 	},
 	{
-		path: '/u/:id/a/:id',
+		path: '/a/:id',
 		component: Article,
-		title: (pathname: string) => setBlogName(pathname.split('/a/')[1], pathname)
+		title: (pathname: string, nickname: string) => setBlogName(pathname.split('/a/')[1], nickname)
 	},
 	{
-		path: '/u/:id/t/:id',
+		path: '/t/:id',
 		component: TagArticle,
-		title: (pathname: string) => setBlogName(pathname.split('/t/')[1], pathname)
+		title: (pathname: string, nickname: string) => setBlogName(pathname.split('/t/')[1], nickname)
 	},
 	{
 		path: '*',
 		component: PageNotFound,
-		title: (pathname: string) => setBlogName(pathname.split('/t/')[1], pathname)
+		title: (pathname: string, nickname: string) => setBlogName('页面未找到', nickname)
 	}
 ];

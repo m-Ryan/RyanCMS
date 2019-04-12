@@ -76,7 +76,12 @@ let UserEntity = UserEntity_1 = class UserEntity extends typeorm_1.BaseEntity {
             return user;
         });
     }
-    static getBaseInfo(nickname, userId) {
+    static getDomainList() {
+        return this.find({
+            domain: typeorm_1.Not('')
+        });
+    }
+    static getBaseInfo(nickname, userId, domain) {
         return __awaiter(this, void 0, void 0, function* () {
             const condition = {
                 deleted_at: 0
@@ -86,6 +91,9 @@ let UserEntity = UserEntity_1 = class UserEntity extends typeorm_1.BaseEntity {
             }
             if (userId) {
                 condition.user_id = userId;
+            }
+            if (domain) {
+                condition.domain = domain;
             }
             const user = yield this.findOne({
                 where: condition
@@ -111,6 +119,13 @@ let UserEntity = UserEntity_1 = class UserEntity extends typeorm_1.BaseEntity {
                 }
             });
         }
+    }
+    static hasRegisterDomain(domain) {
+        return this.count({
+            where: {
+                domain
+            }
+        });
     }
     static register(registerDto, userRank) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -201,7 +216,7 @@ let UserEntity = UserEntity_1 = class UserEntity extends typeorm_1.BaseEntity {
     }
     static updateUser(updateUserDto, userId) {
         return __awaiter(this, void 0, void 0, function* () {
-            const { nickname, phone, password, sex, intro, avatar, github, email, weibo, zhihu } = updateUserDto;
+            const { nickname, phone, password, sex, intro, avatar, github, email, weibo, zhihu, domain } = updateUserDto;
             const user = yield this.findOne({
                 where: {
                     user_id: userId,
@@ -226,6 +241,14 @@ let UserEntity = UserEntity_1 = class UserEntity extends typeorm_1.BaseEntity {
                     }
                 }
                 user.phone = phone;
+            }
+            if (domain) {
+                if (user.domain !== domain) {
+                    if (yield this.hasRegisterDomain(domain)) {
+                        throw new userError_1.UserError('该域名已被已被注册');
+                    }
+                }
+                user.domain = domain;
             }
             if (avatar) {
                 user.avatar = avatar;
@@ -312,6 +335,14 @@ __decorate([
     }),
     __metadata("design:type", String)
 ], UserEntity.prototype, "intro", void 0);
+__decorate([
+    typeorm_1.Column({
+        type: 'varchar',
+        length: 200,
+        default: ''
+    }),
+    __metadata("design:type", String)
+], UserEntity.prototype, "domain", void 0);
 __decorate([
     typeorm_1.Column({
         type: 'smallint',

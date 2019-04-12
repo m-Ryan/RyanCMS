@@ -23,11 +23,20 @@ export class VisitorController {
 	}
 
 	@Get('/base_info')
-	async getBaseInfo(@Query('nickname') nickname: string, @Query('user_id') userId: number) {
-		if (!nickname && !userId) {
+	async getBaseInfo(
+		@Query('nickname') nickname: string,
+		@Query('domain') domain: string,
+		@Query('user_id') userId: number
+	) {
+		if (!nickname && !userId && !domain) {
 			throw new UserError('bad request');
 		}
-		return this.userService.getBaseInfo(nickname, userId);
+		return this.userService.getBaseInfo(nickname, userId, domain);
+	}
+
+	@Get('/domain-list')
+	async getDomainList() {
+		return this.userService.getDomainList();
 	}
 
 	@Get('/resume')

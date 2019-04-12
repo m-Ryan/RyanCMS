@@ -51,7 +51,7 @@ export default class TagArticle extends React.PureComponent<Props, State> {
 	@catchError()
 	async getTag() {
 		const { blogger, location } = this.props;
-		const tagName = location.pathname.split('/')[4];
+		const tagName = location.pathname.split('/t/')[1];
 		const result = await API.tag.visitor.getTag(blogger.user_id, tagName);
 		return new Promise((resolve) =>
 			this.setState(

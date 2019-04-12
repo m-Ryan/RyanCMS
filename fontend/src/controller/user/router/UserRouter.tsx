@@ -13,6 +13,7 @@ import { History } from 'history';
 import TokenStorage from '@/util/TokenStorage';
 import { userModel, themeModel } from '@/model';
 import { awaitCssColorOnLoad } from '@/util/util';
+import { ClearUnmountState } from '@/util/decorators/clearUnmountState';
 
 interface ConnectProps {
 	user: User;
@@ -29,6 +30,7 @@ interface State {
 }
 
 @connect(({ user }: ConnectProps) => ({ user }))
+@ClearUnmountState()
 export default class UserRouter extends React.Component<Props, State> {
 	state: State = {
 		inited: false

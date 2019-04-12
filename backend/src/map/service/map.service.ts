@@ -9,7 +9,6 @@ export class MapService {
 			.get(`http://restapi.amap.com/v3/geocode/regeo?key=${key}&location=${lng},${lat}`)
 			.pipe(take(1))
 			.toPromise();
-		console.log(res);
 		return res.data;
 	}
 }

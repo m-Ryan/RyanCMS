@@ -51,7 +51,7 @@ export default class Article extends React.Component<Props, State> {
 	@checkRenderFromServer()
 	async initData() {
 		const { blogger } = this.props;
-		const title = this.props.location.pathname.split('/')[4];
+		const title = this.props.location.pathname.split('/a/')[1];
 		await articleModel.getArticle({ userId: blogger.user_id, title: decodeURIComponent(title) });
 	}
 
@@ -61,7 +61,7 @@ export default class Article extends React.Component<Props, State> {
 	): Promise<{
 		articles: IArticle[];
 	}> {
-		const title = pathname.split('/')[4];
+		const title = pathname.split('/a/')[1];
 		const article = await API.article.visitor.getArticle({
 			user_id: blogger.user_id,
 			title: decodeURIComponent(title)
@@ -73,7 +73,7 @@ export default class Article extends React.Component<Props, State> {
 
 	render() {
 		const { user, articles, location, blogger } = this.props;
-		const article = articles.filter((item) => item.title.trim() === location.pathname.split('/')[4])[0];
+		const article = articles.filter((item) => item.title.trim() === location.pathname.split('/a/')[1])[0];
 		return (
 			<UserContainer {...this.props}>
 				{article ? (

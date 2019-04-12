@@ -6,7 +6,8 @@ import {
 	getConnection,
 	OneToOne,
 	JoinColumn,
-	OneToMany
+	OneToMany,
+	Not
 } from 'typeorm';
 import { RegisterDto } from '../form/register.dto';
 
@@ -60,6 +61,13 @@ export class UserEntity extends BaseEntity {
 		default: ''
 	})
 	intro: string;
+
+	@Column({
+		type: 'varchar',
+		length: 200,
+		default: ''
+	})
+	domain: string;
 
 	@Column({
 		type: 'smallint',
@@ -169,7 +177,13 @@ export class UserEntity extends BaseEntity {
 		return user;
 	}
 
-	static async getBaseInfo(nickname?: string, userId?: number) {
+	static getDomainList() {
+		return this.find({
+			domain: Not('') as any
+		});
+	}
+
+	static async getBaseInfo(nickname?: string, userId?: number, domain?: string) {
 		const condition: any = {
 			deleted_at: 0
 		};
@@ -178,6 +192,9 @@ export class UserEntity extends BaseEntity {
 		}
 		if (userId) {
 			condition.user_id = userId;
+		}
+		if (domain) {
+			condition.domain = domain;
 		}
 		const user = await this.findOne({
 			where: condition
@@ -204,6 +221,14 @@ export class UserEntity extends BaseEntity {
 				}
 			});
 		}
+	}
+
+	static hasRegisterDomain(domain: string) {
+		return this.count({
+			where: {
+				domain
+			}
+		});
 	}
 
 	static async register(registerDto: RegisterDto, userRank: number) {
@@ -308,7 +333,7 @@ export class UserEntity extends BaseEntity {
 	}
 
 	static async updateUser(updateUserDto: UpdateUserDto, userId: number) {
-		const { nickname, phone, password, sex, intro, avatar, github, email, weibo, zhihu } = updateUserDto;
+		const { nickname, phone, password, sex, intro, avatar, github, email, weibo, zhihu, domain } = updateUserDto;
 		const user = await this.findOne({
 			where: {
 				user_id: userId,
@@ -335,6 +360,15 @@ export class UserEntity extends BaseEntity {
 				}
 			}
 			user.phone = phone;
+		}
+
+		if (domain) {
+			if (user.domain !== domain) {
+				if (await this.hasRegisterDomain(domain)) {
+					throw new UserError('该域名已被已被注册');
+				}
+			}
+			user.domain = domain;
 		}
 
 		if (avatar) {
