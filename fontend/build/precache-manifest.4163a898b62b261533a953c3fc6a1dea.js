@@ -12,7 +12,7 @@ self.__precacheManifest = [
     "url": "/static/js/vendors.c15fb958.chunk.js"
   },
   {
-    "revision": "0bf9ccae63659ad5449f18257e709c1a",
+    "revision": "cf2f8ae85061a20e3935ff95772331f8",
     "url": "/theme.js"
   },
   {
@@ -44,7 +44,7 @@ self.__precacheManifest = [
     "url": "/static/css/ant-design.e648ff4a.chunk.css"
   },
   {
-    "revision": "93cc0cc5cf8cbfe5a923adcbcbf806b8",
+    "revision": "a31af8540747debb9cc9d95eff00dd54",
     "url": "/index.html"
   }
 ];
