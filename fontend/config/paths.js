@@ -77,7 +77,7 @@ module.exports = {
 	proxySetup: resolveApp('src/setupProxy.js'),
 	appNodeModules: resolveApp('node_modules'),
 	publicUrl: getPublicUrl(resolveApp('package.json')),
-	servedPath: 'http://public.maocanhua.cn'
+	servedPath: 'http://public.maocanhua.cn/'
 };
 
 module.exports.moduleFileExtensions = moduleFileExtensions;
