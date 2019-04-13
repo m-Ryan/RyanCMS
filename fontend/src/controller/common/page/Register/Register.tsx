@@ -5,15 +5,15 @@ import { RegisterInfo } from './components/RegisterInfo/RegisterInfo';
 import RegisterForm from './components/RegisterForm/RegisterForm';
 import { RouterProps } from 'react-router';
 import TokenStorage from '@/util/TokenStorage';
-import { userModel } from '../../../model';
+import { userModel } from '../../../../model';
 interface Props extends RouterProps {}
 interface State {
-	isMounted: boolean
+	isMounted: boolean;
 }
 export default class Register extends React.Component<Props, State> {
-	state:State = {
+	state: State = {
 		isMounted: false
-	}
+	};
 	async componentDidMount() {
 		if (TokenStorage.getToken()) {
 			await userModel.getUser();
@@ -22,21 +22,23 @@ export default class Register extends React.Component<Props, State> {
 		}
 		this.setState({
 			isMounted: true
-		})
+		});
 	}
 
 	render() {
 		return (
-			this.state.isMounted &&	<div className={styles['container']}>
-				<Row gutter={24}>
-					<Col span={12}>
-						<RegisterInfo />
-					</Col>
-					<Col span={12}>
-						<RegisterForm {...this.props} />
-					</Col>
-				</Row>
-			</div>
+			this.state.isMounted && (
+				<div className={styles['container']}>
+					<Row gutter={24}>
+						<Col span={12}>
+							<RegisterInfo />
+						</Col>
+						<Col span={12}>
+							<RegisterForm {...this.props} />
+						</Col>
+					</Row>
+				</div>
+			)
 		);
 	}
 }

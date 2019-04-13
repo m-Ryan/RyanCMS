@@ -17,7 +17,7 @@ import { RouterProps } from 'react-router';
 import { loading } from '@/util/decorators/loading';
 import { validate } from '@/util/decorators/validator/validate';
 import { Link } from 'react-router-dom';
-import { userModel } from '../../../../../model';
+import { userModel } from '../../../../../../model';
 const options = [
 	{
 		name: 'name',

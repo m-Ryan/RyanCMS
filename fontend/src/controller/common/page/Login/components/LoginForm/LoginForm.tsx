@@ -9,7 +9,7 @@ import { catchError } from '@/util/decorators/catchError';
 import { Trigger, InputItemProps, getFormValues, CustomForm } from '@/components/CustomForm/CustomForm';
 import { checkPhone, checkPassword } from '@/util/decorators/validator/rules';
 import { Link } from 'react-router-dom';
-import { userModel } from '../../../../../model';
+import { userModel } from '../../../../../../model';
 
 const options = [
 	{

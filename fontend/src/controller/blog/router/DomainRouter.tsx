@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, Switch, RouterProps } from 'react-router';
-import { blogRoutes, DOMAIN_PATH } from './blogRoutes';
+import { domainRoutes, DOMAIN_PATH } from './domainRoutes';
 import { API } from '@/services/API';
 import { connect } from 'ryan-redux';
 import { catchError } from '@/util/decorators/catchError';
@@ -77,7 +77,7 @@ export default class DomainRouter extends React.PureComponent<Props, State> {
 	}
 
 	static async initServerData(pathname: string, domain: string): Promise<ServerData> {
-		const page = blogRoutes.filter((item) => comparePath(pathname, DOMAIN_PATH + item.path))[0];
+		const page = domainRoutes.filter((item) => comparePath(pathname, DOMAIN_PATH + item.path))[0];
 		const blogger = await API.user.visitor.getBaseUser({ domain });
 		const initServerData = (page.component as any).initServerData;
 		const pageState = typeof initServerData === 'function' ? await initServerData(blogger, pathname) : {};
@@ -98,7 +98,7 @@ export default class DomainRouter extends React.PureComponent<Props, State> {
 		if (nextProps.location.pathname !== this.props.location.pathname) {
 			const blogger = this.getBlogger();
 			if (!blogger) return;
-			const page = blogRoutes.filter((item) =>
+			const page = domainRoutes.filter((item) =>
 				comparePath(nextProps.location.pathname, DOMAIN_PATH + item.path)
 			)[0];
 
@@ -121,7 +121,7 @@ export default class DomainRouter extends React.PureComponent<Props, State> {
 				{blogger &&
 				inited && (
 					<Switch>
-						{blogRoutes.map((route, index) => (
+						{domainRoutes.map((route, index) => (
 							<Route
 								key={index}
 								exact={true}
