@@ -1,12 +1,12 @@
 {
   "main.css": "http://public.maocanhua.cn/static/css/main.302503fa.chunk.css",
-  "main.js": "http://public.maocanhua.cn/static/js/main.37445d9a.chunk.js",
-  "main.js.map": "http://public.maocanhua.cn/static/js/main.37445d9a.chunk.js.map",
-  "vendors.js": "http://public.maocanhua.cn/static/js/vendors.bbf42c6a.chunk.js",
-  "vendors.js.map": "http://public.maocanhua.cn/static/js/vendors.bbf42c6a.chunk.js.map",
+  "main.js": "http://public.maocanhua.cn/static/js/main.8d857cee.chunk.js",
+  "main.js.map": "http://public.maocanhua.cn/static/js/main.8d857cee.chunk.js.map",
+  "vendors.js": "http://public.maocanhua.cn/static/js/vendors.8cfb3757.chunk.js",
+  "vendors.js.map": "http://public.maocanhua.cn/static/js/vendors.8cfb3757.chunk.js.map",
   "ant-design.css": "http://public.maocanhua.cn/static/css/ant-design.102eaf5f.chunk.css",
-  "ant-design.js": "http://public.maocanhua.cn/static/js/ant-design.cc30a860.chunk.js",
-  "ant-design.js.map": "http://public.maocanhua.cn/static/js/ant-design.cc30a860.chunk.js.map",
+  "ant-design.js": "http://public.maocanhua.cn/static/js/ant-design.2609ff14.chunk.js",
+  "ant-design.js.map": "http://public.maocanhua.cn/static/js/ant-design.2609ff14.chunk.js.map",
   "runtime~main.js": "http://public.maocanhua.cn/static/js/runtime~main.5056dfc2.js",
   "runtime~main.js.map": "http://public.maocanhua.cn/static/js/runtime~main.5056dfc2.js.map",
   "static/media/Login.module.scss": "http://public.maocanhua.cn/static/media/loginbg.e3347162.png",
@@ -17,6 +17,6 @@
   "static/css/main.302503fa.chunk.css.map": "http://public.maocanhua.cn/static/css/main.302503fa.chunk.css.map",
   "static/css/ant-design.102eaf5f.chunk.css.map": "http://public.maocanhua.cn/static/css/ant-design.102eaf5f.chunk.css.map",
   "index.html": "http://public.maocanhua.cn/index.html",
-  "precache-manifest.63d03a2055faea249e4a455321b43dad.js": "http://public.maocanhua.cn/precache-manifest.63d03a2055faea249e4a455321b43dad.js",
+  "precache-manifest.b071531b1df6c84fc2629329a1535696.js": "http://public.maocanhua.cn/precache-manifest.b071531b1df6c84fc2629329a1535696.js",
   "service-worker.js": "http://public.maocanhua.cn/service-worker.js"
 }
