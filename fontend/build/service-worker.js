@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "http://public.maocanhua.cn/precache-manifest.c611d4f844fce3cb2984c06d4097efee.js"
+  "http://public.maocanhua.cn/precache-manifest.75d2fc4594e228c272a2cbe3cc6a3b95.js"
 );
 
 workbox.clientsClaim();
