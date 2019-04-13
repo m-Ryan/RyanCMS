@@ -4,7 +4,7 @@ import { Menu, Icon, Dropdown, Popover, Button, message } from 'antd';
 import styles from './Header.module.scss';
 import { User } from '@/interface/user.interface';
 import { ReactAutoBind } from '@/util/decorators/reactAutoBind';
-import { userModel } from '@/model';
+import { userModel, routerModel } from '@/model';
 import { SketchPicker, ColorResult } from 'react-color';
 import { themeModel } from '@/model';
 import { API } from '@/services/API';
@@ -35,10 +35,11 @@ export default class Header extends React.Component<Props, State> {
 	static defaultProps = {};
 	render() {
 		const { user } = this.props;
+		const prefixPath = routerModel.getPrefixPath();
 		const menu = (
 			<Menu>
 				<Menu.Item>
-					<Link target="_blank" to={`/u/${user.nickname}`}>
+					<Link target="_blank" to={prefixPath.replace(':id', user.nickname)}>
 						我的主页
 					</Link>
 				</Menu.Item>
