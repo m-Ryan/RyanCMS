@@ -1,4 +1,9 @@
 ///<reference path="../../typings/global.d.ts"/>
+/**
+ * 
+ * @param path 当前的路由
+ * @param mathPath 匹配的路由
+ */
 export function comparePath(path: string, mathPath: string) {
 	path = path.replace(/(\/)$/, '');
 	mathPath = mathPath.replace(/(\/)$/, '');
@@ -6,17 +11,19 @@ export function comparePath(path: string, mathPath: string) {
 	const mathPaths = mathPath.split('/');
 
 	if (paths.length !== mathPaths.length) {
-		if (paths.length > mathPaths.length) {
+		// 当前路由的长度不能少于匹配的路由
+		if (paths.length < mathPaths.length) {
 			return false;
 		}
+		// 长度不等时，匹配的路由最后一项必须是 *
 		if (mathPaths[mathPaths.length - 1] !== '*') {
 			return false;
 		}
-	} else {
-		for (let i = 0; i < paths.length; i++) {
-			if (paths[i] !== mathPaths[i] && mathPaths[i] !== ':id') {
-				return false;
-			}
+	}
+
+	for (let i = 0; i < mathPaths.length; i++) {
+		if (paths[i] !== mathPaths[i] && mathPaths[i] !== ':id' && mathPaths[i] !== '*') {
+			return false;
 		}
 	}
 
