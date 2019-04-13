@@ -22,7 +22,7 @@ interface BlogRoutes {
 	icon?: string;
 }
 export const BASE_PATH = '/u/:id';
-export const DOMAIN_PATH = '/domain';
+export const DOMAIN_PATH = '';
 const setBlogName = (pageName: string, nickname: string) => `${pageName} | ` + nickname + '的小站';
 export const blogRoutes: BlogRoutes[] = [
 	{
