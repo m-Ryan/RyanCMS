@@ -1,15 +1,9 @@
 import React from 'react';
-import PageNotFound from '../page/NotFound/NotFound';
+
 import Login from '../../common/page/Login/Login';
 import Register from '../../common/page/Register/Register';
 import UserRouter from '../../user/router/UserRouter';
 import { blogRoutes } from './blogRoutes';
-
-interface RouterProps {
-	location: {
-		pathname: string;
-	};
-}
 
 interface BlogRoutes {
 	path: string;
@@ -19,7 +13,6 @@ interface BlogRoutes {
 	name?: string;
 	icon?: string;
 }
-export const BASE_PATH = '/u/:id';
 export const DOMAIN_PATH = '';
 const setBlogName = (pageName: string, nickname: string) => `${pageName} | ` + nickname + '的小站';
 export const domainRoutes: BlogRoutes[] = [

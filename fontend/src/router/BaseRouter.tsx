@@ -29,11 +29,6 @@ export class BaseRouter extends React.Component<any> {
 		}
 	}
 
-	componentWillReceiveProps(nextProps: Props) {
-		if (nextProps.location.pathname !== this.props.location.pathname) {
-			routerModel.setRouter(nextProps.location);
-		}
-	}
 	render() {
 		const isExtraDomain = routerModel.getIsExtraDomain();
 		return (
