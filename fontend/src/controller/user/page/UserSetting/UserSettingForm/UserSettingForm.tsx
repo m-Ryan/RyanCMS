@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, message } from 'antd';
+import { Button, message, Icon, Tooltip } from 'antd';
 import styles from './UserSettingForm.module.scss';
 
 import {
@@ -195,7 +195,24 @@ export default class UserSettingForm extends React.Component<Props, State> {
 				className: styles['input-item'],
 				value: user.domain,
 				formItem: {
-					label: <span>域名绑定&nbsp;</span>,
+					label: (
+						<span>
+							域名绑定
+							<Tooltip
+								title={
+									<div>
+										绑定域名后，可通过nginx映射到绑定域名下，详情查看
+										<a target="_blank" href="https://github.com/m-Ryan/RyanCMS">
+											README.md
+										</a>
+									</div>
+								}
+							>
+								<Icon type="question-circle" />
+							</Tooltip>
+							&nbsp;
+						</span>
+					),
 					className: styles['label-item']
 				}
 			}

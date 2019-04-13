@@ -92,6 +92,31 @@
 
 --- 
 
+## 独立域名绑定
+
+5.如果不想搭博客，又想在自己的域名下有个博客，可以配置nginx映射到绑定域名下
+  - 1. 绑定独立域名 
+   ![图片1](http://assets.maocanhua.cn/FvRwRN4Ge3saRqOEVwMa1addqbIB)
+
+  - 2. 配置nginx 
+    ```
+    server {
+        listen 80;
+        server_name  www.maocanhua.cn;
+        location /api {
+           proxy_pass  http://cms.maocanhua.cn;  
+        }
+        
+        location / {
+             proxy_set_header ACCEPT-HOST $host;
+             proxy_pass  http://cms.maocanhua.cn/domain/;  
+        }
+    }
+
+    ```
+  - 3. 打开绑定的域名，如果能正常访问，即配置成功
+   
+
 **如果你喜欢或者对你有帮助，不妨给我个star或者fork一下吧❤️**
 
 ## 部分页面 

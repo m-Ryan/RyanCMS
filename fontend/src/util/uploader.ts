@@ -44,21 +44,34 @@ export default class Uploader {
 		return el;
 	}
 
-	listenFileInput() {
-		document.body.onfocus = () => {
-			if (this.el.value.length) alert('ROAR! FILES!');
-			else alert('*empty wheeze*');
+	private onWindowBlurHandle() {}
+
+	async onWindowBlur(resolve: any) {
+		const checkFileCancel = async (repeatTime: number, resolve: Function): Promise<any> => {
+			repeatTime -= 1;
+			setTimeout(() => {
+				if (repeatTime > 0 && !this.el.files!.length) {
+					return checkFileCancel(repeatTime, resolve);
+				} else if (repeatTime <= 0) {
+					window.removeEventListener('focus', this.onWindowBlurHandle);
+					resolve([]);
+				}
+				return;
+			}, 50);
 		};
+		const MAX_REPEAT_TIME = 20;
+		checkFileCancel(MAX_REPEAT_TIME, resolve);
 	}
 
 	chooseFile(): Promise<string[] | File[]> {
 		let el = this.el;
 		document.body.appendChild(el);
 		el.click();
+
 		return new Promise((resolve, reject) => {
-			document.body.onfocus = () => {
-				if (!this.el.value.length) resolve([]);
-			};
+			// 由于无法监听input file 取消事件
+			this.onWindowBlurHandle = () => this.onWindowBlur(resolve);
+
 			el.onchange = async (e: any) => {
 				let files = e.target.files || [];
 				files = Array.prototype.slice.call(files);
@@ -79,6 +92,7 @@ export default class Uploader {
 				el.onchange = null;
 				document.body.removeChild(el);
 			};
+			window.addEventListener('focus', this.onWindowBlurHandle);
 		});
 	}
 

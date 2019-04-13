@@ -40,7 +40,6 @@ router.all('/api/*', async (ctx: Koa.ParameterizedContext<{}, Router.IRouterCont
 });
 
 router.get('*', async (ctx) => {
-	console.log(ctx);
 	const acceptHost = ctx.request.header['accept-host'];
 	const renderPage = await renderFullPage(ctx.req.url as string, acceptHost);
 	ctx.type = 'html';
