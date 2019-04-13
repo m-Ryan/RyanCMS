@@ -19,12 +19,12 @@ export const domainRoutes: BlogRoutes[] = [
 	{
 		path: '/admin',
 		component: UserRouter,
-		title: (pathname: string, nickname: string) => setBlogName('管理后台', nickname)
+		title: (pathname: string, nickname: string) => setBlogName('主页', nickname)
 	},
 	{
 		path: '/admin/*',
 		component: UserRouter,
-		title: (pathname: string, nickname: string) => setBlogName('管理后台', nickname)
+		title: (pathname: string, nickname: string) => setBlogName('主页', nickname)
 	},
 	{
 		path: '/login',

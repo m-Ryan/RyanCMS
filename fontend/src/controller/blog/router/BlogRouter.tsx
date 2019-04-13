@@ -29,8 +29,14 @@ interface State {
 @connect(({ bloggers, user }: ConnectProps) => ({ bloggers, user }))
 export default class BlogRouter extends React.PureComponent<Props, State> {
 	state: State = {
-		inited: false
+		inited: true // 先让ssr渲染出来
 	};
+
+	componentWillMount() {
+		this.setState({
+			inited: false
+		});
+	}
 	@catchError()
 	async componentDidMount() {
 		if (!this.getBlogger()) {

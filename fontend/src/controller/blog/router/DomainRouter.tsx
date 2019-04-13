@@ -98,10 +98,14 @@ export default class DomainRouter extends React.PureComponent<Props, State> {
 		if (nextProps.location.pathname !== this.props.location.pathname) {
 			const blogger = this.getBlogger();
 			if (!blogger) return;
+
 			const page = domainRoutes.filter((item) =>
 				comparePath(nextProps.location.pathname, DOMAIN_PATH + item.path)
 			)[0];
-
+			console.log('***********************');
+			console.log(nextProps.location.pathname);
+			console.log(page);
+			console.log('------------------------');
 			document.title =
 				typeof page.title === 'function'
 					? page.title(nextProps.location.pathname, blogger.nickname)
