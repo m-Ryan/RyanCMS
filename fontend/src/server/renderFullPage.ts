@@ -17,7 +17,10 @@ export const renderFullPage = async (url: string, domain: string) => {
 			}
 		} else if (/^\/domain\b/.test(url)) {
 			if (typeof DomainRouter.initServerData === 'function') {
-				serverData = await DomainRouter.initServerData(decodeURIComponent(url), domain);
+				serverData = await DomainRouter.initServerData(
+					decodeURIComponent(url).replace(/^\/domain\b/, ''),
+					domain
+				);
 			}
 		}
 
