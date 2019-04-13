@@ -33,7 +33,6 @@ export default class DomainRouter extends React.PureComponent<Props, State> {
 	};
 	@catchError()
 	async componentDidMount() {
-		routerModel.setRouter(this.props.location);
 		if (!this.getBlogger()) {
 			await this.initData();
 		}
@@ -97,8 +96,6 @@ export default class DomainRouter extends React.PureComponent<Props, State> {
 
 	componentWillReceiveProps(nextProps: Props) {
 		if (nextProps.location.pathname !== this.props.location.pathname) {
-			routerModel.setRouter(nextProps.location);
-
 			const blogger = this.getBlogger();
 			if (!blogger) return;
 			const page = blogRoutes.filter((item) =>
