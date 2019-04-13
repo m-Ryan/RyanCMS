@@ -11,7 +11,7 @@ import CustomScrollView from '@/components/CustomScrollView/CustomScrollView';
 import { CustomLoading } from '@/components/CustomLoading/CustomLoading';
 import { History, Location } from 'history';
 import { Condition } from '@/components/Condition';
-import { connect } from 'react-redux';
+import { connect } from 'ryan-redux';
 import { checkRenderFromServer } from '@/util/decorators/checkRenderFromServer';
 import { IArticleList } from '@/model/articleList';
 import { API } from '@/services/API';

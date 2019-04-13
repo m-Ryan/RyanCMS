@@ -2,7 +2,7 @@ import React from 'react';
 import { Route, Switch } from 'react-router';
 import { blogRoutes, BASE_PATH } from './blogRoutes';
 import { API } from '@/services/API';
-import { connect } from 'react-redux';
+import { connect } from 'ryan-redux';
 import { catchError } from '@/util/decorators/catchError';
 import { comparePath, awaitCssColorOnLoad } from '@/util/util';
 import TokenStorage from '@/util/TokenStorage';
@@ -88,6 +88,10 @@ export default class BlogRouter extends React.PureComponent<Props, State> {
 		return {
 			title: typeof page.title === 'function' ? page.title(pathname, blogger.nickname) : page.title,
 			props: {
+				router: {
+					location: null,
+					isExtraDomain: false
+				},
 				bloggers: [ blogger ],
 				...pageState
 			}

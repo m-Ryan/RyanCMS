@@ -15,7 +15,7 @@ export const renderFullPage = async (url: string, domain: string) => {
 			if (typeof BlogRouter.initServerData === 'function') {
 				serverData = await BlogRouter.initServerData(decodeURIComponent(url));
 			}
-		} else if (/^\/domain\/.+/.test(url)) {
+		} else if (/^\/domain\b/.test(url)) {
 			if (typeof DomainRouter.initServerData === 'function') {
 				serverData = await DomainRouter.initServerData(decodeURIComponent(url), domain);
 			}

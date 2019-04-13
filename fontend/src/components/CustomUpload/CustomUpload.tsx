@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Upload, message } from 'antd';
 import { UploadProps } from 'antd/lib/upload';
-import { connect } from 'react-redux';
+import { connect } from 'ryan-redux';
 import { ReactAutoBind } from '../../util/decorators/reactAutoBind';
 import { QiNiuConfig } from '../../services/upload/user';
 import { UploadChangeParam, UploadFileStatus, RcFile } from 'antd/lib/upload/interface';

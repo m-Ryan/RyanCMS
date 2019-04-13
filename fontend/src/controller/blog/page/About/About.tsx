@@ -12,7 +12,7 @@ import { CustomLoading } from '@/components/CustomLoading/CustomLoading';
 import { UserContainer } from '../../components/UserContainer/UserContainer';
 import CustomComment from '@/components/CustomComment/CustomComment';
 import CustomEditor from '@/components/CustomEditor/CustomEditor';
-import { connect } from 'react-redux';
+import { connect } from 'ryan-redux';
 import { checkRenderFromServer } from '@/util/decorators/checkRenderFromServer';
 import { resumeModel } from '../../../../model';
 CustomEditor;

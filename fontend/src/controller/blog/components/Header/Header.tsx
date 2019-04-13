@@ -4,7 +4,7 @@ import { Icon } from 'antd';
 import { Link } from 'react-router-dom';
 import { User } from '@/interface/user.interface';
 import { blogRoutes, DOMAIN_PATH, BASE_PATH } from '../../router/blogRoutes';
-import { connect } from 'react-redux';
+import { connect } from 'ryan-redux';
 import { Location } from 'history';
 import { routerModel } from '../../../../model';
 interface Props {

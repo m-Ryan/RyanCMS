@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, Switch } from 'react-router';
 import { User } from '@/interface/user.interface';
-import { connect } from 'react-redux';
+import { connect } from 'ryan-redux';
 import { CustomerPageLoading } from '@/components/CustomerPageLoading/CustomerPageLoading';
 import { userRoutes } from './userRoutes';
 import Header from '../components/Header/Header';
