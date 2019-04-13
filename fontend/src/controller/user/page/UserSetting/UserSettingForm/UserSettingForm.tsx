@@ -187,6 +187,17 @@ export default class UserSettingForm extends React.Component<Props, State> {
 					label: <span>weibo地址&nbsp;</span>,
 					className: styles['label-item']
 				}
+			},
+			{
+				name: 'domain',
+				placeholder: '可通过nginx映射到绑定域名下',
+				type: 'text',
+				className: styles['input-item'],
+				value: user.domain,
+				formItem: {
+					label: <span>域名绑定&nbsp;</span>,
+					className: styles['label-item']
+				}
 			}
 		];
 		this.state = {

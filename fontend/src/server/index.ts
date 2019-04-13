@@ -13,6 +13,7 @@ import { renderFullPage } from './renderFullPage';
 import { API_HOST } from './constant';
 const router = new Router();
 const app = new Koa();
+app.proxy = true;
 app.use(bodyParser());
 app.use(
 	require('koa-static')(process.cwd() + '/build', {
@@ -38,23 +39,8 @@ router.all('/api/*', async (ctx: Koa.ParameterizedContext<{}, Router.IRouterCont
 	}
 });
 
-router.post('/api/*', async (ctx, next) => {
-	const method = ctx.request.method;
-	const headers = ctx.request.header;
-	const url = ctx.request.url.replace(/^\/api/, API_HOST);
-	const data = ctx.req;
-	try {
-		const res = await axios(url, {
-			method,
-			headers
-		});
-		ctx.body = res.data;
-	} catch (error) {
-		ctx.throw(error.response.data.status, error.response.data.message);
-	}
-});
-
 router.get('*', async (ctx) => {
+	console.log(ctx);
 	const renderPage = await renderFullPage(ctx.req.url as string, ctx.hostname);
 	ctx.type = 'html';
 	ctx.body = renderPage;
