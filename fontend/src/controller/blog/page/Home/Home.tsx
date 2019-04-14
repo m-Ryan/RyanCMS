@@ -85,7 +85,7 @@ export default class Home extends React.PureComponent<Props, State> {
 				<CustomScrollView
 					className={`${styles['container']} reset-page`}
 					loadMore={this.getArticleList}
-					show={!loading && count > 0}
+					show={count > 0}
 					showLoading
 					noMore={noMore}
 					data={list}
