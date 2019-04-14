@@ -25,19 +25,13 @@ interface Props {
 	user?: User;
 	resumes: Resume[];
 }
-interface State {
-	loading: boolean;
-}
+interface State {}
 interface ConnectProps {
 	resumes: Resume[];
 }
 @connect(({ resumes }: ConnectProps) => ({ resumes }))
 @ClearUnmountState()
 export default class About extends React.PureComponent<Props, State> {
-	state: State = {
-		loading: false
-	};
-
 	componentDidMount() {
 		this.initData();
 	}
@@ -48,7 +42,6 @@ export default class About extends React.PureComponent<Props, State> {
 	}
 
 	@catchError()
-	@loading()
 	async getResume() {
 		const { blogger } = this.props;
 		await resumeModel.getResume(blogger.user_id);
@@ -62,7 +55,6 @@ export default class About extends React.PureComponent<Props, State> {
 	}
 
 	render() {
-		const { loading } = this.state;
 		const { blogger, user, resumes } = this.props;
 		const resume = resumes.filter((item) => item.user_id === blogger.user_id)[0];
 		return (
@@ -74,7 +66,7 @@ export default class About extends React.PureComponent<Props, State> {
 					className={styles['container']}
 					renderHeader={
 						<React.Fragment>
-							{!loading ? (
+							{resumes ? (
 								<div className={styles['detail']}>
 									{resume && resume.content ? (
 										<React.Fragment>

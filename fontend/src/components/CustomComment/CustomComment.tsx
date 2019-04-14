@@ -123,7 +123,6 @@ export default class CustomComment extends React.PureComponent<Props, any> {
 		const { data, comment, loading, noMore, total } = this.state;
 		return (
 			<CustomScrollView
-				show={!!comment}
 				data={data}
 				className={[ styles['scrollview'], className ].join(' ')}
 				listClassName={styles['container']}
