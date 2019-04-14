@@ -6,6 +6,8 @@ import LightCode from '../LightCode/LightCode';
 import { RcFile } from 'antd/lib/upload/interface';
 import { GithubPicker, ColorResult } from 'react-color';
 import Uploader from '../../util/uploader';
+import { API } from '../../services/API';
+import { qiNiuConfigModel } from '../../model';
 interface ToolOption {
 	name: string;
 	tip: string;
@@ -64,6 +66,7 @@ function createStep(value: string, type: StepType = StepType.Text) {
 		type
 	};
 }
+
 export default class CustomEditor extends React.Component<Props, State> {
 	editor: React.RefObject<HTMLTextAreaElement>;
 	constructor(props: Props) {
@@ -77,7 +80,41 @@ export default class CustomEditor extends React.Component<Props, State> {
 			history: [ createStep(props.initValue, StepType.Source) ],
 			step: 0
 		};
+		this.onPaste = this.onPaste.bind(this);
 	}
+
+	onPaste = async (e: React.ClipboardEvent<HTMLTextAreaElement>) => {
+		const clipboardData = e.clipboardData!;
+
+		for (let i = 0; i < clipboardData.items.length; i++) {
+			const item = clipboardData.items[i];
+			if (item.kind == 'file') {
+				const blob = item.getAsFile();
+
+				if (!blob || blob.size === 0) {
+					return;
+				}
+				message.loading('正在上传粘贴图片');
+				const qiniuConfig = await qiNiuConfigModel.getConfig();
+				const url = await API.upload.user.uploadByQiniu(blob, qiniuConfig);
+				if (!this.editor.current) return;
+				const pic: string = `\n![图片1](${url})\n`;
+				const { beginPos, endPos, value, scrollTop } = this.getEditorInstance();
+				const newValue = value.slice(0, beginPos) + pic + value.slice(endPos);
+
+				const selectionRangeBegin = beginPos + pic.length;
+				const selectionRangeEnd = endPos + pic.length;
+				this.putStep({
+					value: newValue,
+					selectionRangeBegin,
+					selectionRangeEnd,
+					scrollTop,
+					type: StepType.Picture
+				});
+				message.destroy();
+			}
+		}
+	};
 
 	getEditorInstance() {
 		const instance = this.editor.current!;
@@ -547,6 +584,7 @@ export default class CustomEditor extends React.Component<Props, State> {
 							className={styles['editor-textarea']}
 							ref={this.editor}
 							value={value}
+							onPaste={this.onPaste}
 							onChange={(e) => this.onInputChange(e.target.value)}
 						/>
 					</div>

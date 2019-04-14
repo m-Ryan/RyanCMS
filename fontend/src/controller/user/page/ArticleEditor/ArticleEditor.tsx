@@ -168,7 +168,7 @@ export default class ArticleEditor extends React.Component<Props, State> {
 
 	onChangeTitle(value: string) {
 		const { formData } = this.state;
-		formData.title = value.trim();
+		formData.title = value.trimLeft();
 		this.setState({
 			formData: { ...formData }
 		});
