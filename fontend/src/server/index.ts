@@ -11,7 +11,7 @@ require('css-modules-require-hook')({
 import Router from 'koa-router';
 import { renderFullPage } from './renderFullPage';
 import { API_HOST } from './constant';
-const router = new Router();
+
 const app = new Koa();
 app.proxy = true;
 app.use(bodyParser());
@@ -20,7 +20,7 @@ app.use(
 		maxage: 365 * 60 * 60 * 24
 	})
 );
-
+const router = new Router();
 router.all('/api/*', async (ctx: Koa.ParameterizedContext<{}, Router.IRouterContext>, next) => {
 	const method = ctx.request.method;
 	const headers = ctx.request.header;

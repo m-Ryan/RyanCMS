@@ -81,6 +81,12 @@ export default class DomainRouter extends React.PureComponent<Props, State> {
 
 	static async initServerData(pathname: string, domain: string): Promise<ServerData> {
 		const page = domainRoutes.filter((item) => comparePath(pathname, DOMAIN_PATH + item.path))[0];
+		if (!page) {
+			return {
+				title: '页面出错',
+				props: {}
+			};
+		}
 		const blogger = await API.user.visitor.getBaseUser({ domain });
 		const initServerData = (page.component as any).initServerData;
 		const pageState = typeof initServerData === 'function' ? await initServerData(blogger, pathname) : {};

@@ -86,6 +86,12 @@ export default class BlogRouter extends React.PureComponent<Props, State> {
 
 	static async initServerData(pathname: string): Promise<ServerData> {
 		const page = blogRoutes.filter((item) => comparePath(pathname, BASE_PATH + item.path))[0];
+		if (!page) {
+			return {
+				title: '页面出错',
+				props: {}
+			};
+		}
 		const nickname = pathname.split('/')[2];
 		const blogger = await API.user.visitor.getBaseUser({ nickname });
 

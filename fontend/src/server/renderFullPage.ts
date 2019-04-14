@@ -22,11 +22,9 @@ export const renderFullPage = async (url: string, domain: string) => {
 			}
 		} else if (/^\/domain\b/.test(url)) {
 			// 独立域名
+			url = url.replace(/^\/domain\b/, '');
 			if (typeof DomainRouter.initServerData === 'function') {
-				serverData = await DomainRouter.initServerData(
-					decodeURIComponent(url).replace(/^\/domain\b/, ''),
-					domain
-				);
+				serverData = await DomainRouter.initServerData(url, domain);
 			}
 		}
 
