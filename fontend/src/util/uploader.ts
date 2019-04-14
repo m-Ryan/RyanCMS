@@ -7,14 +7,17 @@ const defaultOptions = {
 	autoUpload: true
 };
 interface Options {
-	count: number;
+	count?: number;
 	accept?: string;
 	minSize?: number;
 	maxSize?: number;
 	autoUpload?: boolean;
 }
+interface UploaderOption extends Options {
+	count: number;
+}
 export default class Uploader {
-	options: Options;
+	options: UploaderOption;
 	el: HTMLInputElement;
 
 	constructor(options: Options) {
