@@ -63,6 +63,7 @@ export const renderFullPage = async (url: string, domain: string) => {
 			.replace(/(\<div\s+id\="root"\>)(.|\n|\r)*(\<\/div\>)/i, '$1' + html + '$3' + initStateStyle + initStateJs)
 			.replace(/(\<title\>)(.*)?(\<\/title\>)/, '$1' + serverData.title + '$3');
 	} catch (error) {
+		console.log(error);
 		return error.message;
 	}
 };
