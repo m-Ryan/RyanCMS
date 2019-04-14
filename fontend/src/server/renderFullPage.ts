@@ -5,7 +5,7 @@ import { createStore } from 'ryan-redux';
 import BlogRouter from '../controller/blog/router/BlogRouter';
 import { ServerData } from '../interface/serverData.interface';
 import * as model from '../model';
-import axios, { AxiosPromise } from 'axios';
+import axios from 'axios';
 import { API_HOST } from './constant';
 import DomainRouter from '../controller/blog/router/DomainRouter';
 const themeJson = require('../../build/theme.json');

@@ -5,7 +5,7 @@ import Tag from '../page/Tag/Tag';
 import About from '../page/About/About';
 import Article from '../page/Article/Article';
 import TagArticle from '../page/TagArticle/TagArticle';
-import PageNotFound from '../page/NotFound/NotFound';
+import { NotFound } from '../../common/page/NotFound/NotFound';
 
 interface RouterProps {
 	location: {
@@ -64,8 +64,8 @@ export const blogRoutes: BlogRoutes[] = [
 		title: (pathname: string, nickname: string) => setBlogName(pathname.split('/t/')[1], nickname)
 	},
 	{
-		path: '*',
-		component: PageNotFound,
+		path: '/*',
+		component: NotFound,
 		title: (pathname: string, nickname: string) => setBlogName('页面未找到', nickname)
 	}
 ];
