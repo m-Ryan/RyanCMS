@@ -5,7 +5,6 @@ interface Props<T> {
   renderItem: (item:T, index: number)=>React.ReactNode;
   show?:boolean;
   empty?: React.ReactNode;
-  render?: React.ReactNode;
   renderFooter?: React.ReactNode;
 }
 export function ListView<T>(props: Props<T>) {

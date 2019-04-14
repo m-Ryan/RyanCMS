@@ -6,7 +6,7 @@
 
  * [x] react如何搭配typeScript
       - 例如编写基本的接口，枚举、泛型
-      - 例如使用第三方包如何编写d.ts,如果扩展window对象
+      - 例如使用第三方包如何编写d.ts,如何扩展window对象
 
  * [x] react服务端渲染
       - 如何通过nodejs中间层做服务端渲染

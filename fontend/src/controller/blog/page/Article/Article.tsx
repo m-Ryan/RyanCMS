@@ -77,26 +77,32 @@ export default class Article extends React.Component<Props, State> {
 		return (
 			<UserContainer {...this.props}>
 				{article ? (
-					<CustomComment articleId={article.article_id} blogger={blogger} user={user}>
-						<div className={styles['container']}>
-							{blogger && article ? (
-								<div className={styles['detail']}>
-									<div className={styles['date']}>
-										{dayjs(article.created_at * 1000).format('MMMM DD，YYYY')}
+					<CustomComment
+						articleId={article.article_id}
+						blogger={blogger}
+						user={user}
+						className={styles['container']}
+						renderHeader={
+							<div>
+								{blogger && article ? (
+									<div className={styles['detail']}>
+										<div className={styles['date']}>
+											{dayjs(article.created_at * 1000).format('MMMM DD，YYYY')}
+										</div>
+										<h2 className={styles['title']}>{article.title}</h2>
+										<ReactMarkdown
+											className={`${styles['editor-view']} ry-table`}
+											source={article.content.content}
+											renderers={{ code: LightCode as any }}
+											escapeHtml={false}
+										/>
 									</div>
-									<h2 className={styles['title']}>{article.title}</h2>
-									<ReactMarkdown
-										className={`${styles['editor-view']} ry-table`}
-										source={article.content.content}
-										renderers={{ code: LightCode as any }}
-										escapeHtml={false}
-									/>
-								</div>
-							) : (
-								<CustomLoading />
-							)}
-						</div>
-					</CustomComment>
+								) : (
+									<CustomLoading />
+								)}
+							</div>
+						}
+					/>
 				) : (
 					<div className={styles['container']}>
 						<CustomLoading />

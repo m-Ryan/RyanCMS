@@ -43,7 +43,7 @@ export default class Record extends React.PureComponent<Props, State> {
 		loading: false
 	};
 
-	async componentWillMount() {
+	async componentDidMount() {
 		this.getArticleList();
 	}
 

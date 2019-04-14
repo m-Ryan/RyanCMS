@@ -8,8 +8,8 @@
     "server:build": "cross-env NODE_SCENE=local ts-node --project tsconfig.server.json -r tsconfig-paths/register src/server/index.ts",
     "server:product": "NODE_SCENE=server pm2 start  ts-node -- --type-check --project tsconfig.server.json -r tsconfig-paths/register src/server/index.ts --watch",
     "start": "node scripts/start.js",
-    "build": "cross-env NODE_CDN=public node scripts/build.js",
-    "build:dev": "node scripts/build.js"
+    "build:prod": "cross-env NODE_CDN=public node scripts/build.js",
+    "build": "node scripts/build.js"
   },
   "dependencies": {
     "@babel/core": "7.1.6",
@@ -41,7 +41,7 @@
     "chalk": "2.4.1",
     "colour-palette": "^1.0.7",
     "cross-env": "^5.2.0",
-    "css-color-extract-plugin": "^0.5.0",
+    "css-color-extract-plugin": "^0.5.5",
     "css-loader": "1.0.0",
     "css-modules-require-hook": "^4.2.3",
     "dayjs": "^1.7.8",

@@ -69,7 +69,7 @@ export default class Tag extends React.PureComponent<Props, State> {
 		loading: false
 	};
 
-	async componentWillMount() {
+	async componentDidMount() {
 		this.getTagList();
 	}
 

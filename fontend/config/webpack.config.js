@@ -565,7 +565,7 @@ module.exports = function(webpackEnv) {
 			]
 		},
 		plugins: [
-			new CssColorExtractPlugin({ fileName: 'theme' }),
+			new CssColorExtractPlugin({ fileName: 'theme', json: true }),
 			// Generates an `index.html` file with the <script> injected.
 			new HtmlWebpackPlugin(
 				Object.assign(

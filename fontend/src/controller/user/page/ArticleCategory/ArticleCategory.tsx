@@ -52,7 +52,7 @@ export default class ArticleCategory extends React.Component<Props, any> {
 		visible: false,
 		loading: false
 	};
-	componentWillMount() {
+	componentDidMount() {
 		this.getCategorys();
 	}
 

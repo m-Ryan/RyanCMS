@@ -164,7 +164,8 @@ export class UserEntity extends BaseEntity {
 		const user = await this.findOne({
 			where: {
 				user_id: userId,
-				deleted_at: 0
+				deleted_at: 0,
+				cache: 60
 			}
 		});
 		if (!user) {
@@ -197,7 +198,8 @@ export class UserEntity extends BaseEntity {
 			condition.domain = domain;
 		}
 		const user = await this.findOne({
-			where: condition
+			where: condition,
+			cache: 60
 		});
 		if (!user) {
 			throw new UserError('用户不存在');

@@ -23,14 +23,15 @@ interface ConnectProps {
 }
 
 interface State {
-	inited: boolean;
+	initThemeColor: boolean;
 }
 
 @connect(({ bloggers, user }: ConnectProps) => ({ bloggers, user }))
 export default class DomainRouter extends React.PureComponent<Props, State> {
 	state: State = {
-		inited: false
+		initThemeColor: false
 	};
+
 	@catchError()
 	async componentDidMount() {
 		if (!this.getBlogger()) {
@@ -60,6 +61,8 @@ export default class DomainRouter extends React.PureComponent<Props, State> {
 	}
 
 	async initTheme() {
+		const isFromServer = routerModel.getIsFromServer();
+		if (isFromServer) return;
 		await awaitCssColorOnLoad();
 		const blogger = this.getBlogger();
 		if (blogger) {
@@ -73,7 +76,7 @@ export default class DomainRouter extends React.PureComponent<Props, State> {
 				]);
 			}
 		}
-		this.setState({ inited: true });
+		this.setState({ initThemeColor: true });
 	}
 
 	static async initServerData(pathname: string, domain: string): Promise<ServerData> {
@@ -86,7 +89,8 @@ export default class DomainRouter extends React.PureComponent<Props, State> {
 			props: {
 				router: {
 					location: null,
-					isExtraDomain: true
+					isExtraDomain: true,
+					renderFromServer: true
 				},
 				bloggers: [ blogger ],
 				...pageState
@@ -115,11 +119,12 @@ export default class DomainRouter extends React.PureComponent<Props, State> {
 
 	render() {
 		const blogger = this.getBlogger();
-		const { inited } = this.state;
+		const { initThemeColor } = this.state;
+		const isFromServer = routerModel.getIsFromServer();
 		return (
 			<React.Fragment>
 				{blogger &&
-				inited && (
+				(isFromServer || initThemeColor) && (
 					<Switch>
 						{domainRoutes.map((route, index) => (
 							<Route

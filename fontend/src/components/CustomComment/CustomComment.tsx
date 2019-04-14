@@ -2,7 +2,6 @@ import * as React from 'react';
 import * as styles from './CustomComment.module.scss';
 import CommentHeader from './component/CommentHeader/CommentHeader';
 import { User } from '../../interface/user.interface';
-import CommentList from './component/CommentList/CommentList';
 import { Message, Comment, Replay } from '../../interface/comment.interface';
 import { ClearUnmountState } from '../../util/decorators/clearUnmountState';
 import { catchError } from '../../util/decorators/catchError';
@@ -11,12 +10,14 @@ import { ReactAutoBind } from '../../util/decorators/reactAutoBind';
 import { loading } from '../../util/decorators/loading';
 import CustomScrollView from '../CustomScrollView/CustomScrollView';
 import { EmptyPlaceholder } from '../EmptyPlaceholder/EmptyPlaceholder';
+import Floor from './component/Floor/Floor';
 interface Props {
 	user?: User;
 	blogger: User;
 	bloggerId?: number;
 	articleId?: number;
-	children?: React.ReactNode;
+	renderHeader?: React.ReactNode;
+	className?: string;
 }
 interface State {
 	page: number;
@@ -118,39 +119,44 @@ export default class CustomComment extends React.PureComponent<Props, any> {
 	}
 
 	render() {
-		const { user, children } = this.props;
+		const { user, renderHeader, className } = this.props;
 		const { data, comment, loading, noMore, total } = this.state;
 		return (
 			<CustomScrollView
-				className={`${styles['scrollview']}`}
+				show={!!comment}
+				data={data}
+				className={[ styles['scrollview'], className ].join(' ')}
+				listClassName={styles['container']}
 				loadMore={this.getCommentList}
 				showLoading
 				noMore={noMore}
-			>
-				{children}
-				<div className={styles['container']}>
-					{comment && (
-						<CommentHeader commentId={comment.comment_id} user={user} postComment={this.postComment} />
-					)}
-					{data.length > 0 && (
-						<CommentList
-							total={total}
-							data={data}
-							user={user}
-							onDelete={this.onDelete}
-							onAdd={this.onAdd}
-							onAddReplay={this.onAddReplay}
-							onDeleteReplay={this.onDeleteReplay}
-						/>
-					)}
-					{data.length === 0 &&
-					!loading && (
-						<EmptyPlaceholder size={72}>
-							<div className={styles['text']}>暂无留言</div>
-						</EmptyPlaceholder>
-					)}
-				</div>
-			</CustomScrollView>
+				renderHeader={
+					<React.Fragment>
+						{renderHeader}
+						{comment && (
+							<CommentHeader commentId={comment.comment_id} user={user} postComment={this.postComment} />
+						)}
+					</React.Fragment>
+				}
+				renderItem={(item, index) => (
+					<Floor
+						key={item.message_id}
+						floorNumber={total - index}
+						data={item}
+						user={user}
+						onDelete={this.onDelete}
+						onAdd={this.onAdd}
+						onAddReplay={this.onAddReplay}
+						onDeleteReplay={this.onDeleteReplay}
+					/>
+				)}
+				empty={
+					<EmptyPlaceholder size={72}>
+						<div className={styles['text']}>暂无留言</div>
+					</EmptyPlaceholder>
+				}
+				renderFooter={null}
+			/>
 		);
 	}
 }

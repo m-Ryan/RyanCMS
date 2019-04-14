@@ -1,6 +1,5 @@
 export interface IListModuleScss {
   'base-btn': string;
-  'container': string;
   'list-item': string;
   'btn': string;
   'theme': string;

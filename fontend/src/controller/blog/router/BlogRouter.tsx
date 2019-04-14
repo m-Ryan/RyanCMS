@@ -11,6 +11,7 @@ import { NOT_FOUND_PAGE } from '@/config/constant';
 import { ServerData } from '@/interface/serverData.interface';
 import { bloggersModel, userModel, themeModel, routerModel } from '@/model';
 import { User } from '@/interface/user.interface';
+import { checkRenderFromServer } from '../../../util/decorators/checkRenderFromServer';
 interface Props {
 	history: History;
 	location: Location;
@@ -23,20 +24,19 @@ interface ConnectProps {
 }
 
 interface State {
-	inited: boolean;
+	initThemeColor: boolean;
 }
 
 @connect(({ bloggers, user }: ConnectProps) => ({ bloggers, user }))
 export default class BlogRouter extends React.PureComponent<Props, State> {
 	state: State = {
-		inited: true // 先让ssr渲染出来
+		initThemeColor: false
 	};
 
-	componentWillMount() {
-		this.setState({
-			inited: false
-		});
+	constructor(props: Props) {
+		super(props);
 	}
+
 	@catchError()
 	async componentDidMount() {
 		if (!this.getBlogger()) {
@@ -66,6 +66,8 @@ export default class BlogRouter extends React.PureComponent<Props, State> {
 	}
 
 	async initTheme() {
+		const isFromServer = routerModel.getIsFromServer();
+		if (isFromServer) return;
 		await awaitCssColorOnLoad();
 		const blogger = this.getBlogger();
 		if (blogger) {
@@ -79,7 +81,7 @@ export default class BlogRouter extends React.PureComponent<Props, State> {
 				]);
 			}
 		}
-		this.setState({ inited: true });
+		this.setState({ initThemeColor: true });
 	}
 
 	static async initServerData(pathname: string): Promise<ServerData> {
@@ -94,7 +96,8 @@ export default class BlogRouter extends React.PureComponent<Props, State> {
 			props: {
 				router: {
 					location: null,
-					isExtraDomain: false
+					isExtraDomain: false,
+					renderFromServer: true
 				},
 				bloggers: [ blogger ],
 				...pageState
@@ -124,11 +127,11 @@ export default class BlogRouter extends React.PureComponent<Props, State> {
 
 	render() {
 		const blogger = this.getBlogger();
-		const { inited } = this.state;
+		const { initThemeColor } = this.state;
+		const isFromServer = routerModel.getIsFromServer();
 		return (
 			<React.Fragment>
-				{blogger &&
-				inited && (
+				{blogger && (
 					<Switch>
 						{blogRoutes.map((route, index) => (
 							<Route

@@ -43,7 +43,7 @@ export default class ArticleManager extends React.Component<Props, any> {
 		},
 		loading: true
 	};
-	componentWillMount() {
+	componentDidMount() {
 		this.getCategorys();
 		this.getList();
 	}

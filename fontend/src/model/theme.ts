@@ -40,20 +40,24 @@ export default class ThemeModel extends ReduxModel<ThemeColorModel> {
 		cssData: []
 	};
 
-	async initThemeColor() {
+	initThemeColor() {
 		const styleData = window.CSS_EXTRACT_COLOR_PLUGIN || [];
 		this.state.cssData = styleData;
 		this.state.inited = true;
 		this.setState({ ...this.state });
 	}
 
-	async saveThemeColor(payload: [{ name: string; color: string }]) {
-		if (!this.state.inited) {
-			this.initThemeColor();
-		}
+	setThemeColorData(styleData: ICssItem[]) {
+		this.state.cssData = styleData;
+		this.state.inited = true;
+		this.setState({ ...this.state });
+	}
+
+	getReplaceCssText(payload: [{ name: string; color: string }]) {
+		const { cssData, colorObject } = this.state;
 		let hasMatch = false;
 		payload.forEach((item) => {
-			this.state.colorObject.forEach((current) => {
+			colorObject.forEach((current) => {
 				if (current.name === item.name) {
 					current.currentColors = item.color;
 					hasMatch = true;
@@ -63,7 +67,7 @@ export default class ThemeModel extends ReduxModel<ThemeColorModel> {
 		if (!hasMatch) {
 			throw new Error('没有匹配的主题色');
 		}
-		const { cssData, colorObject } = this.state;
+
 		const styleText = cssData
 			.map((item) => {
 				let source = item.source;
@@ -87,9 +91,17 @@ export default class ThemeModel extends ReduxModel<ThemeColorModel> {
 				return source;
 			})
 			.join('');
-		const style = document.createElement('style');
-		style.innerHTML = styleText;
-		document.body.appendChild(style);
+
+		return styleText;
+	}
+
+	async saveThemeColor(payload: [{ name: string; color: string }]) {
+		if (!this.state.inited) {
+			this.initThemeColor();
+		}
+
+		const styleText = this.getReplaceCssText(payload);
+		insertStyle(styleText);
 		this.setState({ ...this.state });
 		return this.state;
 	}
@@ -99,4 +111,10 @@ function replaceColor(source: string, color: string, replaceColor: string) {
 	return source.replace(new RegExp(`(:.*?\\s*)(${color})(\\b.*?)(?=})`, 'mig'), (group) => {
 		return group.replace(new RegExp(`${color}`, 'mig'), replaceColor);
 	});
+}
+
+function insertStyle(styleText: string) {
+	const style = document.createElement('style');
+	style.innerHTML = styleText;
+	document.body.appendChild(style);
 }

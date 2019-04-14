@@ -30,7 +30,7 @@ export default class IntroSetting extends React.Component<Props, State> {
 		resume: ''
 	};
 
-	componentWillMount() {
+	componentDidMount() {
 		this.getResume();
 	}
 

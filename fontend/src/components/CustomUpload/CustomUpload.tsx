@@ -22,7 +22,7 @@ export interface CustomUploadProps extends UploadProps {
 @connect(({ qiNiuConfig }: { qiNiuConfig: QiNiuConfig }) => ({ qiNiuConfig }))
 @ReactAutoBind()
 export default class CustomUpload extends React.Component<CustomUploadProps> {
-	componentWillMount() {
+	componentDidMount() {
 		this.getQiNiuConfig();
 	}
 	async getQiNiuConfig() {

@@ -43,7 +43,7 @@ export default class TagArticle extends React.PureComponent<Props, State> {
 		loading: true
 	};
 
-	async componentWillMount() {
+	async componentDidMount() {
 		await this.getTag();
 		this.getArticleList();
 	}
