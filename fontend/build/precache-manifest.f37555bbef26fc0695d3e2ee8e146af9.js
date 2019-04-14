@@ -4,7 +4,7 @@ self.__precacheManifest = [
     "url": "http://public.maocanhua.cn/static/js/runtime~main.5056dfc2.js"
   },
   {
-    "revision": "806401c10016488cdfe1",
+    "revision": "9a30de22b036175db1fb",
     "url": "http://public.maocanhua.cn/static/css/main.55224c24.chunk.css"
   },
   {
@@ -20,8 +20,8 @@ self.__precacheManifest = [
     "url": "http://public.maocanhua.cn/static/js/ant-design.f7c07cfe.chunk.js"
   },
   {
-    "revision": "806401c10016488cdfe1",
-    "url": "http://public.maocanhua.cn/static/js/main.806401c1.chunk.js"
+    "revision": "9a30de22b036175db1fb",
+    "url": "http://public.maocanhua.cn/static/js/main.9a30de22.chunk.js"
   },
   {
     "revision": "e33471629415c521f7ab25608d016801",
@@ -40,7 +40,7 @@ self.__precacheManifest = [
     "url": "http://public.maocanhua.cn/static/css/ant-design.5a19d1ba.chunk.css"
   },
   {
-    "revision": "69ff6e56e0a591a41aa0dfd84ebdf957",
+    "revision": "e00769d5c4d82ec082e66ac98f67b04e",
     "url": "http://public.maocanhua.cn/index.html"
   }
 ];

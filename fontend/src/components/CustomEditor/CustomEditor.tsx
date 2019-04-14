@@ -84,12 +84,12 @@ export default class CustomEditor extends React.Component<Props, State> {
 	}
 
 	onPaste = async (e: React.ClipboardEvent<HTMLTextAreaElement>) => {
-		const cbd = e.clipboardData!;
+		const clipboardData = e.clipboardData!;
 
-		for (var i = 0; i < cbd.items.length; i++) {
-			var item = cbd.items[i];
+		for (let i = 0; i < clipboardData.items.length; i++) {
+			const item = clipboardData.items[i];
 			if (item.kind == 'file') {
-				var blob = item.getAsFile();
+				const blob = item.getAsFile();
 
 				if (!blob || blob.size === 0) {
 					return;
