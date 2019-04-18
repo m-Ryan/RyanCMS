@@ -11,6 +11,7 @@ import { UserAuthorizeMiddleware } from './common/middlewares/user.authorize.mid
 import { AlbumModule } from './album/album.module';
 import { NoticeModule } from './notice/notice.module';
 import { MapModule } from './map/map.module';
+import { OtherModule } from './other/index.module';
 
 const file = process.cwd() + '/config/ormconfig.json';
 const ormConfig = require(file);
@@ -27,7 +28,8 @@ const ormConfig = require(file);
 		AlbumModule,
 		NoticeModule,
 		MapModule,
-		CommentModule
+		CommentModule,
+		OtherModule
 	]
 })
 export class AppModule {
