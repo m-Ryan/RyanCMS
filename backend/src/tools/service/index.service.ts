@@ -1,11 +1,11 @@
 import { Injectable, HttpService } from '@nestjs/common';
 import _ from 'lodash';
-import { json2ts } from 'json-ts';
+const { json2ts } = require('json-ts');
 @Injectable()
-export class OtherService {
+export class ToolsService {
 	constructor(private readonly httpService: HttpService) {}
 
 	async getJsonToTs(data: string) {
-		return json2ts(data)
+		return json2ts(data);
 	}
 }

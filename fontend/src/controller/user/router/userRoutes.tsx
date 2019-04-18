@@ -6,6 +6,8 @@ import ArticleTag from '../page/ArticleTag/ArticleTag';
 import ArticleCategory from '../page/ArticleCategory/ArticleCategory';
 import UserSetting from '../page/UserSetting/UserSetting';
 import IntroSetting from '../page/IntroSetting/IntroSetting';
+import Tools from '../page/Tools';
+import JsonToTs from '../page/Tools/JsonToTs';
 
 interface RouterProps {
 	location: {
@@ -63,5 +65,16 @@ export const userRoutes: UserRoutes[] = [
 		icon: 'form',
 		component: IntroSetting,
 		title: '关于我的'
+	},
+	{
+		path: '/admin/tools',
+		icon: 'form',
+		component: Tools,
+		title: '小工具'
+	},
+	{
+		path: '/admin/tools/json-to-interface',
+		component: JsonToTs,
+		title: 'json转interface'
 	}
 ];
