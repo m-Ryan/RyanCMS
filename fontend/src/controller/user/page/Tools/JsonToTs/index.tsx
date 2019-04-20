@@ -35,7 +35,12 @@ export default class JsonToTs extends React.Component<Props, State> {
 		const { value, resValue } = this.state;
 		return (
 			<div className={styles['container']}>
-				<TextArea onChange={(e) => this.setState({ value: e.target.value })} value={value} rows={16} />
+				<TextArea
+					placeholder="接口返回数据"
+					onChange={(e) => this.setState({ value: e.target.value })}
+					value={value}
+					rows={16}
+				/>
 				<div className={styles['btn-wrap']}>
 					<Button type="primary" onClick={this.submit}>
 						提交

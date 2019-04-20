@@ -16,7 +16,7 @@ interface Props {
 	location: Location;
 }
 @connect(({ router }: { router: typeof routerModel.state }) => ({ router }))
-export class BaseRouter extends React.Component<any> {
+export class BaseRouter extends React.Component<Props> {
 	@catchError(function() {})
 	async componentDidMount() {
 		// 判断是否是独立域名

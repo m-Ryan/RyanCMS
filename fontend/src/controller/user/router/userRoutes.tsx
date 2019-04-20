@@ -68,7 +68,7 @@ export const userRoutes: UserRoutes[] = [
 	},
 	{
 		path: '/admin/tools',
-		icon: 'form',
+		icon: 'tool',
 		component: Tools,
 		title: '小工具'
 	},
