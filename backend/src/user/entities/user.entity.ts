@@ -267,14 +267,13 @@ export class UserEntity extends BaseEntity {
 
 			// 创建关联简历
 			const resume = new UserResumeEntity();
-			resume.user = user;
+			resume.user_id = user.user_id;
 			await transactionalEntityManager.save(resume);
 
 			// 创建关联主题
 			const theme = new UserThemeEntity();
 			theme.user_id = user.user_id;
 			await transactionalEntityManager.save(theme);
-			user.theme = theme;
 
 			// 创建关联留言
 			const comment = new CommentEntity();
@@ -299,8 +298,10 @@ export class UserEntity extends BaseEntity {
 			await transactionalEntityManager.save(tag);
 
 			user.token = this.sign(user.user_id, user.rank);
-			user.concat = concat;
 			await transactionalEntityManager.save(user);
+			user.concat = concat;
+			user.resume = resume;
+			user.theme = theme;
 			return user;
 		});
 	}
@@ -367,7 +368,7 @@ export class UserEntity extends BaseEntity {
 		if (domain) {
 			if (user.domain !== domain) {
 				if (await this.hasRegisterDomain(domain)) {
-					throw new UserError('该域名已被已被注册');
+					throw new UserError('该域名已被使用');
 				}
 			}
 			user.domain = domain;
