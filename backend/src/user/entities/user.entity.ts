@@ -272,7 +272,7 @@ export class UserEntity extends BaseEntity {
 
 			// 创建关联主题
 			const theme = new UserThemeEntity();
-			theme.user = user;
+			theme.user_id = user.user_id;
 			await transactionalEntityManager.save(theme);
 			user.theme = theme;
 

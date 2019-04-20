@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import TokenStorage from '../../../../util/TokenStorage';
 import { RouterProps } from 'react-router';
 import { userModel } from '../../../../model';
+import { catchError } from '../../../../util/decorators/catchError';
 interface Props extends RouterProps {}
 
 interface State {
@@ -14,6 +15,11 @@ export default class Welcome extends Component<Props, State> {
 	state: State = {
 		isMounted: false
 	};
+
+	@catchError(function(this: Welcome) {
+		TokenStorage.clearToken();
+		this.props.history.push('/login');
+	})
 	async componentDidMount() {
 		if (TokenStorage.getToken()) {
 			await userModel.getUser();
