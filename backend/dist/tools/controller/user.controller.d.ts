@@ -4,9 +4,5 @@ export declare class UserController {
     constructor(service: ToolsService);
     getTyping(postDto: {
         data: string;
-    }): Promise<any>;
-    getPDF(postDto: {
-        data: string;
-    }): Promise<{}>;
-    getPagePDF(url: string): Promise<{}>;
+    }): Promise<string>;
 }

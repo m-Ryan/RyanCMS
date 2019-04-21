@@ -13,6 +13,7 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const common_1 = require("@nestjs/common");
+const user_guard_1 = require("../../common/guards/user.guard");
 const index_service_1 = require("../service/index.service");
 let UserController = class UserController {
     constructor(service) {
@@ -20,12 +21,6 @@ let UserController = class UserController {
     }
     getTyping(postDto) {
         return this.service.getJsonToTs(postDto.data);
-    }
-    getPDF(postDto) {
-        return this.service.getPDF(postDto.data);
-    }
-    getPagePDF(url) {
-        return this.service.getPagePDF(url);
     }
 };
 __decorate([
@@ -35,21 +30,8 @@ __decorate([
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", void 0)
 ], UserController.prototype, "getTyping", null);
-__decorate([
-    common_1.Post('/get-pdf'),
-    __param(0, common_1.Body()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
-    __metadata("design:returntype", void 0)
-], UserController.prototype, "getPDF", null);
-__decorate([
-    common_1.Get('/get-pdf-page'),
-    __param(0, common_1.Query('url')),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String]),
-    __metadata("design:returntype", void 0)
-], UserController.prototype, "getPagePDF", null);
 UserController = __decorate([
+    common_1.UseGuards(user_guard_1.UserGuard),
     common_1.Controller('tools/user'),
     __metadata("design:paramtypes", [index_service_1.ToolsService])
 ], UserController);

@@ -11,6 +11,7 @@ import { ReactAutoBind } from '@/util/decorators/reactAutoBind';
 import { loading } from '@/util/decorators/loading';
 import { catchError } from '@/util/decorators/catchError';
 import { routerModel } from '../../../../model';
+import { Link } from 'react-router-dom';
 
 interface Props extends RouteProps, RouterProps {
 	user: User;
@@ -18,7 +19,6 @@ interface Props extends RouteProps, RouterProps {
 
 interface State {
 	loading: boolean;
-	printLoading: boolean;
 	initLoading: boolean;
 	resume: string;
 }
@@ -28,7 +28,6 @@ interface State {
 export default class IntroSetting extends React.Component<Props, State> {
 	state: State = {
 		loading: false,
-		printLoading: false,
 		initLoading: false,
 		resume: ''
 	};
@@ -72,28 +71,21 @@ export default class IntroSetting extends React.Component<Props, State> {
 		message.success('更新成功');
 	}
 
-	@catchError()
-	@loading('printLoading')
-	async onPrint() {
+	public render() {
+		const { loading, resume, initLoading } = this.state;
 		const path =
 			window.location.origin +
 			routerModel.getPrefixPath().replace(':id', this.props.user.nickname) +
 			'/about/pdf';
-		const url = await API.tools.user.getPagePDF(path);
-		window.open(url);
-	}
-
-	public render() {
-		const { loading, printLoading, resume, initLoading } = this.state;
 		return (
 			<div className={styles['container']}>
 				<LayoutTitle
 					title="关于我的"
 					aside={
 						<div>
-							<Button loading={printLoading} type="primary" onClick={() => this.onPrint()}>
-								打印
-							</Button>
+							<Link to={path}>
+								<Button type="primary">打印PDF</Button>
+							</Link>
 							&emsp;
 							<Button loading={loading} type="primary" onClick={() => this.submit()}>
 								提交

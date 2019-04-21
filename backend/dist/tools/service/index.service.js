@@ -16,61 +16,16 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 const common_1 = require("@nestjs/common");
-const puppeteer_1 = __importDefault(require("puppeteer"));
-const upload_1 = require("../../util/upload");
-const userError_1 = require("../../common/filters/userError");
-const { json2ts } = require('json-ts');
-const PDF_NAME = process.cwd() + '/public/temp.pdf';
+const json_ts_1 = require("json-ts");
 let ToolsService = class ToolsService {
     constructor(httpService) {
         this.httpService = httpService;
     }
     getJsonToTs(data) {
         return __awaiter(this, void 0, void 0, function* () {
-            return json2ts(data);
-        });
-    }
-    getPDF(data) {
-        return __awaiter(this, void 0, void 0, function* () {
-            try {
-                const browser = yield puppeteer_1.default.launch();
-                const page = yield browser.newPage();
-                yield page.setContent(data);
-                yield page.emulateMedia('screen');
-                yield page.pdf({ path: PDF_NAME, format: 'A4', printBackground: true });
-                yield browser.close();
-                const rfs = yield upload_1.fsReadAsync(PDF_NAME);
-                const resUrl = yield upload_1.uploadQiuNiuFile({ data: rfs });
-                yield upload_1.fsUnlinkAsync(PDF_NAME);
-                return resUrl;
-            }
-            catch (error) {
-                throw new userError_1.UserError(error.message);
-            }
-        });
-    }
-    getPagePDF(url) {
-        return __awaiter(this, void 0, void 0, function* () {
-            try {
-                const browser = yield puppeteer_1.default.launch();
-                const page = yield browser.newPage();
-                yield page.goto(url);
-                yield page.emulateMedia('screen');
-                yield page.pdf({ path: PDF_NAME, format: 'A4', printBackground: true });
-                yield browser.close();
-                const rfs = yield upload_1.fsReadAsync(PDF_NAME);
-                const resUrl = yield upload_1.uploadQiuNiuFile({ data: rfs });
-                yield upload_1.fsUnlinkAsync(PDF_NAME);
-                return resUrl;
-            }
-            catch (error) {
-                throw new userError_1.UserError(error.message);
-            }
+            return json_ts_1.json2ts(data);
         });
     }
 };
