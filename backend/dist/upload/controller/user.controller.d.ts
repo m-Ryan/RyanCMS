@@ -9,5 +9,5 @@ export declare class UserController {
     uploadQiuNiuFile(fileData: {
         data: string;
         name: string;
-    }): Promise<void>;
+    }): Promise<{}>;
 }

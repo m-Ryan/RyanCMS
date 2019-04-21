@@ -18,6 +18,6 @@ export class UserController {
 
 	@Post('/upload-qiniu-file')
 	async uploadQiuNiuFile(@Body() fileData: { data: string; name: string }) {
-		this.uploadService.uploadQiuNiuFile(fileData);
+		return this.uploadService.uploadQiuNiuFile(fileData);
 	}
 }

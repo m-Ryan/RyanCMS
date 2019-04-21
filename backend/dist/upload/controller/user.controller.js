@@ -37,7 +37,7 @@ let UserController = class UserController {
     }
     uploadQiuNiuFile(fileData) {
         return __awaiter(this, void 0, void 0, function* () {
-            this.uploadService.uploadQiuNiuFile(fileData);
+            return this.uploadService.uploadQiuNiuFile(fileData);
         });
     }
 };
