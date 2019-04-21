@@ -7,6 +7,7 @@ export function uploadQiuNiuFile(fileData: { data: string | Buffer; name?: strin
 	if (!fileData.data) {
 		throw new UserError('文件数据不能为空');
 	}
+	console.log(fileData.name);
 	const { token, origin, options } = getQiniu(fileData.name);
 	// 创建可读流
 	const readerStream = new TranformToReadStream(fileData.data);
