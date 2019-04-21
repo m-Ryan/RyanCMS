@@ -19,6 +19,7 @@ const user_authorize_middleware_1 = require("./common/middlewares/user.authorize
 const album_module_1 = require("./album/album.module");
 const notice_module_1 = require("./notice/notice.module");
 const map_module_1 = require("./map/map.module");
+const index_module_1 = require("./tools/index.module");
 const file = process.cwd() + '/config/ormconfig.json';
 const ormConfig = require(file);
 let AppModule = class AppModule {
@@ -39,7 +40,8 @@ AppModule = __decorate([
             album_module_1.AlbumModule,
             notice_module_1.NoticeModule,
             map_module_1.MapModule,
-            comment_module_1.CommentModule
+            comment_module_1.CommentModule,
+            index_module_1.ToolsModule
         ]
     })
 ], AppModule);

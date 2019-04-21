@@ -1,4 +1,7 @@
 export declare class UploadService {
     constructor();
-    writeImage(): void;
+    uploadQiuNiuFile(fileData: {
+        data: string;
+        name: string;
+    }): Promise<{}>;
 }

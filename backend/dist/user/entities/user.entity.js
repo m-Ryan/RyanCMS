@@ -63,7 +63,8 @@ let UserEntity = UserEntity_1 = class UserEntity extends typeorm_1.BaseEntity {
             const user = yield this.findOne({
                 where: {
                     user_id: userId,
-                    deleted_at: 0
+                    deleted_at: 0,
+                    cache: 60
                 }
             });
             if (!user) {
@@ -96,7 +97,8 @@ let UserEntity = UserEntity_1 = class UserEntity extends typeorm_1.BaseEntity {
                 condition.domain = domain;
             }
             const user = yield this.findOne({
-                where: condition
+                where: condition,
+                cache: 60
             });
             if (!user) {
                 throw new userError_1.UserError('用户不存在');
@@ -154,12 +156,11 @@ let UserEntity = UserEntity_1 = class UserEntity extends typeorm_1.BaseEntity {
                 concat.user_id = user.user_id;
                 yield transactionalEntityManager.save(concat);
                 const resume = new user_resume_entity_1.UserResumeEntity();
-                resume.user = user;
+                resume.user_id = user.user_id;
                 yield transactionalEntityManager.save(resume);
                 const theme = new user_theme_entity_1.UserThemeEntity();
-                theme.user = user;
+                theme.user_id = user.user_id;
                 yield transactionalEntityManager.save(theme);
-                user.theme = theme;
                 const comment = new comment_entity_1.CommentEntity();
                 comment.blogger_id = user.user_id;
                 yield transactionalEntityManager.save(comment);
@@ -178,8 +179,10 @@ let UserEntity = UserEntity_1 = class UserEntity extends typeorm_1.BaseEntity {
                 tag.created_at = currentTime;
                 yield transactionalEntityManager.save(tag);
                 user.token = this.sign(user.user_id, user.rank);
-                user.concat = concat;
                 yield transactionalEntityManager.save(user);
+                user.concat = concat;
+                user.resume = resume;
+                user.theme = theme;
                 return user;
             }));
         });
@@ -245,7 +248,7 @@ let UserEntity = UserEntity_1 = class UserEntity extends typeorm_1.BaseEntity {
             if (domain) {
                 if (user.domain !== domain) {
                     if (yield this.hasRegisterDomain(domain)) {
-                        throw new userError_1.UserError('该域名已被已被注册');
+                        throw new userError_1.UserError('该域名已被使用');
                     }
                 }
                 user.domain = domain;

@@ -7,16 +7,16 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const common_1 = require("@nestjs/common");
-let ExceptionFilter = class ExceptionFilter {
-    catch(exception, host) {
-        const resp = host.switchToHttp().getResponse();
-        const status = exception instanceof common_1.HttpException ? exception.getStatus() : 500;
-        const message = exception instanceof common_1.HttpException ? exception.message.message : exception.message;
-        resp.status(status).json({ message, status });
-    }
+const user_controller_1 = require("./controller/user.controller");
+const index_service_1 = require("./service/index.service");
+let ToolsModule = class ToolsModule {
 };
-ExceptionFilter = __decorate([
-    common_1.Catch(common_1.HttpException, Error)
-], ExceptionFilter);
-exports.ExceptionFilter = ExceptionFilter;
-//# sourceMappingURL=exception.filter.js.map
+ToolsModule = __decorate([
+    common_1.Module({
+        imports: [common_1.HttpModule],
+        controllers: [user_controller_1.UserController],
+        providers: [index_service_1.ToolsService]
+    })
+], ToolsModule);
+exports.ToolsModule = ToolsModule;
+//# sourceMappingURL=index.module.js.map
