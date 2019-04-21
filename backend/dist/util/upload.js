@@ -11,7 +11,7 @@ function uploadQiuNiuFile(fileData) {
     if (!fileData.data) {
         throw new userError_1.UserError('文件数据不能为空');
     }
-    const { token, origin, options } = this.getQiniu(fileData.name);
+    const { token, origin, options } = getQiniu(fileData.name);
     const readerStream = new tranform_to_readstream_1.default(fileData.data);
     const formUploader = new qiniu_1.default.form_up.FormUploader(options);
     const putExtra = new qiniu_1.default.form_up.PutExtra();
