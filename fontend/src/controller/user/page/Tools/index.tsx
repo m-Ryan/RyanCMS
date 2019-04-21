@@ -37,6 +37,11 @@ export default class Tools extends React.Component<Props, State> {
 							JSON-to-Ts
 						</Button>
 					</Link>
+					<Link to="/admin/tools/paste-source">
+						<Button type="primary" className={styles['btn-link']}>
+							粘贴源码
+						</Button>
+					</Link>
 				</div>
 				<div className={styles['divider']} />
 				<LayoutTitle title="常用站外工具" />

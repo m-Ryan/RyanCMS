@@ -8,6 +8,7 @@ import UserSetting from '../page/UserSetting/UserSetting';
 import IntroSetting from '../page/IntroSetting/IntroSetting';
 import Tools from '../page/Tools';
 import JsonToTs from '../page/Tools/JsonToTs';
+import PasteSource from '../page/Tools/PasteSource';
 
 interface RouterProps {
 	location: {
@@ -76,5 +77,10 @@ export const userRoutes: UserRoutes[] = [
 		path: '/admin/tools/json-to-interface',
 		component: JsonToTs,
 		title: 'json转interface'
+	},
+	{
+		path: '/admin/tools/paste-source',
+		component: PasteSource,
+		title: '粘贴文本的源代码'
 	}
 ];

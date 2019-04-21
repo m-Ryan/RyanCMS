@@ -3,13 +3,14 @@ import * as React from 'react';
 import { RouteProps, RouterProps } from 'react-router';
 import * as styles from './IntroSetting.module.scss';
 import LayoutTitle from '../../components/LayoutTitle/LayoutTitle';
-import CustomEditor from '../../../../components/CustomEditor/CustomEditor';
-import { API } from '../../../../services/API';
-import { ClearUnmountState } from '../../../../util/decorators/clearUnmountState';
-import { User } from '../../../../interface/user.interface';
-import { ReactAutoBind } from '../../../../util/decorators/reactAutoBind';
-import { loading } from '../../../../util/decorators/loading';
-import { catchError } from '../../../../util/decorators/catchError';
+import CustomEditor from '@/components/CustomEditor/CustomEditor';
+import { API } from '@/services/API';
+import { ClearUnmountState } from '@/util/decorators/clearUnmountState';
+import { User } from '@/interface/user.interface';
+import { ReactAutoBind } from '@/util/decorators/reactAutoBind';
+import { loading } from '@/util/decorators/loading';
+import { catchError } from '@/util/decorators/catchError';
+import { routerModel } from '../../../../model';
 
 interface Props extends RouteProps, RouterProps {
 	user: User;
@@ -17,6 +18,7 @@ interface Props extends RouteProps, RouterProps {
 
 interface State {
 	loading: boolean;
+	printLoading: boolean;
 	initLoading: boolean;
 	resume: string;
 }
@@ -26,6 +28,7 @@ interface State {
 export default class IntroSetting extends React.Component<Props, State> {
 	state: State = {
 		loading: false,
+		printLoading: false,
 		initLoading: false,
 		resume: ''
 	};
@@ -69,16 +72,33 @@ export default class IntroSetting extends React.Component<Props, State> {
 		message.success('更新成功');
 	}
 
+	@catchError()
+	@loading('printLoading')
+	async onPrint() {
+		const path =
+			window.location.origin +
+			routerModel.getPrefixPath().replace(':id', this.props.user.nickname) +
+			'/about/pdf';
+		const url = await API.tools.user.getPagePDF(path);
+		window.open(url);
+	}
+
 	public render() {
-		const { loading, resume, initLoading } = this.state;
+		const { loading, printLoading, resume, initLoading } = this.state;
 		return (
 			<div className={styles['container']}>
 				<LayoutTitle
 					title="关于我的"
 					aside={
-						<Button loading={loading} type="primary" onClick={() => this.submit()}>
-							提交
-						</Button>
+						<div>
+							<Button loading={printLoading} type="primary" onClick={() => this.onPrint()}>
+								打印
+							</Button>
+							&emsp;
+							<Button loading={loading} type="primary" onClick={() => this.submit()}>
+								提交
+							</Button>
+						</div>
 					}
 				/>
 

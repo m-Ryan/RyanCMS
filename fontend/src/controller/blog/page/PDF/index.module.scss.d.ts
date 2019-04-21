@@ -1,5 +1,6 @@
 export interface IIndexModuleScss {
-  'btn-wrap': string;
+  'container': string;
+  'detail': string;
 }
 
 export const locals: IIndexModuleScss;
