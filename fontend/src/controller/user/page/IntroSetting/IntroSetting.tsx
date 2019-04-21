@@ -73,24 +73,14 @@ export default class IntroSetting extends React.Component<Props, State> {
 
 	public render() {
 		const { loading, resume, initLoading } = this.state;
-		const path =
-			window.location.origin +
-			routerModel.getPrefixPath().replace(':id', this.props.user.nickname) +
-			'/about/pdf';
 		return (
 			<div className={styles['container']}>
 				<LayoutTitle
 					title="关于我的"
 					aside={
-						<div>
-							<Link to={path}>
-								<Button type="primary">打印PDF</Button>
-							</Link>
-							&emsp;
-							<Button loading={loading} type="primary" onClick={() => this.submit()}>
-								提交
-							</Button>
-						</div>
+						<Button loading={loading} type="primary" onClick={() => this.submit()}>
+							提交
+						</Button>
 					}
 				/>
 

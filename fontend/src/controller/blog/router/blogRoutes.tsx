@@ -6,7 +6,6 @@ import About from '../page/About/About';
 import Article from '../page/Article/Article';
 import TagArticle from '../page/TagArticle/TagArticle';
 import { NotFound } from '../../common/page/NotFound/NotFound';
-import PDF from '../page/PDF';
 
 interface RouterProps {
 	location: {
@@ -53,12 +52,6 @@ export const blogRoutes: BlogRoutes[] = [
 		title: (pathname: string, nickname: string) => setBlogName('关于', nickname),
 		name: '关于',
 		icon: 'robot'
-	},
-	{
-		path: '/about/pdf',
-		component: PDF,
-		title: (pathname: string, nickname: string) => setBlogName('简历', nickname),
-		name: '简历'
 	},
 	{
 		path: '/a/:id',
