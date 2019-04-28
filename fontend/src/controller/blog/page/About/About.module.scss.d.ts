@@ -1,6 +1,6 @@
 export interface IAboutModuleScss {
-  'container': string;
-  'detail': string;
+  container: string;
+  detail: string;
   'editor-view': string;
 }
 

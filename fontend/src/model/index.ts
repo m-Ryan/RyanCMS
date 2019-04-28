@@ -17,12 +17,12 @@ const themeModel = new ThemeModel();
 const routerModel = new RouterModel();
 
 export {
-	bloggersModel,
-	userModel,
-	qiNiuConfigModel,
-	articleListModel,
-	articleModel,
-	resumeModel,
-	themeModel,
-	routerModel
+  bloggersModel,
+  userModel,
+  qiNiuConfigModel,
+  articleListModel,
+  articleModel,
+  resumeModel,
+  themeModel,
+  routerModel,
 };

@@ -1,6 +1,6 @@
 export interface IEmptyPlaceholderModuleScss {
-  'container': string;
-  'text': string;
+  container: string;
+  text: string;
 }
 
 export const locals: IEmptyPlaceholderModuleScss;
