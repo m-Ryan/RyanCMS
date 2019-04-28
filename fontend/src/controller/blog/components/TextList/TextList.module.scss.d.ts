@@ -1,8 +1,8 @@
 export interface ITextListModuleScss {
-  container: string;
+  'container': string;
   'list-item': string;
-  tag: string;
-  date: string;
+  'tag': string;
+  'date': string;
 }
 
 export const locals: ITextListModuleScss;
