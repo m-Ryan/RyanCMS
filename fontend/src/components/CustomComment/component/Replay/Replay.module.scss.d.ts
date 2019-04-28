@@ -1,5 +1,5 @@
 export interface IReplayModuleScss {
-  'container': string;
+  container: string;
 }
 
 export const locals: IReplayModuleScss;
