@@ -1,13 +1,13 @@
 export interface IArticleCategoryModuleScss {
-  container: string;
-  list: string;
+  'container': string;
+  'list': string;
   'list-item': string;
-  picture: string;
-  content: string;
-  title: string;
-  count: string;
-  popover: string;
-  header: string;
+  'picture': string;
+  'content': string;
+  'title': string;
+  'count': string;
+  'popover': string;
+  'header': string;
   'btn-wrap': string;
 }
 
