@@ -1,5 +1,5 @@
 export interface IEditorInputModuleScss {
-  editor: string;
+  'editor': string;
   'submit-btn': string;
 }
 

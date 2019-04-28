@@ -7,6 +7,7 @@ interface Window {
 				matchColors: string[];
 			}[]
 		| undefined;
+	_hmt: string[][];
 }
 
 declare namespace NodeJS {

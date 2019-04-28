@@ -1,5 +1,5 @@
 export interface ICustomLoadingModuleScss {
-  container: string;
+  'container': string;
 }
 
 export const locals: ICustomLoadingModuleScss;

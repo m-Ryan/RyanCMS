@@ -19,6 +19,8 @@ interface Props {
 export class BaseRouter extends React.Component<Props> {
 	@catchError(function() {})
 	async componentDidMount() {
+		// 添加百度统计
+		window._hmt.push([ '_trackPageview', this.props.location.pathname ]);
 		// 判断是否是独立域名
 		const hostname = window.location.hostname;
 		if (hostname !== HOST.ENV_HOST_NAME && hostname !== HOST.PRODUCT_HOST_NAME) {

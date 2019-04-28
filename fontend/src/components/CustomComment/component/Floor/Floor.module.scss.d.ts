@@ -1,5 +1,5 @@
 export interface IFloorModuleScss {
-  container: string;
+  'container': string;
 }
 
 export const locals: IFloorModuleScss;
