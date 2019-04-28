@@ -1,7 +1,7 @@
 export interface IIndexModuleScss {
-  'container': string;
-  'divider': string;
-  'tools': string;
+  container: string;
+  divider: string;
+  tools: string;
   'btn-link': string;
 }
 
