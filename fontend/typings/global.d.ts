@@ -10,6 +10,11 @@ interface Window {
 }
 
 declare namespace NodeJS {
+	interface ProcessEnv {
+		NODE_SCENE: 'local' | 'server';
+		NODE_ENV: 'development' | 'production' | 'test';
+		PUBLIC_URL: string;
+	}
 	interface Global {
 		window: {
 			__INITIAL_STATE__?: {} | undefined | { [key: string]: any };
