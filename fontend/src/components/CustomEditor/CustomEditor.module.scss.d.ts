@@ -1,5 +1,5 @@
 export interface ICustomEditorModuleScss {
-  'editor': string;
+  editor: string;
   'editor-tool': string;
   'editor-container': string;
   'editor-textarea-wrap': string;

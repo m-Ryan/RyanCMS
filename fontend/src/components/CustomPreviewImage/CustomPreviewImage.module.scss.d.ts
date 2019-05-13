@@ -1,6 +1,6 @@
 export interface ICustomPreviewImageModuleScss {
-  'container': string;
-  'info': string;
+  container: string;
+  info: string;
   'btn-wrap': string;
 }
 

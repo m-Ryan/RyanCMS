@@ -1,5 +1,5 @@
 export interface IRecordModuleScss {
-  'container': string;
+  container: string;
 }
 
 export const locals: IRecordModuleScss;

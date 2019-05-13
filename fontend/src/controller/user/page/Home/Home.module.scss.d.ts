@@ -1,5 +1,3 @@
-export interface IHomeModuleScss {
-
-}
+export interface IHomeModuleScss {}
 
 export const locals: IHomeModuleScss;

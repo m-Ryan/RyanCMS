@@ -157,7 +157,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "yarn format"
+
     }
   }
 }
