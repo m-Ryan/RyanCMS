@@ -11,6 +11,6 @@ if (typeof window === 'undefined') {
 
 const preloadedState = window.__INITIAL_STATE__ || {}; //
 const loggerMiddleware = createLogger();
-export const store = isDevelopment
+export const store = isDevelopment()
 	? createStore(model, preloadedState, applyMiddleware(loggerMiddleware))
 	: createStore(model, preloadedState);
