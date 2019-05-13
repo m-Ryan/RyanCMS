@@ -1,6 +1,6 @@
 export interface ITagModuleScss {
-  container: string;
-  tags: string;
+  'container': string;
+  'tags': string;
   'tag-item': string;
 }
 
