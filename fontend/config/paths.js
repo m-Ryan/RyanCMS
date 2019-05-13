@@ -78,7 +78,7 @@ module.exports = {
 	appNodeModules: resolveApp('node_modules'),
 	publicUrl: getPublicUrl(resolveApp('package.json')),
 	servedPath:
-		process.env.NODE_CDN === 'public' ? 'http://public.maocanhua.cn/' : getServedPath(resolveApp('package.json'))
+		process.env.NODE_CDN === 'public' ? '://public.maocanhua.cn/' : getServedPath(resolveApp('package.json'))
 };
 
 module.exports.moduleFileExtensions = moduleFileExtensions;
