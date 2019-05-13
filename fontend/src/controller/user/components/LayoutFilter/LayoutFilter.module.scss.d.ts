@@ -1,5 +1,5 @@
 export interface ILayoutFilterModuleScss {
-  container: string;
+  'container': string;
 }
 
 export const locals: ILayoutFilterModuleScss;

@@ -1,5 +1,5 @@
 export interface ITagArticleModuleScss {
-  container: string;
+  'container': string;
 }
 
 export const locals: ITagArticleModuleScss;

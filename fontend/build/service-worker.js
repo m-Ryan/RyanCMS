@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "http://public.maocanhua.cn/precache-manifest.d73766c26b8f98faac454d0046acde62.js"
+  "https://public.maocanhua.cn/precache-manifest.20dac12de06c7947c835e6bc1562e0d3.js"
 );
 
 workbox.clientsClaim();
@@ -28,7 +28,7 @@ self.__precacheManifest = [].concat(self.__precacheManifest || []);
 workbox.precaching.suppressWarnings();
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
 
-workbox.routing.registerNavigationRoute("http://public.maocanhua.cn/index.html", {
+workbox.routing.registerNavigationRoute("https://public.maocanhua.cn/index.html", {
   
   blacklist: [/^\/_/,/\/[^\/]+\.[^\/]+$/],
 });

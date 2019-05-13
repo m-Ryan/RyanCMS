@@ -1,7 +1,7 @@
 export interface ILayoutNavigatorModuleScss {
   'base-btn': string;
-  theme: string;
-  aside: string;
+  'theme': string;
+  'aside': string;
   'menu-item': string;
   'activity-item': string;
 }
