@@ -62,6 +62,12 @@ export default class UserRouter extends React.Component<Props, State> {
 		}
 	}
 
+	componentWillReceiveProps(nextProps: Props) {
+		if (nextProps.location.pathname !== this.props.location.pathname) {
+			document.title = '博客管理后台';
+		}
+	}
+
 	render() {
 		const { user, location } = this.props;
 		const { inited } = this.state;
