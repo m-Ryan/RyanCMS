@@ -120,8 +120,8 @@ export default class BlogRouter extends React.PureComponent<Props, State> {
 			)[0];
 			document.title =
 				typeof page.title === 'function'
-					? page.title(nextProps.location.pathname, blogger.nickname)
-					: page.title;
+					? page.title(decodeURIComponent(nextProps.location.pathname), blogger.nickname)
+					: decodeURIComponent(page.title);
 		}
 	}
 
