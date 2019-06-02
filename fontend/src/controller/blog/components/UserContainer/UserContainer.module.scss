@@ -1,0 +1,14 @@
+.container {
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+
+  .header {
+    position: relative;
+  }
+
+  .content {
+    height: 100%;
+  }
+
+}

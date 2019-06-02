@@ -1,0 +1,35 @@
+.container {
+  margin-top: 50px;
+  padding-left: 100px;
+
+  img {
+    max-width: 104px;
+    max-height: 104px;
+  }
+}
+
+.title {
+  margin-bottom: 40px;
+  font-weight: 500;
+  font-size: 22px;
+  letter-spacing: 4px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+}
+
+.input-item {
+  width: 320px;
+  margin-bottom: 10px;
+}
+
+.label-item {
+  display: flex !important;
+}
+
+.intro-item {
+  width: 500px !important;
+  margin-bottom: 10px !important;
+}

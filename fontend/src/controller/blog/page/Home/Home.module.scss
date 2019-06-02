@@ -1,0 +1,24 @@
+  .container {
+    padding: 65px 15px 0 15px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+
+  }
+
+  @media (min-width: 992px) {
+    .container {
+      padding: 30px 50px 30px 50px;
+    }
+  }
+
+  .footer {
+    padding: 30px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    line-height: 2;
+  }

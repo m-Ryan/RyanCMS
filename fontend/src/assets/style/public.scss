@@ -1,0 +1,40 @@
+@charset "UTF-8";
+@import './variable.scss';
+
+html {
+  font-size: 625%;
+}
+
+body {
+  font-size: 15px;
+  margin: 0;
+  color: #505050;
+  font-family: 'Source Sans Pro', sans-serif, Lato, Helvetica Neue, Arial, PingFang SC, Hiragino Sans GB, STHeiti, Microsoft YaHei, WenQuanYi Micro Hei, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.5;
+  word-wrap: break-word;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+blockquote {
+  color: #666;
+  margin: 0;
+  padding-left: 3em;
+  border-left: 0.5em $primary-color solid;
+}
+
+.ry-table {
+  table {
+    max-width: 100%;
+    white-space: inherit;
+
+    th,
+    td {
+      padding: 6px 13px;
+      border: 1px solid #dfe2e5;
+    }
+  }
+}

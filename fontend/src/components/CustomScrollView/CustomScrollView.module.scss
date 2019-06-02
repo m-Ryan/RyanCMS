@@ -1,0 +1,10 @@
+.container {
+  overflow-y: auto;
+  flex: 1;
+
+  .footer {
+    text-align: center;
+    padding: 20px;
+    border-top: 1px solid #ccc;
+  }
+}

@@ -1,0 +1,41 @@
+  .container {
+    padding: 65px 15px 30px 15px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    min-height: 300px;
+    overflow-x: hidden;
+
+    img {
+      max-width: 100%;
+    }
+
+    .date {
+      border-bottom: 1px solid #ccc;
+      color: #333;
+    }
+
+    .link {
+      font-size: .2rem;
+      text-indent: 2em;
+    }
+
+    .title {
+      font-size: .3rem;
+      font-weight: 500;
+      text-align: center;
+      margin: .2rem 0;
+    }
+
+    .editor-view {
+      padding-bottom: 30px;
+      margin-bottom: 30px;
+    }
+  }
+
+  @media (min-width: 992px) {
+    .container {
+      padding: 30px 50px 0 50px;
+      padding-right: 10vw;
+    }
+  }

@@ -1,0 +1,29 @@
+.container {
+  background: #fff;
+  border-radius: 10px;
+}
+
+.title {
+  font-weight: 500;
+  font-size: 22px;
+  letter-spacing: 4px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+}
+
+.input-item {
+  display: flex;
+  flex: 1;
+  width: 350px;
+}
+
+.label-item {
+  display: flex;
+
+  :global(.ant-form-item-label) {
+    line-height: 1 !important;
+  }
+}

@@ -1,0 +1,36 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  height: 100vh;
+}
+.logoLink {
+  display: block;
+}
+.logoImg {
+  width: 88px;
+}
+.title {
+  margin-top: 60px;
+  font-weight: 500;
+  font-size: 22px;
+  line-height: 1.5;
+  text-align: center;
+  color: #343a40;
+}
+.description {
+  margin-top: 30px;
+  font-size: 13px;
+  color: #212529;
+}
+.border {
+  position: absolute;
+  top: 100px;
+  bottom: 100px;
+  right: 0;
+  background: #ffffff;
+  width: 30px;
+  box-shadow: -19px 0 35px -7px #F5F5F5;
+};
