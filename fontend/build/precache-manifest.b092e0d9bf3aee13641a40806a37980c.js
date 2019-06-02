@@ -40,7 +40,7 @@ self.__precacheManifest = [
     "url": "http://public.maocanhua.cn/static/css/ant-design.e648ff4a.chunk.css"
   },
   {
-    "revision": "1952e9b5cde2ac59d211d372c14ea300",
+    "revision": "537bb34d25418233a13c6be0fac408f7",
     "url": "http://public.maocanhua.cn/index.html"
   }
 ];

@@ -1,1 +1,0 @@
-{"version":3,"file":"admin.controller.js","sourceRoot":"","sources":["../../../src/comment/controller/admin.controller.ts"],"names":[],"mappings":";;;;;;;;;;;AAAA,2CAA4C;AAC5C,gEAA4D;AAE5D,IAAa,eAAe,GAA5B,MAAa,eAAe;IAC1B,YAA6B,cAA8B;QAA9B,mBAAc,GAAd,cAAc,CAAgB;IAAG,CAAC;CAChE,CAAA;AAFY,eAAe;IAD3B,mBAAU,CAAC,eAAe,CAAC;qCAEmB,gCAAc;GADhD,eAAe,CAE3B;AAFY,0CAAe"}
