@@ -9,8 +9,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const common_1 = require("@nestjs/common");
 let ExceptionFilter = class ExceptionFilter {
     catch(exception, host) {
-        console.log('捕获到错误');
-        console.log(exception);
         const resp = host.switchToHttp().getResponse();
         const status = exception instanceof common_1.HttpException ? exception.getStatus() : 500;
         const message = exception instanceof common_1.HttpException ? exception.message.message : exception.message;

@@ -35,11 +35,7 @@ router.all('/api/*', async (ctx: Koa.ParameterizedContext<{}, Router.IRouterCont
 		});
 		ctx.body = res.data;
 	} catch (error) {
-		console.log('error：' + error.response.data.message);
-		console.log('error：' + error.response);
-		console.log('error：' + error.data.message);
-		console.log(error);
-		ctx.throw(error.response.data.status, error.response.data.message);
+		ctx.throw(error.response.data.message, error.response.data.status);
 	}
 });
 

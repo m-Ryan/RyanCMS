@@ -323,7 +323,6 @@ export class UserEntity extends BaseEntity {
 			}
 		});
 		if (!user) {
-			console.log('用户不存在');
 			throw new UserError('用户不存在');
 		}
 		if (user.deleted_at > 0) {

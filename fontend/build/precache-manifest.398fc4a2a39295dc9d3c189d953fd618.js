@@ -12,7 +12,7 @@ self.__precacheManifest = [
     "url": "http://public.maocanhua.cn/static/js/vendors.3f6ab44e.chunk.js"
   },
   {
-    "revision": "24bdae60b107f616c8d2a3449508ac00",
+    "revision": "417a718a121b287dd4ce95dc33557dff",
     "url": "http://public.maocanhua.cn/theme.js"
   },
   {
@@ -40,7 +40,7 @@ self.__precacheManifest = [
     "url": "http://public.maocanhua.cn/static/css/ant-design.e648ff4a.chunk.css"
   },
   {
-    "revision": "537bb34d25418233a13c6be0fac408f7",
+    "revision": "f1e6b054d87597fe5d0e3d621b4a0aff",
     "url": "http://public.maocanhua.cn/index.html"
   }
 ];
