@@ -26,7 +26,7 @@
     "json-ts": "^1.6.4",
     "jsonwebtoken": "^8.4.0",
     "lodash": "^4.17.11",
-    "marked": "^0.5.2",
+    "marked": "^0.6.1",
     "mysql": "^2.16.0",
     "puppeteer": "^1.14.0",
     "qiniu": "^7.2.1",
