@@ -11,7 +11,6 @@ require('css-modules-require-hook')({
 import Router from 'koa-router';
 import { renderFullPage, flushCache } from './renderFullPage';
 import { API_HOST } from './constant';
-import TokenStorage from '../util/TokenStorage';
 
 const app = new Koa();
 app.proxy = true;
