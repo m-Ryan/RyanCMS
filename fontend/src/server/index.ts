@@ -9,8 +9,9 @@ require('css-modules-require-hook')({
 	processorOpts: { parser: lessParser.parse }
 });
 import Router from 'koa-router';
-import { renderFullPage } from './renderFullPage';
+import { renderFullPage, flushCache } from './renderFullPage';
 import { API_HOST } from './constant';
+import TokenStorage from '../util/TokenStorage';
 
 const app = new Koa();
 app.proxy = true;
@@ -26,6 +27,15 @@ router.all('/api/*', async (ctx: Koa.ParameterizedContext<{}, Router.IRouterCont
 	const headers = ctx.request.header;
 	const url = ctx.request.url.replace(/^\/api/, API_HOST);
 	const data = ctx.request.body;
+	if (/\/api\/flush-cache/.test(ctx.request.url)) {
+		flushCache(url);
+		ctx.body = {
+			msg: 'ok',
+			code: 200
+		};
+		return;
+	}
+
 	try {
 		const res = await axios({
 			url,

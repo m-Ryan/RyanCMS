@@ -11,9 +11,15 @@ import DomainRouter from '../controller/blog/router/DomainRouter';
 const themeJson = require('../../build/theme.json');
 model.themeModel.setThemeColorData(themeJson); // 初始化主题颜色
 const htmlTemplete = fs.readFileSync(process.cwd() + '/build/index.html', 'utf-8');
+let CACHE_ROUTE_MAP = {};
 
 export const renderFullPage = async (url: string, domain: string) => {
 	try {
+		// 对路由进行缓存
+		if (CACHE_ROUTE_MAP[url]) {
+			return CACHE_ROUTE_MAP[url];
+		}
+
 		let serverData: ServerData = { title: 'RyanCMS 内容管理系统', props: {} };
 
 		if (/^\/u\/.+/.test(url)) {
@@ -57,11 +63,25 @@ export const renderFullPage = async (url: string, domain: string) => {
 		let initStateStyle = cssResData
 			? `<link rel="stylesheet" href="${cssResData.data}?${new Date().getTime()}">`
 			: '';
-		return htmlTemplete
+		const renderHtml = htmlTemplete
 			.replace(/(\<div\s+id\="root"\>)(.|\n|\r)*(\<\/div\>)/i, '$1' + html + '$3' + initStateStyle + initStateJs)
 			.replace(/(\<title\>)(.*)?(\<\/title\>)/, '$1' + decodeURIComponent(serverData.title) + '$3');
+		CACHE_ROUTE_MAP[url] = renderHtml;
+		return renderHtml;
 	} catch (error) {
-		console.log(error);
+		// console.log(error);
 		return error.message;
+	}
+};
+
+export const flushCache = function(url?: string) {
+	//清空全部
+	if (!url) {
+		CACHE_ROUTE_MAP = {};
+	}
+
+	// 清空单个路由
+	if (url && CACHE_ROUTE_MAP[url]) {
+		CACHE_ROUTE_MAP[url] = undefined;
 	}
 };
