@@ -22,10 +22,6 @@ const post = async (url: string, data?: any, config?: AxiosRequestConfig) => {
 		const result = await Axios.post(url, data, { ...defaultConfig, ...config });
 		return result.data;
 	} catch (error) {
-		if (error.response.status === FORBIDDEN_STATUS) {
-			TokenStorage.clearToken();
-		}
-
 		const backendError = !!error.response;
 		const resError = backendError ? new Error(error.response.data.message || error.response.data) : error;
 		throw resError;
@@ -42,9 +38,6 @@ const get = async (url: string, config?: AxiosRequestConfig) => {
 		const result = await Axios.get(url, { ...defaultConfig, ...config });
 		return result.data;
 	} catch (error) {
-		if (error.response.status === FORBIDDEN_STATUS) {
-			TokenStorage.clearToken();
-		}
 		const backendError = !!error.response;
 		const resError = backendError ? new Error(error.response.data.message || error.response.data) : error;
 		throw resError;
