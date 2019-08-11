@@ -14,10 +14,11 @@ const htmlTemplete = fs.readFileSync(process.cwd() + '/build/index.html', 'utf-8
 let CACHE_ROUTE_MAP = {};
 
 export const renderFullPage = async (url: string, domain: string) => {
+	let cacheUrl = url;
 	try {
 		// 对路由进行缓存
-		if (CACHE_ROUTE_MAP[url]) {
-			return CACHE_ROUTE_MAP[url];
+		if (CACHE_ROUTE_MAP[cacheUrl]) {
+			return CACHE_ROUTE_MAP[cacheUrl];
 		}
 
 		let serverData: ServerData = { title: 'RyanCMS 内容管理系统', props: {} };
@@ -66,7 +67,7 @@ export const renderFullPage = async (url: string, domain: string) => {
 		const renderHtml = htmlTemplete
 			.replace(/(\<div\s+id\="root"\>)(.|\n|\r)*(\<\/div\>)/i, '$1' + html + '$3' + initStateStyle + initStateJs)
 			.replace(/(\<title\>)(.*)?(\<\/title\>)/, '$1' + decodeURIComponent(serverData.title) + '$3');
-		CACHE_ROUTE_MAP[url] = renderHtml;
+		CACHE_ROUTE_MAP[cacheUrl] = renderHtml;
 		return renderHtml;
 	} catch (error) {
 		// console.log(error);
