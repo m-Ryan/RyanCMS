@@ -6738,9 +6738,9 @@ markdown-escapes@^1.0.0:
   version "1.0.2"
   resolved "http://registry.npm.taobao.org/markdown-escapes/download/markdown-escapes-1.0.2.tgz#e639cbde7b99c841c0bacc8a07982873b46d2122"
 
-marked@^0.6.0:
-  version "0.6.0"
-  resolved "http://registry.npm.taobao.org/marked/download/marked-0.6.0.tgz#a18d01cfdcf8d15c3c455b71c8329e5e0f01faa1"
+marked@^0.7.0:
+  version "0.7.0"
+  resolved "https://registry.yarnpkg.com/marked/-/marked-0.7.0.tgz#b64201f051d271b1edc10a04d1ae9b74bb8e5c0e"
 
 material-colors@^1.2.1:
   version "1.2.6"
