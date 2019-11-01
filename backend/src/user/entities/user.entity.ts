@@ -268,6 +268,7 @@ export class UserEntity extends BaseEntity {
 			// 创建关联简历
 			const resume = new UserResumeEntity();
 			resume.user_id = user.user_id;
+			resume.content = '这个人很懒，什么都没有写~~';
 			await transactionalEntityManager.save(resume);
 
 			// 创建关联主题

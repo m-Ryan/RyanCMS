@@ -7,7 +7,9 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.useGlobalFilters(new ExceptionFilter());
   app.useStaticAssets(path.join(__dirname, '..', 'public'));
-  await app.listen(8080);
+  await app.listen(8080, () => {
+    console.log('服务器已开启');
+  });
 }
 
 bootstrap();

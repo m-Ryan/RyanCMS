@@ -14,8 +14,7 @@ export class ArticleContentEntity extends BaseEntity {
   @PrimaryGeneratedColumn()
   article_id: number;
   @Column({
-    type: 'longtext',
-    default: '',
+    type: 'longtext'
   })
   content: string;
 

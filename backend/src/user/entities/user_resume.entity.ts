@@ -14,7 +14,6 @@ export class UserResumeEntity extends BaseEntity {
   user_id: number;
   @Column({
     type: 'longtext',
-    default: '',
   })
   content: string;
 
