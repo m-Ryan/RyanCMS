@@ -20,7 +20,9 @@ function bootstrap() {
         const app = yield core_1.NestFactory.create(app_module_1.AppModule);
         app.useGlobalFilters(new exception_filter_1.ExceptionFilter());
         app.useStaticAssets(path_1.default.join(__dirname, '..', 'public'));
-        yield app.listen(8080);
+        yield app.listen(8080, () => {
+            console.log('服务器已开启');
+        });
     });
 }
 bootstrap();

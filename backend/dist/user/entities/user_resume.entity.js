@@ -50,7 +50,6 @@ __decorate([
 __decorate([
     typeorm_1.Column({
         type: 'longtext',
-        default: '',
     }),
     __metadata("design:type", String)
 ], UserResumeEntity.prototype, "content", void 0);

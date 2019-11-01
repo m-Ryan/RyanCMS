@@ -157,6 +157,7 @@ let UserEntity = UserEntity_1 = class UserEntity extends typeorm_1.BaseEntity {
                 yield transactionalEntityManager.save(concat);
                 const resume = new user_resume_entity_1.UserResumeEntity();
                 resume.user_id = user.user_id;
+                resume.content = '这个人很懒，什么都没有写~~';
                 yield transactionalEntityManager.save(resume);
                 const theme = new user_theme_entity_1.UserThemeEntity();
                 theme.user_id = user.user_id;

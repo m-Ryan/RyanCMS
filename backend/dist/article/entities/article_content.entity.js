@@ -43,8 +43,7 @@ __decorate([
 ], ArticleContentEntity.prototype, "article_id", void 0);
 __decorate([
     typeorm_1.Column({
-        type: 'longtext',
-        default: '',
+        type: 'longtext'
     }),
     __metadata("design:type", String)
 ], ArticleContentEntity.prototype, "content", void 0);
