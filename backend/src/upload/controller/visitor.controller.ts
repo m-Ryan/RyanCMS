@@ -2,7 +2,7 @@ import { Controller, Get, Post, Body } from '@nestjs/common';
 import { UploadService } from '../service/upload.service';
 import { getQiniu } from '../../util/upload';
 
-@Controller('visitor/user')
+@Controller('upload/visitor')
 export class VisitorController {
 	constructor(private readonly uploadService: UploadService) {}
 
