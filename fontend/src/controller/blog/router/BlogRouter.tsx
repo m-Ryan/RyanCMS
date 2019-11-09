@@ -11,7 +11,7 @@ import { NOT_FOUND_PAGE } from '@/config/constant';
 import { ServerData } from '@/interface/serverData.interface';
 import { bloggersModel, userModel, themeModel, routerModel } from '@/model';
 import { User } from '@/interface/user.interface';
-import { checkRenderFromServer } from '../../../util/decorators/checkRenderFromServer';
+
 interface Props {
 	history: History;
 	location: Location;
@@ -133,8 +133,6 @@ export default class BlogRouter extends React.PureComponent<Props, State> {
 
 	render() {
 		const blogger = this.getBlogger();
-		const { initThemeColor } = this.state;
-		const isFromServer = routerModel.getIsFromServer();
 		return (
 			<React.Fragment>
 				{blogger && (
