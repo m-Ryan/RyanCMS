@@ -44,10 +44,11 @@ router.all('/api/*', async (ctx: Koa.ParameterizedContext<{}, Router.IRouterCont
 		});
 		ctx.body = res.data;
 	} catch (error) {
-		ctx.response.status = error.response.data.status || 500;
+		ctx.response.status = (error.response && error.response.data.status) || 500;
 		ctx.response.body = {
-			message: error.response.data.message || error.response.data
+			message:( error.response && error.response.data.message) || '网络错误'
 		};
+		console.log(error);
 	}
 });
 
