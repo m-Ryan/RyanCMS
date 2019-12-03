@@ -19,6 +19,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const common_1 = require("@nestjs/common");
 const json_ts_1 = require("json-ts");
+const json_entity_1 = require("../controller/entities/json.entity");
 let ToolsService = class ToolsService {
     constructor(httpService) {
         this.httpService = httpService;
@@ -26,6 +27,31 @@ let ToolsService = class ToolsService {
     getJsonToTs(data) {
         return __awaiter(this, void 0, void 0, function* () {
             return json_ts_1.json2ts(data);
+        });
+    }
+    addJson(mod, name, content) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return json_entity_1.JsonEntity.addJson(mod, name, content);
+        });
+    }
+    updateJson(id, content) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return json_entity_1.JsonEntity.updateJson(id, content);
+        });
+    }
+    deleteJson(id) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return json_entity_1.JsonEntity.deleteJson(id);
+        });
+    }
+    getJson(id) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return json_entity_1.JsonEntity.getJson(id);
+        });
+    }
+    getJsonList(page, size) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return json_entity_1.JsonEntity.getJsonList(page, size);
         });
     }
 };
