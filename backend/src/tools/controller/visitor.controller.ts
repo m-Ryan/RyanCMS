@@ -1,8 +1,7 @@
 import { Controller, Get, Query, UseGuards, Post, Body, ParseIntPipe } from '@nestjs/common';
-import { UserGuard } from '../../common/guards/user.guard';
 import { ToolsService } from '../service/index.service';
 @Controller('tools/visitor')
-export class UserController {
+export class VisitorController {
 	constructor(private readonly service: ToolsService) {}
 
 	@Post('/add-json')
