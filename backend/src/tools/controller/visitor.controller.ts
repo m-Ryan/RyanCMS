@@ -14,10 +14,12 @@ export class VisitorController {
 		return this.service.updateJson(postDto.id, postDto.content);
 	}
 
+	@Get('/get-json')
 	getJson(@Query('id', new ParseIntPipe()) id: number) {
 		return this.service.getJson(id);
 	}
 
+	@Get('/get-json-list')
 	getJsonList(@Query('page', new ParseIntPipe()) page: number, @Query('size', new ParseIntPipe()) size: number) {
 		return this.service.getJsonList(page, size);
 	}
