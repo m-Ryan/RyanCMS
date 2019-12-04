@@ -1,16 +1,22 @@
 import { Controller, Get, Query, UseGuards, Post, Body, ParseIntPipe } from '@nestjs/common';
 import { ToolsService } from '../service/index.service';
+import { CreateJsonDto } from '../form/create_json.dto';
+import { UpdateJsonDto } from '../form/update_json.dto';
 @Controller('tools/visitor')
 export class VisitorController {
-	constructor(private readonly service: ToolsService) {}
+	constructor(private readonly service: ToolsService) { }
 
 	@Post('/add-json')
-	addJson(@Body() postDto: { content: string, mod: string, name: string }) {
+	async addJson(@Body() postDto: CreateJsonDto) {
+		const data = new CreateJsonDto(postDto);
+		await data.validate();
 		return this.service.addJson(postDto.mod, postDto.name, postDto.content);
 	}
 
 	@Post('/update-json')
-	updateJson(@Body() postDto: { id: number, content: string }) {
+	async updateJson(@Body() postDto: UpdateJsonDto) {
+		const data = new UpdateJsonDto(postDto);
+		await data.validate();
 		return this.service.updateJson(postDto.id, postDto.content);
 	}
 

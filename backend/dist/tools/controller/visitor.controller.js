@@ -11,18 +11,36 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 const common_1 = require("@nestjs/common");
 const index_service_1 = require("../service/index.service");
+const create_json_dto_1 = require("../form/create_json.dto");
+const update_json_dto_1 = require("../form/update_json.dto");
 let VisitorController = class VisitorController {
     constructor(service) {
         this.service = service;
     }
     addJson(postDto) {
-        return this.service.addJson(postDto.mod, postDto.name, postDto.content);
+        return __awaiter(this, void 0, void 0, function* () {
+            const data = new create_json_dto_1.CreateJsonDto(postDto);
+            yield data.validate();
+            return this.service.addJson(postDto.mod, postDto.name, postDto.content);
+        });
     }
     updateJson(postDto) {
-        return this.service.updateJson(postDto.id, postDto.content);
+        return __awaiter(this, void 0, void 0, function* () {
+            const data = new update_json_dto_1.UpdateJsonDto(postDto);
+            yield data.validate();
+            return this.service.updateJson(postDto.id, postDto.content);
+        });
     }
     getJson(id) {
         return this.service.getJson(id);
@@ -38,15 +56,15 @@ __decorate([
     common_1.Post('/add-json'),
     __param(0, common_1.Body()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
-    __metadata("design:returntype", void 0)
+    __metadata("design:paramtypes", [create_json_dto_1.CreateJsonDto]),
+    __metadata("design:returntype", Promise)
 ], VisitorController.prototype, "addJson", null);
 __decorate([
     common_1.Post('/update-json'),
     __param(0, common_1.Body()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
-    __metadata("design:returntype", void 0)
+    __metadata("design:paramtypes", [update_json_dto_1.UpdateJsonDto]),
+    __metadata("design:returntype", Promise)
 ], VisitorController.prototype, "updateJson", null);
 __decorate([
     common_1.Get('/get-json'),
