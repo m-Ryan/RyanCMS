@@ -15,11 +15,14 @@ const core_1 = require("@nestjs/core");
 const app_module_1 = require("./app.module");
 const exception_filter_1 = require("./common/filters/exception.filter");
 const path_1 = __importDefault(require("path"));
+const body_parser_1 = __importDefault(require("body-parser"));
 function bootstrap() {
     return __awaiter(this, void 0, void 0, function* () {
         const app = yield core_1.NestFactory.create(app_module_1.AppModule);
         app.useGlobalFilters(new exception_filter_1.ExceptionFilter());
         app.useStaticAssets(path_1.default.join(__dirname, '..', 'public'));
+        app.use(body_parser_1.default.json({ limit: '20mb' }));
+        app.use(body_parser_1.default.urlencoded({ limit: '20mb', extended: true }));
         yield app.listen(8080, () => {
             console.log('服务器已开启');
         });
