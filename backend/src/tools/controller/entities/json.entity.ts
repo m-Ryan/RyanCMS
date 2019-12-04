@@ -6,6 +6,7 @@ import {
 } from 'typeorm';
 
 import { UserError } from '../../../common/filters/userError';
+import dayjs = require('dayjs');
 @Entity('json')
 export class JsonEntity extends BaseEntity {
   @PrimaryGeneratedColumn()
@@ -41,6 +42,7 @@ export class JsonEntity extends BaseEntity {
     json.mod = mod;
     json.name = name;
     json.content = content;
+    json.created_at = dayjs().unix();
     return json.save();
   }
 

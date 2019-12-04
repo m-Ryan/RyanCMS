@@ -20,12 +20,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var JsonEntity_1;
 const typeorm_1 = require("typeorm");
 const userError_1 = require("../../../common/filters/userError");
+const dayjs = require("dayjs");
 let JsonEntity = JsonEntity_1 = class JsonEntity extends typeorm_1.BaseEntity {
     static addJson(mod, name, content) {
         const json = new JsonEntity_1();
         json.mod = mod;
         json.name = name;
         json.content = content;
+        json.created_at = dayjs().unix();
         return json.save();
     }
     static getJson(id) {
