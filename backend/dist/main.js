@@ -21,8 +21,8 @@ function bootstrap() {
         const app = yield core_1.NestFactory.create(app_module_1.AppModule);
         app.useGlobalFilters(new exception_filter_1.ExceptionFilter());
         app.useStaticAssets(path_1.default.join(__dirname, '..', 'public'));
-        app.use(body_parser_1.default.json({ limit: '20mb' }));
-        app.use(body_parser_1.default.urlencoded({ limit: '20mb', extended: true }));
+        app.use(body_parser_1.default.json({ limit: '50mb' }));
+        app.use(body_parser_1.default.urlencoded({ limit: '50mb', extended: true }));
         yield app.listen(8080, () => {
             console.log('服务器已开启: http:localhost:8080');
         });
