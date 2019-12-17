@@ -10,7 +10,7 @@
     "start:prod": "ts-node -r tsconfig-paths/register src/main.ts",
     "build": "rimraf dist && tsc",
     "build:product": "node dist/main.js",
-    "server:product": "pm2 start dist/main.js --watch"
+    "server:product": "pm2 start dist/main.js --watch --name backend"
   },
   "dependencies": {
     "@nestjs/common": "^5.1.0",

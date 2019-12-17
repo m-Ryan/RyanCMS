@@ -1,10 +1,11 @@
-import { Get, Controller, Render } from '@nestjs/common';
+import { Get, Controller } from '@nestjs/common';
 
-@Controller('*')
+const beginTime = new Date().toString();
+@Controller('/version')
 export class AppController {
+
   @Get()
-  @Render('index')
   root() {
-    return { message: 'Hello world!' };
+    return beginTime;
   }
 }
