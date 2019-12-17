@@ -14,7 +14,7 @@ let UploadModule = class UploadModule {
 };
 UploadModule = __decorate([
     common_1.Module({
-        imports: [],
+        imports: [common_1.HttpModule],
         controllers: [user_controller_1.UserController, visitor_controller_1.VisitorController],
         providers: [upload_service_1.UploadService],
     })

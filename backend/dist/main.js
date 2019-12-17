@@ -24,7 +24,7 @@ function bootstrap() {
         app.use(body_parser_1.default.json({ limit: '20mb' }));
         app.use(body_parser_1.default.urlencoded({ limit: '20mb', extended: true }));
         yield app.listen(8080, () => {
-            console.log('服务器已开启');
+            console.log('服务器已开启: http:localhost:8080');
         });
     });
 }

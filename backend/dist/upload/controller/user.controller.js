@@ -25,8 +25,9 @@ const user_guard_1 = require("../../common/guards/user.guard");
 const upload_service_1 = require("../service/upload.service");
 const upload_1 = require("../../util/upload");
 let UserController = class UserController {
-    constructor(uploadService) {
+    constructor(uploadService, service) {
         this.uploadService = uploadService;
+        this.service = service;
     }
     getQiuNiuToken() {
         const { token, origin } = upload_1.getQiniu();
@@ -38,6 +39,14 @@ let UserController = class UserController {
     uploadQiuNiuFile(fileData) {
         return __awaiter(this, void 0, void 0, function* () {
             return this.uploadService.uploadQiuNiuFile(fileData);
+        });
+    }
+    uploadByUrl(url) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { data } = yield this.service.axiosRef.get(url, {
+                responseType: 'arraybuffer',
+            });
+            return this.uploadService.uploadQiuNiuFile({ data });
         });
     }
 };
@@ -55,9 +64,17 @@ __decorate([
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "uploadQiuNiuFile", null);
+__decorate([
+    common_1.Get('/upload-by-url'),
+    __param(0, common_1.Query('url')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], UserController.prototype, "uploadByUrl", null);
 UserController = __decorate([
     common_1.Controller('upload/user'),
-    __metadata("design:paramtypes", [upload_service_1.UploadService])
+    __metadata("design:paramtypes", [upload_service_1.UploadService,
+        common_1.HttpService])
 ], UserController);
 exports.UserController = UserController;
 //# sourceMappingURL=user.controller.js.map

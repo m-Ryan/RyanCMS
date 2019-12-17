@@ -1,7 +1,9 @@
+import { HttpService } from '@nestjs/common';
 import { UploadService } from '../service/upload.service';
 export declare class UserController {
     private readonly uploadService;
-    constructor(uploadService: UploadService);
+    private readonly service;
+    constructor(uploadService: UploadService, service: HttpService);
     getQiuNiuToken(): {
         token: string;
         origin: string;
@@ -10,4 +12,5 @@ export declare class UserController {
         data: string;
         name: string;
     }): Promise<{}>;
+    uploadByUrl(url: string): Promise<{}>;
 }
