@@ -42,7 +42,7 @@ export const renderFullPage = async (url: string, domain: string) => {
 		// 初始化props文件
 		const jsFecth = axios.post(API_HOST + '/upload/user/upload-qiniu-file', {
 			data: `window.__INITIAL_STATE__ = ${JSON.stringify(store.getState())}`,
-			name: 'init_state.js'
+			name: `init_state.js?${new Date().getTime()}`
 		});
 
 		// 初始化css文件
