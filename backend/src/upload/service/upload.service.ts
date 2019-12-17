@@ -4,7 +4,7 @@ import { uploadQiuNiuFile } from '../../util/upload';
 export class UploadService {
 	constructor() {}
 
-	async uploadQiuNiuFile(fileData: { data: string; name: string }) {
+	async uploadQiuNiuFile(fileData: { data: string|Buffer; name?: string }) {
 		return uploadQiuNiuFile(fileData);
 	}
 }
