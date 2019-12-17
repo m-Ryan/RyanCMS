@@ -47,7 +47,7 @@ export const renderFullPage = async (url: string, domain: string) => {
 
 		// 初始化css文件
 		let cssFetch: any = null;
-		const blogger = serverData.props.bloggers && serverData.props.bloggers[0] && serverData.props.bloggers[0];
+		const blogger = serverData.props.bloggers && serverData.props.bloggers[0];
 		let styleText = '';
 		if (blogger && blogger.theme.color) {
 			styleText = model.themeModel.getReplaceCssText([
@@ -55,7 +55,7 @@ export const renderFullPage = async (url: string, domain: string) => {
 			]);
 			cssFetch = axios.post(API_HOST + '/upload/user/upload-qiniu-file', {
 				data: styleText,
-				name: 'init_thtme.css'
+				name: `init_thtme.css?${new Date().getTime()}`
 			});
 		}
 
