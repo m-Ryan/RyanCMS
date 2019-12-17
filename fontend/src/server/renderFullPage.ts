@@ -67,7 +67,7 @@ export const renderFullPage = async (url: string, domain: string) => {
 		const renderHtml = htmlTemplete
 			.replace(/(\<div\s+id\="root"\>)(.|\n|\r)*(\<\/div\>)/i, '$1' + html + '$3' + initStateStyle + initStateJs)
 			.replace(/(\<title\>)(.*)?(\<\/title\>)/, '$1' + decodeURIComponent(serverData.title) + '$3');
-		CACHE_ROUTE_MAP[cacheUrl] = renderHtml;
+		// CACHE_ROUTE_MAP[cacheUrl] = renderHtml;
 		return renderHtml;
 	} catch (error) {
 		// console.log(error);
