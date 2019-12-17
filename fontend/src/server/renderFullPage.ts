@@ -42,7 +42,7 @@ export const renderFullPage = async (url: string, domain: string) => {
 		// 初始化props文件
 		const jsFecth = axios.post(API_HOST + '/upload/user/upload-qiniu-file', {
 			data: `window.__INITIAL_STATE__ = ${JSON.stringify(store.getState())}`,
-			name: `init_state.js?${new Date().getTime()}`
+			name: `init_state_${new Date().getTime()}.js`
 		});
 
 		// 初始化css文件
@@ -55,14 +55,14 @@ export const renderFullPage = async (url: string, domain: string) => {
 			]);
 			cssFetch = axios.post(API_HOST + '/upload/user/upload-qiniu-file', {
 				data: styleText,
-				name: `init_thtme.css?${new Date().getTime()}`
+				name: `init_thtme_${new Date().getTime()}.css`
 			});
 		}
 
 		const [ jsResData, cssResData ] = await Promise.all([ jsFecth, cssFetch ].filter((item) => !!item));
-		let initStateJs = `<script src="${jsResData.data}?${new Date().getTime()}"></script>`;
+		let initStateJs = `<script src="${jsResData.data}"></script>`;
 		let initStateStyle = cssResData
-			? `<link rel="stylesheet" href="${cssResData.data}?${new Date().getTime()}">`
+			? `<link rel="stylesheet" href="${cssResData.data}">`
 			: '';
 		const renderHtml = htmlTemplete
 			.replace(/(\<div\s+id\="root"\>)(.|\n|\r)*(\<\/div\>)/i, '$1' + html + '$3' + initStateStyle + initStateJs)
