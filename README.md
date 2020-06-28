@@ -3,11 +3,11 @@
 - **[项目地址 -多博客模式（允许多个用户使用）](http://cms.maocanhua.cn)**
 - **[项目地址 -单博客模式](http://www.maocanhua.cn)**
 
+
+
 特点：
 
 - [x] 服务端渲染
-
-- [x] react-hooks 实践
 
 - [x] typeScript
 
@@ -17,11 +17,15 @@
 
 - [x] 快
   - 访问快
+    - 服务端渲染，秒开
+    - ![图片1](http://assets.maocanhua.cn/FkiQB5JxazpihjbrMy4-rqdx-wJ4)
   - 开发快
     - 在服务端模拟浏览器环境，调用 ReactDOMServer.render 渲染 组件收集状态，再将状态注入回组件。流程与前端开发几乎没有区别，只需要注意两点
       - 服务端渲染的数据必须存放到 redux
       - 获取完数据可以渲染界面时 调用 store.endSSR()
         - ![图片1](http://assets.maocanhua.cn/FqZ9ACaM4FyzH_ebtLEkt2Zrs3yl)
+
+- [x] react-hooks 实践（略难，不适合新手）
 
 ---
 
@@ -31,9 +35,9 @@
  git clone git@github.com:m-Ryan/RyanCMS.git
 ```
 
-## 修改 app/app.module.ts 的数据库配置=> host、username、password
+### 修改 app/app.module.ts 的数据库配置=> host、username、password
 
-## 首次初始化数据库 需要开启 synchronize: true,
+### 首次初始化数据库 需要开启 synchronize: true,
 
 ```js
 const ormConfig = {
