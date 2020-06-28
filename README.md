@@ -1,5 +1,8 @@
 # RyanCMS
 
+- **[项目地址 -多博客模式（允许多个用户使用）](http://cms.maocanhua.cn)**
+- **[项目地址 -单博客模式](http://www.maocanhua.cn)**
+
 特点：
 
 - [x] 服务端渲染
@@ -21,9 +24,6 @@
         - ![图片1](http://assets.maocanhua.cn/FqZ9ACaM4FyzH_ebtLEkt2Zrs3yl)
 
 ---
-
-- **[项目地址 -多博客模式（允许多个用户使用）](http://cms.maocanhua.cn)**
-- **[项目地址 -单博客模式](http://www.maocanhua.cn)**
 
 **如何使用**
 
