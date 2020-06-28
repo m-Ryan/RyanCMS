@@ -1,0 +1,50 @@
+@import "@/client/assets/style/variable.scss";
+
+.container {
+  height: 100vh;
+  background-color: #f9f9f9;
+  color: #444;
+  position: relative;
+  padding-bottom: 90px;
+  display: flex;
+  font-size: 14px;
+  overflow: hidden;
+
+  .center {
+    flex: 1;
+    text-align: center;
+    align-self: center;
+
+    .text {
+      text-align: center;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 150px;
+      line-height: 150px;
+      font-weight: normal;
+    }
+
+    h2 {
+      margin-top: 20px;
+      font-size: 30px;
+    }
+  }
+
+  .footer {
+    position: absolute;
+    color: #f0f0f0;
+    padding: 0px 20px 0px 20px;
+    height: 90px;
+    width: 100%;
+    bottom: 0;
+    background-color: $primary-color;
+
+    .hitokoto {
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+  }
+}

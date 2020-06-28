@@ -1,0 +1,26 @@
+.container {
+  margin-top: 200px;
+}
+
+.title {
+  margin-bottom: 40px;
+  font-weight: 500;
+  font-size: 22px;
+  letter-spacing: 4px;
+  display: flex;
+  align-items: flex-end;
+
+  .tip {
+    font-size: 14px;
+  }
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+}
+
+.input-item {
+  width: 420px;
+  margin-bottom: 20px;
+}

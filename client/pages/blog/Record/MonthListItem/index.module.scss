@@ -1,0 +1,27 @@
+.title {
+  margin-right: 4em;
+  display: inline-block
+}
+
+.month {
+  margin-bottom: 50px;
+}
+
+.list {
+  margin: 0;
+}
+
+.list-item {
+  line-height: 2.5;
+  list-style-type: none;
+
+  .tag {
+    font-size: 12px;
+  }
+
+  .date {
+    font-size: 14px;
+    color: #666;
+  }
+
+}

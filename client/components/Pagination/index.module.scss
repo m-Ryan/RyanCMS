@@ -1,0 +1,13 @@
+.pagination {
+  padding: 20px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+@media (max-width: 768px) {
+  .pagination {
+    padding: 20px 0;
+    display: flex;
+    justify-content: center;
+  }
+}

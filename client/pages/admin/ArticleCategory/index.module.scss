@@ -1,0 +1,36 @@
+.container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+
+  .list {
+    flex: 1;
+    display: flex;
+
+    .list-item {
+      margin: 10px;
+    }
+  }
+}
+
+.popover {
+  width: 220px;
+  white-space: pre-wrap;
+  word-break: break-all;
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    color: #666;
+
+    .btn-wrap {
+      cursor: pointer;
+
+      i {
+        &:hover {
+          color: #000;
+        }
+      }
+    }
+  }
+}

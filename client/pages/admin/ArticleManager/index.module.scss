@@ -1,0 +1,28 @@
+.container {
+  height: 100%;
+
+  .title {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+  }
+
+  .search {
+    width: 240px;
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+
+  .summary {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+  }
+  .filter {
+    padding-bottom: 15px;
+  }
+}

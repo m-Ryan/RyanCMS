@@ -1,0 +1,23 @@
+.body-container {
+  display: flex;
+  flex: 1;
+  background: #f2f2f2;
+  min-width: 1200px;
+  height: calc(100vh - 60px);
+  overflow: hidden;
+
+  .scroll-container {
+    height: 100%;
+    width: 100%;
+
+    .content {
+      border-radius: 6px;
+      background: #fff;
+      margin: 30px;
+      padding: 20px;
+      height: calc(100% - 60px);
+      overflow-y: auto;
+    }
+  }
+
+}

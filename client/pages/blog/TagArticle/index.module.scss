@@ -1,0 +1,31 @@
+.tagTitle {
+  text-align: center;
+  height: 40px;
+  line-height: 2;
+  font-weight: 500;
+  font-size: 24px;
+}
+
+.title {
+  margin-right: 4em;
+  display: inline-block
+}
+
+.list {
+  margin: 0;
+}
+
+.list-item {
+  line-height: 2.5;
+  list-style-type: none;
+
+  .tag {
+    font-size: 12px;
+  }
+
+  .date {
+    font-size: 14px;
+    color: #666;
+  }
+
+}

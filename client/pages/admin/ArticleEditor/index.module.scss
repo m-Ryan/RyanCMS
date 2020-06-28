@@ -1,0 +1,45 @@
+.container {
+  flex: 1;
+
+  .header {
+    margin-bottom: 20px;
+
+    .title {
+      width: 500px;
+    }
+  }
+
+  .header :global(.ant-select-selection__rendered) {
+    line-height: 40px !important;
+  }
+
+  .select {
+    width: 250px;
+  }
+
+  .summary {
+    width: 500px;
+  }
+
+  .picture {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: flex-start;
+    cursor: pointer;
+
+    img {
+      max-width: 104px;
+      max-height: 104px;
+    }
+  }
+
+  .selection {
+    margin-right: 20px;
+  }
+
+  .secret {
+    margin-bottom: 20px;
+    display: flex;
+    align-items: flex-start;
+  }
+}
