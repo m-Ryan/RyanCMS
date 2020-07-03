@@ -15,16 +15,25 @@ import { createStore } from '@/client/modal/ryan-store';
 import { getRoutesMap } from '@/client/router/Routes';
 
 import dayjs from 'dayjs';
+const whiteList = ['/sockjs-node'];
 
 React.useLayoutEffect = React.useEffect;
 
-type InjectKeys = 'SSR_DOCUMENT_TITLE' | 'SSR_THEME_CSS' | 'SSR_RENDER_CONTENT' | 'SSR_INJECT_PROPS' | 'SSR_META_DESCRIPTION';
+type InjectKeys =
+  | 'SSR_DOCUMENT_TITLE'
+  | 'SSR_THEME_CSS'
+  | 'SSR_RENDER_CONTENT'
+  | 'SSR_INJECT_PROPS'
+  | 'SSR_META_DESCRIPTION';
 
-function injectTemplete(text: string, obj: Partial<{ [key in InjectKeys]: string; }>) {
-  Object.keys(obj).forEach((key => {
+function injectTemplete(
+  text: string,
+  obj: Partial<{ [key in InjectKeys]: string }>
+) {
+  Object.keys(obj).forEach((key) => {
     text = text.replace(new RegExp(`\\/\\* ${key} \\*\\/`), obj[key]);
     text = text.replace(new RegExp(`<!-- ${key} -->`), obj[key]);
-  }));
+  });
   return text;
 }
 
@@ -51,9 +60,11 @@ async function getThemeJson() {
   return (async () => {
     if (isProduction()) {
       if (json.length > 0) return json;
-      json = JSON.parse(await fs.readFile('build/theme.json', {
-        encoding: 'utf8',
-      }));
+      json = JSON.parse(
+        await fs.readFile('build/theme.json', {
+          encoding: 'utf8',
+        })
+      );
       return json;
     }
     // 开发环境不需要缓存
@@ -64,12 +75,10 @@ async function getThemeJson() {
   })();
 }
 
-export const renderFullPage = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
-
+export const renderFullPage = async (req: Request, res: Response) => {
+  // if (whiteList.some((path) => req.path.includes(path))) {
+  //   return next();
+  // }
   const acceptHost = req.headers['accept-host'] || '';
   // 判断有没有匹配的路由
   const routesMap = getRoutesMap(!!acceptHost);
@@ -111,13 +120,13 @@ export const renderFullPage = async (
 
   // 注入内容
   const renderHtml = injectTemplete(htmlTemplete, {
-    'SSR_THEME_CSS': store.getState().themeColor.currentStyle,
-    'SSR_INJECT_PROPS': `window.__INITIAL_STATE__ = ${injectProps}`,
-    'SSR_DOCUMENT_TITLE': document.title,
-    'SSR_META_DESCRIPTION': window.__META_DESCRIPTION__,
-    'SSR_RENDER_CONTENT': renderContent
+    SSR_THEME_CSS: store.getState().themeColor.currentStyle,
+    SSR_INJECT_PROPS: `window.__INITIAL_STATE__ = ${injectProps}`,
+    SSR_DOCUMENT_TITLE: document.title,
+    SSR_META_DESCRIPTION: window.__META_DESCRIPTION__,
+    SSR_RENDER_CONTENT: renderContent,
   });
-  console.log(`renderFullPage end. time：${(dayjs().unix() - beginTime)}ms`);
-  return renderHtml;
-
+  console.log(`renderFullPage end. time：${dayjs().unix() - beginTime}ms`);
+  res.contentType('text/html; charset=utf-8');
+  return res.end(renderHtml);
 };

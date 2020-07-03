@@ -9,7 +9,11 @@ import { useDocumentTitle } from '@/client/hooks/useDocumentTitle';
 
 export function Record() {
   const { bloggerState } = useBlogger();
-  const { recordListState: { total, list }, getList, getListLoading } = useRecordList();
+  const {
+    recordListState: { total, list },
+    getList,
+    getListLoading,
+  } = useRecordList();
   const { endSSR } = useAppStore();
 
   useDocumentTitle('归档');
@@ -17,40 +21,35 @@ export function Record() {
     if (bloggerState && !list.length) {
       getList({
         user_id: bloggerState.user_id,
-      })
-        .then(endSSR);
-    };
-
+      }).then(endSSR);
+    }
   }, [bloggerState, endSSR, getList, list.length]);
 
   const renderContent = useMemo(() => {
     if (getListLoading) {
-      return <>
-        <Skeleton active paragraph={{ rows: 1 }} />
-        <Skeleton active paragraph={{ rows: 1 }} />
-        <Skeleton active paragraph={{ rows: 1 }} />
-        <Skeleton active paragraph={{ rows: 1 }} />
-        <Skeleton active paragraph={{ rows: 1 }} />
-        <Skeleton active paragraph={{ rows: 1 }} />
-        <Skeleton active paragraph={{ rows: 1 }} />
-        <Skeleton active paragraph={{ rows: 1 }} />
-        <Skeleton active paragraph={{ rows: 1 }} />
-      </>;
+      return (
+        <>
+          <Skeleton active paragraph={{ rows: 1 }} />
+          <Skeleton active paragraph={{ rows: 1 }} />
+          <Skeleton active paragraph={{ rows: 1 }} />
+          <Skeleton active paragraph={{ rows: 1 }} />
+          <Skeleton active paragraph={{ rows: 1 }} />
+          <Skeleton active paragraph={{ rows: 1 }} />
+          <Skeleton active paragraph={{ rows: 1 }} />
+          <Skeleton active paragraph={{ rows: 1 }} />
+          <Skeleton active paragraph={{ rows: 1 }} />
+        </>
+      );
     }
-    return list.map((item, index) => (
-      <MonthListItem key={index} data={item} />
-    ));
+    return list.map((item, index) => <MonthListItem key={index} data={item} />);
   }, [getListLoading, list]);
 
-  if (list.length === 0) return <Empty className="empty" />;
+  if (list.length === 0) return <Empty className='empty' />;
 
   return (
     <div className={styles['container']}>
       <h3 className={styles['title']}>归档（{total}）</h3>
-      <div>
-        {renderContent}
-      </div>
-
+      <div>{renderContent}</div>
     </div>
   );
 }
