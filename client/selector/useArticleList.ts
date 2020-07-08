@@ -4,23 +4,34 @@ import { useAppDispatch, useEffectLoading } from '../modal/ryan-store';
 import { articleList } from '../modal/articleList';
 
 export function useArticleList() {
-	const articleListState = useAppSelector('articleList');
-	const dispatch = useAppDispatch();
-	const effectLoading = useEffectLoading();
+  const articleListState = useAppSelector('articleList');
+  const dispatch = useAppDispatch();
+  const effectLoading = useEffectLoading();
 
-	const getList = useCallback((payload: Parameters<typeof articleList.effects.getList>[1]) => {
-		return dispatch(articleList.effects.getList)(payload);
-	}, [dispatch]);
+  const reset = useCallback(() => {
+    return dispatch(articleList.reducers.reset)();
+  }, [dispatch]);
 
-	const getAdminList = useCallback((payload: Parameters<typeof articleList.effects.getAdminList>[1]) => {
-		return dispatch(articleList.effects.getAdminList)(payload);
-	}, [dispatch]);
+  const getList = useCallback(
+    (payload: Parameters<typeof articleList.effects.getList>[1]) => {
+      return dispatch(articleList.effects.getList)(payload);
+    },
+    [dispatch]
+  );
 
-	return {
-		articleListState,
-		getList,
-		getListLoading: effectLoading(articleList.effects.getList),
-		getAdminList,
-		getAdminListLoading: effectLoading(articleList.effects.getAdminList)
-	};
+  const getAdminList = useCallback(
+    (payload: Parameters<typeof articleList.effects.getAdminList>[1]) => {
+      return dispatch(articleList.effects.getAdminList)(payload);
+    },
+    [dispatch]
+  );
+
+  return {
+    articleListState,
+    reset,
+    getList,
+    getListLoading: effectLoading(articleList.effects.getList),
+    getAdminList,
+    getAdminListLoading: effectLoading(articleList.effects.getAdminList),
+  };
 }

@@ -1,19 +1,31 @@
 import React, { useState, useMemo, useEffect } from 'react';
-import { FormikProps, connect, } from 'formik';
-import { Form as AForm, Input, Select, Button } from 'antd';
+import { FormikProps, connect } from 'formik';
+import { Form as AForm, Input, Select, Button, Switch } from 'antd';
 import { FormItemProps } from 'antd/lib/form';
 import { ButtonProps } from 'antd/lib/button';
 import { TextAreaProps, InputProps } from 'antd/lib/input';
 import { SelectProps } from 'antd/lib/select';
-import Switch, { SwitchProps } from 'antd/lib/switch';
+import { SwitchProps } from 'antd/lib/switch';
 import { ImageUploader, ImageUploaderProps } from '../ImageUploader';
-import { get, set } from 'lodash';
+import { get } from 'lodash';
 
-export type OwnerProps = { formItem?: Omit<FormItemProps, 'children'>; } & { name: string; label?: boolean; };
+export type OwnerProps = { formItem?: Omit<FormItemProps, 'children'> } & {
+  name: string;
+  label?: boolean;
+};
 
-export function createFormItem<T extends OwnerProps>(Component: React.FunctionComponent<T & { onChange: (v: any, e?: React.BaseSyntheticEvent) => void; value: any; }>) {
-  return connect<T>(<P extends T & { formik: FormikProps<any>; }>(props: P) => {
-    const { formik, name, label = true, formItem = { validateStatus: '', help: '' }, } = props;
+export function createFormItem<T extends OwnerProps>(
+  Component: React.FunctionComponent<
+    T & { onChange: (v: any, e?: React.BaseSyntheticEvent) => void; value: any }
+  >
+) {
+  return connect<T>(<P extends T & { formik: FormikProps<any> }>(props: P) => {
+    const {
+      formik,
+      name,
+      label = true,
+      formItem = { validateStatus: '', help: '' },
+    } = props;
     const [touched, setTouched] = useState(formik.validateOnMount);
     const path = name.split('.');
     const initValue = get(formik.initialValues, path);
@@ -34,18 +46,23 @@ export function createFormItem<T extends OwnerProps>(Component: React.FunctionCo
       ...props,
       formik: undefined,
       formItem: undefined,
-      label: undefined
+      label: undefined,
     };
     delete componentProps.formik;
     delete componentProps.formItem;
     delete componentProps.label;
 
-    if (!label) return (
-      <Component {...componentProps} value={value} onChange={(value: any) => {
-        formik.setFieldTouched(name, true);
-        formik.setFieldValue(name, value);
-      }} />
-    );
+    if (!label)
+      return (
+        <Component
+          {...componentProps}
+          value={value}
+          onChange={(value: any) => {
+            formik.setFieldTouched(name, true);
+            formik.setFieldValue(name, value);
+          }}
+        />
+      );
 
     return (
       <AForm.Item
@@ -53,32 +70,55 @@ export function createFormItem<T extends OwnerProps>(Component: React.FunctionCo
         help={error || formItem.help}
         {...formItem}
       >
-        <Component {...componentProps} value={value} onChange={(value: any) => {
-          formik.setFieldTouched(name, true);
-          formik.setFieldValue(name, value);
-        }} />
+        <Component
+          {...componentProps}
+          value={value}
+          onChange={(value: any) => {
+            formik.setFieldTouched(name, true);
+            formik.setFieldValue(name, value);
+          }}
+        />
       </AForm.Item>
     );
   });
 }
 
-export const InputField = createFormItem<InputProps & OwnerProps>(props => {
-  return <Input {...props} onChange={(e) => props.onChange(e.target.value, e)} />;
+export const InputField = createFormItem<InputProps & OwnerProps>((props) => {
+  return (
+    <Input {...props} onChange={(e) => props.onChange(e.target.value, e)} />
+  );
 });
 
-export const TextAreaField = createFormItem<TextAreaProps & OwnerProps>(props => {
-  return <Input.TextArea {...props} onChange={(e) => props.onChange(e.target.value, e)} />;
+export const TextAreaField = createFormItem<TextAreaProps & OwnerProps>(
+  (props) => {
+    return (
+      <Input.TextArea
+        {...props}
+        onChange={(e) => props.onChange(e.target.value, e)}
+      />
+    );
+  }
+);
+
+export const SelectField = createFormItem<SelectProps<any> & OwnerProps>(
+  (props) => {
+    return <Select {...props} onChange={(e) => props.onChange(e, undefined)} />;
+  }
+);
+
+export const SwitchField = createFormItem<SwitchProps & OwnerProps>((props) => {
+  return (
+    <Switch
+      {...props}
+      checked={!!props.value}
+      onChange={(e) => props.onChange(e, undefined)}
+    />
+  );
 });
 
-export const SelectField = createFormItem<SelectProps<any> & OwnerProps>(props => {
-  return <Select {...props} onChange={(e) => props.onChange(e, undefined)} />;
-});
-
-export const SwitchField = createFormItem<SwitchProps & OwnerProps>(props => {
-  return <Switch {...props} checked={!!props.value} onChange={(e) => props.onChange(e, undefined)} />;
-});
-
-export const ImageUploaderField = createFormItem<Omit<ImageUploaderProps, 'onChange' | 'urls'> & OwnerProps>(props => {
+export const ImageUploaderField = createFormItem<
+  Omit<ImageUploaderProps, 'onChange' | 'urls'> & OwnerProps
+>((props) => {
   const isString = typeof props.value === 'string';
 
   const urls = useMemo(() => {
@@ -90,12 +130,20 @@ export const ImageUploaderField = createFormItem<Omit<ImageUploaderProps, 'onCha
       return [];
     }
   }, [props.value]);
-  return <ImageUploader {...props} urls={urls} onChange={(urls) => props.onChange(isString ? urls[0] : urls, undefined)} />;
+  return (
+    <ImageUploader
+      {...props}
+      urls={urls}
+      onChange={(urls) => props.onChange(isString ? urls[0] : urls, undefined)}
+    />
+  );
 });
 
-
 export const ButtonField = connect<ButtonProps>((props) => {
-  const { formik, formik: { initialValues, values } } = props;
+  const {
+    formik,
+    formik: { initialValues, values },
+  } = props;
 
   const hasChanged = useMemo(() => {
     if (Object.keys(formik.touched).length > 0) {
@@ -112,5 +160,13 @@ export const ButtonField = connect<ButtonProps>((props) => {
     return formik.isValid;
   }, [formik.isValid, formik.validateOnMount, hasChanged]);
 
-  return <Button {...props} disabled={!isValid || props.disabled} onClick={formik.submitForm}>{props.children}</Button>;
+  return (
+    <Button
+      {...props}
+      disabled={!isValid || props.disabled}
+      onClick={formik.submitForm}
+    >
+      {props.children}
+    </Button>
+  );
 });
