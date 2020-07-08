@@ -28,10 +28,7 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
 const AntdDayjsWebpackPlugin = require('antd-dayjs-webpack-plugin');
 const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
 const appPackageJson = require(paths.appPackageJson);
-
-const getCSSModuleLocalIdent = () => {
-  return '[[local]--[hash:base64:5]';
-}
+const { getCSSModuleLocalIdent } = require('./getCSSModuleLocalIdent');
 
 // Source maps are resource heavy and can cause out of memory issue for large source files.
 const shouldUseSourceMap = process.env.GENERATE_SOURCEMAP !== 'false';

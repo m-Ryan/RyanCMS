@@ -13,7 +13,6 @@ import { WhiteSpace } from '@/client/components/WhiteSpace';
 import { useQuery } from '@/client/hooks/useQuery';
 import { CheckCircleOutlined } from '@ant-design/icons';
 import { useLink } from '@/client/components/Link';
-import { Article } from '@/client/types/article.interface';
 import { useUser } from '@/client/selector/useUser';
 
 const schema = yup.object().shape({
@@ -69,21 +68,21 @@ export default function ArticleEditor() {
 		};
 	}, [getAdminArticle, id, setArticle]);
 
-	const onSubmit = useCallback((values: any) => {
+	const onSubmit = useCallback(async (values: any) => {
 
 		if (values.article_id) {
-			updateArticle({
+			await updateArticle({
 				...values,
 				secret: values.secret ? 1 : 0
 			});
 		} else {
-			createArticle({
+			await createArticle({
 				...values,
 				secret: values.secret ? 1 : 0
 			});
 		}
 		Modal.confirm({
-			title: values.id ? '更新成功' : '创建成功',
+			title: values.article_id ? '更新成功' : '创建成功',
 			content: null,
 			okText: '查看详情',
 			cancelText: '确定',
@@ -148,6 +147,7 @@ export default function ArticleEditor() {
 								</div>
 								<SelectField
 									name="tags"
+									mode="multiple"
 									placeholder="请选择标签"
 									className={styles['select']}
 									formItem={{

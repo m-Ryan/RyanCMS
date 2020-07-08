@@ -2,11 +2,8 @@ import { useCallback, useEffect, useRef } from 'react';
 import { useAppSelector } from './useAppSelector';
 import { useAppDispatch } from '../modal/ryan-store';
 import { themeColor } from '../modal/themeColor';
-import { useBlogger } from './useBlogger';
-import { PRIMARY_COLOR } from '../constant';
 
 export function useThemeColor() {
-  const { bloggerState } = useBlogger();
   const themeColorState = useAppSelector('themeColor');
   const dispatch = useAppDispatch();
   const cssExtractData = window.CSS_EXTRACT_COLOR_PLUGIN;

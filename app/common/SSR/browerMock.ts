@@ -2,11 +2,9 @@ import lessParser from 'postcss-less';
 import cssModulesHook from 'css-modules-require-hook';
 import React from 'react';
 import 'antd';
+import { getCSSModuleLocalIdent } from '../../../config/getCSSModuleLocalIdent';
 React.useLayoutEffect = React.useEffect;
 
-const getCSSModuleLocalIdent = () => {
-  return '[[local]--[hash:base64:5]';
-};
 
 cssModulesHook({
   generateScopedName: getCSSModuleLocalIdent(),
