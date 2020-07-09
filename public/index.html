@@ -1,29 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, shrink-to-fit=no"
-    />
-    <meta name="theme-color" content="#000000" />
-    <meta name="description" content="/* SSR_META_DESCRIPTION */" />
-    <link rel="shortcut icon" href="%PUBLIC_URL%/web.ico" />
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-    <title>
-      <!-- SSR_DOCUMENT_TITLE -->
-    </title>
-  </head>
 
-  <body>
-    <div id="root">
-      <!-- SSR_RENDER_CONTENT -->
-    </div>
-    <script>
-      /* SSR_INJECT_PROPS */
-    </script>
-    <style id="theme-style">
-      /* SSR_THEME_CSS */
-    </style>
-  </body>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="theme-color" content="#000000" />
+  <meta name="description" content="/* SSR_META_DESCRIPTION */" />
+  <link rel="shortcut icon" href="%PUBLIC_URL%/web.ico" />
+  <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+  <title>
+    <!-- SSR_DOCUMENT_TITLE -->
+  </title>
+</head>
+
+<body>
+  <style id="theme-style">
+    /* SSR_THEME_CSS */
+  </style>
+  <div id="root">
+    <!-- SSR_RENDER_CONTENT -->
+  </div>
+  <script>
+    /* SSR_INJECT_PROPS */
+  </script>
+</body>
+
 </html>
