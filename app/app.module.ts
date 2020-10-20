@@ -12,6 +12,7 @@ import { AlbumModule } from './module/album/album.module';
 import { NoticeModule } from './module/notice/notice.module';
 import { MapModule } from './module/map/map.module';
 import { ToolsModule } from './module/tools/index.module';
+import { FunnyPictureModule } from './module/funnyPicture/index.module';
 import { AppController } from './app.controller';
 import { isDevelopment } from './util/util';
 import { StaticProxyMiddleware } from './common/middlewares/static-proxy.middleware';
@@ -43,6 +44,7 @@ const ormConfig = {
     MapModule,
     CommentModule,
     ToolsModule,
+    FunnyPictureModule,
   ],
   controllers: [AppController],
 })
