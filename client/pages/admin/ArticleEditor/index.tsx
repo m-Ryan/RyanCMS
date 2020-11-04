@@ -6,6 +6,7 @@ import { useArticle } from '@/client/selector/useArticle';
 import { useTagList } from '@/client/selector/useTagList';
 import { useCategoryList } from '@/client/selector/useCategoryList';
 import { MarkdownEditor } from '@/client/components/MarkdownEditor';
+import { UnsaveWarning } from '@/client/components/UnsaveWarning';
 import {
   SelectField,
   InputField,
@@ -19,7 +20,6 @@ import { WhiteSpace } from '@/client/components/WhiteSpace';
 import { useQuery } from '@/client/hooks/useQuery';
 import { CheckCircleOutlined } from '@ant-design/icons';
 import { useLink } from '@/client/components/Link';
-import { useUser } from '@/client/selector/useUser';
 
 const schema = yup.object().shape({
   title: yup.string().required('标题不能为空').max(200, '标题不能超过200字'),
@@ -141,6 +141,7 @@ export default function ArticleEditor() {
         >
           {({ values, setFieldValue }) => (
             <>
+              <UnsaveWarning />
               <HeaderTitle
                 title='编辑'
                 aside={

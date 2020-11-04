@@ -89,8 +89,11 @@ export default function ArticleManager() {
   const columns = [
     {
       title: '标题',
-      dataIndex: 'title',
-      render: (text: any) => <a className={styles['title']}>{text}</a>,
+      render: (article: Article) => (
+        <Link to={`/admin/article-manager/editor?id=${article.article_id}`}>
+          {article.title}
+        </Link>
+      ),
     },
     {
       title: '摘要',
