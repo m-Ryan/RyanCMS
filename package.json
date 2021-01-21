@@ -101,7 +101,7 @@
     "husky": "^2.1.0",
     "identity-obj-proxy": "3.0.0",
     "ignore-styles": "^5.0.1",
-    "immer": "^6.0.5",
+    "immer": "^8.0.1",
     "jsdom": "^16.2.2",
     "json-ts": "^1.6.4",
     "jsonwebtoken": "^8.4.0",
