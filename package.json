@@ -9,7 +9,7 @@
     "start:client": "cross-env SSR_SERVER_PORT=8080 node scripts/start.js",
     "production": "cross-env NODE_ENV=production ts-node -r tsconfig-paths/register app/main.ts",
     "build": "node scripts/build.js",
-    "pm2": "pm2 start"
+    "pm2": "pm2 start pm2.json"
   },
   "eslintConfig": {
     "extends": "react-app"
