@@ -122,6 +122,7 @@
     "node-sass": "^4.14.1",
     "nodemon": "^1.18.3",
     "optimize-css-assets-webpack-plugin": "5.0.1",
+    "pm2": "^4.5.5",
     "pnp-webpack-plugin": "1.1.0",
     "postcss-flexbugs-fixes": "4.1.0",
     "postcss-less": "^3.1.0",
