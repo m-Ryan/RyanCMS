@@ -9,7 +9,7 @@ export class RequiredValidator implements Validator {
     value: any,
     options?: ValidateRuleOptions,
   ): string | Promise<string | null> | null {
-    if (value === undefined) {
+    if (value === undefined || value === '') {
       return '不能为空';
     }
     return null;

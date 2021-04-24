@@ -30,6 +30,7 @@
     "@nestjs/schematics": "^6.8.1",
     "@nestjs/testing": "^6.10.14",
     "@nestjs/typeorm": "^6.3.4",
+    "@sendgrid/mail": "^7.4.2",
     "@svgr/webpack": "4.3.3",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",

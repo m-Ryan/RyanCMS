@@ -15,6 +15,7 @@ import { ToolsModule } from './module/tools/index.module';
 import { AppController } from './app.controller';
 import { isDevelopment } from './util/util';
 import { StaticProxyMiddleware } from './common/middlewares/static-proxy.middleware';
+import { EmailModule } from './module/email/index.module';
 
 const ormConfig = {
   type: 'mysql',
@@ -43,6 +44,7 @@ const ormConfig = {
     MapModule,
     CommentModule,
     ToolsModule,
+    EmailModule,
   ],
   controllers: [AppController],
 })
