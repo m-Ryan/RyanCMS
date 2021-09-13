@@ -36,7 +36,12 @@ export function Home() {
         <Skeleton active paragraph={{ rows: 3 }} />
       </>;
     }
-    return <List data={articleListState} />;
+    return <>
+      <List data={articleListState} />
+      <div style={{ height: 80, lineHeight: '80px', fontSize: 20, borderTop: '1px solid #ccc', background: '#fff' }}>
+        © 2021 - ryan 的小站 - <a href="http://beian.miit.gov.cn">粤ICP备17048160号</a>
+      </div>
+    </>;
   }, [articleListState, getListLoading]);
 
   return (
