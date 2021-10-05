@@ -90,7 +90,7 @@
     "dotenv": "6.0.0",
     "dotenv-expand": "4.2.0",
     "eventemitter3": "^4.0.4",
-    "fastify-static": "^2.7.0",
+    "fastify-static": "^4.2.4",
     "file-loader": "2.0.0",
     "fork-ts-checker-webpack-plugin-alt": "0.4.14",
     "formik": "^2.1.4",
