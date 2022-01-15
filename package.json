@@ -117,7 +117,7 @@
     "less-loader": "^4.1.0",
     "lodash": "^4.17.15",
     "markdown-it": "^11.0.0",
-    "marked": "^0.7.0",
+    "marked": "^4.0.10",
     "mini-css-extract-plugin": "0.4.3",
     "mysql": "^2.16.0",
     "node-sass": "^4.14.1",
