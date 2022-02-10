@@ -120,7 +120,7 @@
     "marked": "^0.7.0",
     "mini-css-extract-plugin": "0.4.3",
     "mysql": "^2.16.0",
-    "node-sass": "^4.14.1",
+    "node-sass": "^7.0.0",
     "nodemon": "^1.18.3",
     "optimize-css-assets-webpack-plugin": "5.0.1",
     "pnp-webpack-plugin": "1.1.0",
